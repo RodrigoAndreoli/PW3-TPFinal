@@ -88,6 +88,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\styles.css" />
+    <Content Include="Content\images\empanadas.png" />
+    <Content Include="Content\images\fondo-naranja.jpg" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\slider1.jpeg" />
+    <Content Include="Content\images\slider2.jpg" />
+    <Content Include="Content\images\slider3.png" />
+    <Content Include="Content\js\scripts.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
