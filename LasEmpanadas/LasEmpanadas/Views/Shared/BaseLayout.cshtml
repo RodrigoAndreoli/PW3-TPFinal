@@ -2,10 +2,46 @@
 
 <html>
 <head>
+    <!-- General -->
+    <link rel="stylesheet" href="~/Content/css/styles.css" />
+    <script type="text/javascript" src="~/Content/js/scripts.js"></script>
+
+    <!-- ##### UI KIT #####-->
+    <link rel="stylesheet" href="~/Content/css/uikit/uikit.min.css" />
+    <link rel="stylesheet" href="~/Content/css/uikit/uikit-rtl.min.css" />
+    <script type="text/javascript" src="~/Content/js/uikit/uikit.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/uikit/uikit-icons.min.js"></script>
+    <!-- #####      ##### -->
+
+    <!-- ##### FONT AWESOME #####-->
+    <link rel="stylesheet" href="~/Content/css/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="~/Content/css/fontawesome/fontawesome.min.css" />
+    <script type="text/javascript" src="~/Content/js/fontawesome/all.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/fontawesome/fontawesome.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/fontawesome/brands.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/fontawesome/regular.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/fontawesome/solid.min.js"></script>
+    <!-- #####      ##### -->
+
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    <nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="/"><img class="logo" src="~/Content/images/logo.png" /></a></li>
+                <li><a href="">Encarga tus empanadas</a></li>
+                <li><a href="">¿Como funciona?</a></li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right">
+            <div class="uk-navbar-item">
+                <a href="/Login"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a>
+            </div>
+            <a class="uk-navbar-toggle uk-navbar-toggle-icon uk-icon" uk-navbar-toggle-icon="" href="#"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect y="9" width="20" height="2"></rect><rect y="3" width="20" height="2"></rect><rect y="15" width="20" height="2"></rect></svg></a>
+        </div>
+    </nav>
     <div>
         @RenderBody()
     </div>
