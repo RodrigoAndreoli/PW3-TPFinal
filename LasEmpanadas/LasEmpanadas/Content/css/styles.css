@@ -1,3 +1,7 @@
 ﻿.logo {
     width: 50%;
 }
+
+.main-container{
+    background-image:url("../images/fondo-naranja.jpg");
+}

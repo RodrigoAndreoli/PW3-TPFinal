@@ -102,6 +102,7 @@
     <Content Include="Content\css\fontawesome\svg-with-js.min.css" />
     <Content Include="Content\css\fontawesome\v4-shims.css" />
     <Content Include="Content\css\fontawesome\v4-shims.min.css" />
+    <Content Include="Content\css\error-style.css" />
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\css\uikit\uikit-rtl.css" />
     <Content Include="Content\css\uikit\uikit-rtl.min.css" />
