@@ -3,16 +3,31 @@
     Layout = "~/Views/Shared/BaseLayout.cshtml";
 }
 
-<!DOCTYPE html>
+@section css{
+    @RenderSection("css")
+}
+@section meta{
+    @RenderSection("meta")
+}
+@section js{
+    @RenderSection("js")
+}
+@section nav{
+    <nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="/"><img class="logo" src="~/Content/images/logo.png" /></a></li>
+                <li><a href="">Encarga tus empanadas</a></li>
+                <li><a href="">¿Como funciona?</a></li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right">
+            <div class="uk-navbar-item">
+                <a href="/Home/Login"><i class="fas fa-sign-in-alt"></i>Iniciar sesion</a>
+            </div>
+            <a class="uk-navbar-toggle uk-navbar-toggle-icon uk-icon" uk-navbar-toggle-icon="" href="#"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect y="9" width="20" height="2"></rect><rect y="3" width="20" height="2"></rect><rect y="15" width="20" height="2"></rect></svg></a>
+        </div>
+    </nav>
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
-</body>
-</html>
+@RenderBody()
