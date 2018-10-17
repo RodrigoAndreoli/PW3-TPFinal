@@ -1,8 +1,50 @@
-﻿
+﻿@using LasEmpanadas.Models
+@model Pedido
 @{
     ViewBag.Title = "Iniciar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
-<h2>Iniciar</h2>
+<div class="uk-height-large uk-width-expand uk-background-cover uk-light " uk-parallax="bgy: -20" style="background-image: url('/Content/images/fondo-naranja.jpg');height:150px;">
+</div>
+
+
+<div style="width:750px;padding:15px 40px; margin:40px auto;">
+    <h2>Encarga un nuevo Pedido</h2>
+    @using (Html.BeginForm("iniciar", "pedidos", FormMethod.Post, new { @class = "uk-form-stacked" }))
+    {
+    <div class="uk-margin">
+        @Html.LabelFor(p => p.nombre, new { @class = "uk-form-label" })
+        <div class="uk-form-controls">
+            @Html.TextBoxFor(p => p.nombre, new { @class = "uk-input uk-form-width-large" })
+        </div>
+    </div>
+    <div class="uk-margin">
+        @Html.LabelFor(p => p.precioUnidad, new { @class = "uk-form-label" })
+        <div class="uk-form-controls">
+            @Html.TextBoxFor(p => p.precioUnidad, new { @class = "uk-input uk-form-width-small" })
+        </div>
+    </div>
+    <div class="uk-margin">
+        @Html.LabelFor(p => p.precioDocena, new { @class = "uk-form-label" })
+        <div class="uk-form-controls">
+            @Html.TextBoxFor(p => p.precioDocena, new { @class = "uk-input uk-form-width-small" })
+        </div>
+    </div>
+    <div class="uk-margin">
+        @Html.LabelFor(p => p.gustosDisponibles, new { @class = "uk-form-label" })
+        <div class="uk-form-controls">
+            @Html.TextBoxFor(p => p.gustosDisponibles, new { @class = "uk-input uk-form-width-large" })
+        </div>
+    </div>
+    <div class="uk-margin">
+        @Html.LabelFor(p => p.invitados, new { @class = "uk-form-label" })
+        <div class="uk-form-controls">
+            @Html.TextBoxFor(p => p.invitados, new { @class = "uk-input uk-form-width-large" })
+        </div>
+    </div>
+    <input type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-input uk-button-primary uk-form-large" />
+    }
+</div>
+
 
