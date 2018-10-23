@@ -1,3 +1,11 @@
 ﻿.logo {
     width: 50%;
 }
+
+.slider {
+    background-image: url('../images/fondo-naranja.jpg');
+}
+
+.main-container{
+    background-image:url("../images/fondo-naranja.jpg");
+}

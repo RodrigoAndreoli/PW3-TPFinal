@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LasEmpanadas.Models;
 
 namespace LasEmpanadas.Controllers
 {
@@ -12,6 +13,18 @@ namespace LasEmpanadas.Controllers
         public ActionResult Iniciar()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Iniciar(Pedido p)
+        {
+            if (ModelState.IsValid)
+            {
+                //Agregar pedido y todo lo demas
+            }
+            else
+            {
+                return View(p);
+            }            
         }
 
         public ActionResult Iniciado()
