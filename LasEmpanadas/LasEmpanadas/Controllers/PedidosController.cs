@@ -20,6 +20,7 @@ namespace LasEmpanadas.Controllers
             if (ModelState.IsValid)
             {
                 //Agregar pedido y todo lo demas
+                return View();
             }
             else
             {
