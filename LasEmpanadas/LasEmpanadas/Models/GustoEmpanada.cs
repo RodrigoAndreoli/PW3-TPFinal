@@ -12,22 +12,18 @@ namespace LasEmpanadas.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class GustoEmpanada
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public GustoEmpanada()
         {
-            this.InvitacionPedido = new HashSet<InvitacionPedido>();
             this.InvitacionPedidoGustoEmpanadaUsuario = new HashSet<InvitacionPedidoGustoEmpanadaUsuario>();
             this.Pedido = new HashSet<Pedido>();
         }
     
-        public int IdUsuario { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public int IdGustoEmpanada { get; set; }
+        public string Nombre { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InvitacionPedido> InvitacionPedido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvitacionPedidoGustoEmpanadaUsuario> InvitacionPedidoGustoEmpanadaUsuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
