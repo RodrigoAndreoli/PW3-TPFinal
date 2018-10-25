@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f257cc076f2e4b7b865ead04badb33d5" Name="Diagram1">
-        <EntityTypeShape EntityType="DbContext.EstadoPedido" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.GustoEmpanada" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.InvitacionPedido" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.InvitacionPedidoGustoEmpanadaUsuario" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Pedido" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Usuario" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.EstadoPedido" Width="1.5" PointX="6.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.GustoEmpanada" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.InvitacionPedido" Width="1.5" PointX="0.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.InvitacionPedidoGustoEmpanadaUsuario" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.Pedido" Width="1.5" PointX="3.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.Usuario" Width="1.5" PointX="0.5" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="DbContext.FK_Pedido_EstadoPedido" ManuallyRouted="false" />
         <AssociationConnector Association="DbContext.FK_InvitacionPedidoGustoEmpanadaUsuario_GustoEmpanada" ManuallyRouted="false" />
         <AssociationConnector Association="DbContext.FK_InvitacionPedido_Pedido" ManuallyRouted="false" />

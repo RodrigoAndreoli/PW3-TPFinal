@@ -12,37 +12,52 @@
     <h2>Encarga un nuevo Pedido</h2>
     @using (Html.BeginForm("iniciar", "pedidos", FormMethod.Post, new { @class = "uk-form-stacked" }))
     {
-    <div class="uk-margin">
-        @Html.LabelFor(p => p.nombre, new { @class = "uk-form-label" })
-        <div class="uk-form-controls">
-            @Html.TextBoxFor(p => p.nombre, new { @class = "uk-input uk-form-width-large" })
+        <div uk-grid>
+
+            <div class="uk-width-6-6">
+                @Html.LabelFor(p => p.NombreNegocio, new { @class = "uk-form-label" })
+                <div class="uk-form-controls">
+                    @Html.TextBoxFor(p => p.NombreNegocio, new { @class = "uk-input" })
+                </div>
+            </div>
+            <div class="uk-width-6-6">
+                @Html.LabelFor(p => p.Descripcion, new { @class = "uk-form-label" })
+                <div class="uk-form-controls">
+                    @Html.TextAreaFor(p => p.Descripcion, new { @class = "uk-textarea " })
+                </div>
+            </div>
+            <div class="uk-width-3-6">
+                @Html.LabelFor(p => p.PrecioUnidad, new { @class = "uk-form-label" })
+                <div class="uk-form-controls">
+                    @Html.TextBoxFor(p => p.PrecioUnidad, new { @class = "uk-input " })
+                </div>
+            </div>
+            <div class="uk-width-3-6">
+                @Html.LabelFor(p => p.PrecioDocena, new { @class = "uk-form-label" })
+                <div class="uk-form-controls">
+                    @Html.TextBoxFor(p => p.PrecioDocena, new { @class = "uk-input " })
+                </div>
+            </div>
+            <div class="uk-width-3-6">
+                <label for="gustos">Gustos:</label>
+                <select class="uk-select multiple" name="gustos[]" multiple="multiple">
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+            
+            <div class="multiple-val-input">
+                <ul>
+                    <input type="text">
+                    <span class="input_hidden"></span>
+                </ul>
+            </div>
+            <div class="uk-width-1-6">
+                <button value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</button>
+                <input type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-button uk-button-primary uk-button-small" />
+            </div>
         </div>
-    </div>
-    <div class="uk-margin">
-        @Html.LabelFor(p => p.precioUnidad, new { @class = "uk-form-label" })
-        <div class="uk-form-controls">
-            @Html.TextBoxFor(p => p.precioUnidad, new { @class = "uk-input uk-form-width-small" })
-        </div>
-    </div>
-    <div class="uk-margin">
-        @Html.LabelFor(p => p.precioDocena, new { @class = "uk-form-label" })
-        <div class="uk-form-controls">
-            @Html.TextBoxFor(p => p.precioDocena, new { @class = "uk-input uk-form-width-small" })
-        </div>
-    </div>
-    <div class="uk-margin">
-        @Html.LabelFor(p => p.gustosDisponibles, new { @class = "uk-form-label" })
-        <div class="uk-form-controls">
-            @Html.TextBoxFor(p => p.gustosDisponibles, new { @class = "uk-input uk-form-width-large" })
-        </div>
-    </div>
-    <div class="uk-margin">
-        @Html.LabelFor(p => p.invitados, new { @class = "uk-form-label" })
-        <div class="uk-form-controls">
-            @Html.TextBoxFor(p => p.invitados, new { @class = "uk-input uk-form-width-large" })
-        </div>
-    </div>
-    <input type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-input uk-button-primary uk-form-large" />
     }
-</div>
 

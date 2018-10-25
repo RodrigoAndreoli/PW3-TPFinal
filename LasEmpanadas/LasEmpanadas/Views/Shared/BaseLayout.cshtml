@@ -2,26 +2,28 @@
 
 <html>
 <head>
-    <!-- General -->
-    <link rel="stylesheet" href="~/Content/css/styles.css" />
-    <script type="text/javascript" src="~/Content/js/scripts.js"></script>
-
+    <!-- #####   jQuery   ##### -->
+    <script type="text/javascript" src="~/Content/js/jQuery/jquery-3.3.1.min.js"></script>
+    
+    <!-- ##### FONT AWESOME #####-->
+    <link rel="stylesheet" href="~/Content/css/fontawesome/fontawesome.min.css" />
+    <script type="text/javascript" src="~/Content/js/fontawesome/fontawesome.min.js"></script>
+    @RenderSection("css")
+    
+    <!-- ####### SELECT2 ####### -->
+    <script type="text/javascript" src="~/Content/js/select2/select2.full.min.js"></script>
+    <link rel="stylesheet" href="~/Content/css/select2/select2.min.css"/>
+    
     <!-- ##### UI KIT #####-->
     <link rel="stylesheet" href="~/Content/css/uikit/uikit.min.css" />
     <link rel="stylesheet" href="~/Content/css/uikit/uikit-rtl.min.css" />
     <script type="text/javascript" src="~/Content/js/uikit/uikit.min.js"></script>
     <script type="text/javascript" src="~/Content/js/uikit/uikit-icons.min.js"></script>
-    <!-- #####      ##### -->
-    <!-- ##### FONT AWESOME #####-->
-    <link rel="stylesheet" href="~/Content/css/fontawesome/all.min.css" />
-    <link rel="stylesheet" href="~/Content/css/fontawesome/fontawesome.min.css" />
-    <script type="text/javascript" src="~/Content/js/fontawesome/all.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/fontawesome/fontawesome.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/fontawesome/brands.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/fontawesome/regular.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/fontawesome/solid.min.js"></script>
-    <!-- #####      ##### -->
-    @RenderSection("css")
+
+    <!-- General -->
+    <link rel="stylesheet" href="~/Content/css/styles.css" />
+    <script type="text/javascript" src="~/Content/js/scripts.js"></script>
+
 
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
