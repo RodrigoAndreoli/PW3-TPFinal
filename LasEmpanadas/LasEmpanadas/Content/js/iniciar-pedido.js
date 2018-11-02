@@ -1,20 +1,29 @@
 ﻿$(document).ready(function () {
-    $('.multiple').select2();
-
-    /** MULTIPLE EMAIL INPUT */
-    $(".enter-mail-id").keydown(function (e) {
-        if (e.keyCode == 13 || e.keyCode == 32) {
-            //alert('You Press enter');
-            var getValue = $(this).val();
-            $('.all-mail').append('<span class="email-ids">' + getValue + ' <span class="cancel-email">x</span></span>');
-            $(this).val('');
+            
+    $('#selectGusto').select2({
+        ajax: {
+            url: 'http://localhost:52521/api/GustoEmpanadas',
+            dataType: 'json',
+            processResults: function (data) {
+                var a = [];
+                data.forEach(function (gusto) {
+                    a.push({ "id": gusto.IdGustoEmpanada, "text": gusto.Nombre })
+                });
+                return {
+                    results: a
+                };
+            }
         }
     });
 
-    /// Cancel
-    $(document).on('click', '.cancel-email', function () {
-        $(this).parent().remove();
+    $('#selectEmail').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
     });
-    // $('.enter-mail-id').click()
+
+    $('#buttonSubmit').on('click', function () {
+        $('#form').submit();
+        
+    });
 
 });

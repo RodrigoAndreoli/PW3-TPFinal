@@ -1,2 +1,3 @@
 ﻿$(document).ready(function () {
-}
+
+});

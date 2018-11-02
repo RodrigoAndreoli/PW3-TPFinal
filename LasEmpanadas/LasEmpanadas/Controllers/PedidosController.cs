@@ -14,6 +14,7 @@ namespace LasEmpanadas.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Iniciar(Pedido p)
         {
