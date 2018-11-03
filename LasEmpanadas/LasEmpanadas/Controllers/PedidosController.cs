@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LasEmpanadas.Models;
+using LasEmpanadas.Services;
 
 namespace LasEmpanadas.Controllers
 {
+
     public class PedidosController : Controller
     {
+    static PedidoService PedidoService = new PedidoService();
 
         public ActionResult Iniciar()
         {
@@ -20,8 +23,8 @@ namespace LasEmpanadas.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Agregar pedido y todo lo demas
-                return View();
+                PedidoService.Save(p);
+                return View(p);
             }
             else
             {

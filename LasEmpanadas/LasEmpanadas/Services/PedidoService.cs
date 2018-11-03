@@ -8,8 +8,25 @@ namespace LasEmpanadas.Services
 {
     public class PedidoService
     {
+        private MasterEntities db = new MasterEntities();
+
         public void Save(Pedido p)
         {
+            p.IdEstadoPedido = 1;
+            db.Pedido.Add(p);
+
+            List<InvitacionPedidoGustoEmpanadaUsuario> relaciones = new List<InvitacionPedidoGustoEmpanadaUsuario>();
+
+            foreach (int idGusto in p.GustoEmpanadaDisponibles)
+            {
+                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
+                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
+                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
+                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
+                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
+                db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
+            }
+            db.SaveChanges();
 
         }
 
