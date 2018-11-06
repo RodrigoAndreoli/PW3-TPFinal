@@ -19,11 +19,13 @@ namespace LasEmpanadas.Services
 
             foreach (int idGusto in p.GustoEmpanadaDisponibles)
             {
-                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
-                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
-                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
-                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
-                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
+                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario
+                {
+                    GustoEmpanada = db.GustoEmpanada.Find(idGusto),
+                    IdGustoEmpanada = idGusto,
+                    Pedido = p,
+                    IdPedido = p.IdPedido
+                };
                 db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
             }
             db.SaveChanges();
