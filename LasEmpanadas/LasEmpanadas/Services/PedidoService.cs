@@ -12,20 +12,21 @@ namespace LasEmpanadas.Services
 
         public void Save(Pedido p)
         {
-            p.IdEstadoPedido = 1;
-            db.Pedido.Add(p);
-
-            List<InvitacionPedidoGustoEmpanadaUsuario> relaciones = new List<InvitacionPedidoGustoEmpanadaUsuario>();
+            Pedido Pedido = new Pedido();
+            Pedido.NombreNegocio = p.NombreNegocio;
+            Pedido.PrecioDocena = p.PrecioDocena;
+            Pedido.PrecioUnidad = p.PrecioUnidad;
+            Pedido.IdEstadoPedido = 1;
+            db.Pedido.Add(Pedido);
 
             foreach (int idGusto in p.GustoEmpanadaDisponibles)
             {
-                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario
-                {
-                    GustoEmpanada = db.GustoEmpanada.Find(idGusto),
-                    IdGustoEmpanada = idGusto,
-                    Pedido = p,
-                    IdPedido = p.IdPedido
-                };
+                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
+                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
+                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
+                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
+                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
+
                 db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
             }
             db.SaveChanges();
