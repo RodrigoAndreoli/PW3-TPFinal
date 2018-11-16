@@ -27,7 +27,7 @@ namespace LasEmpanadas.Controllers
             }
             else
             {
-                return View(p);
+                return View();
             }
         }
     }
