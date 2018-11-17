@@ -13,13 +13,25 @@ namespace LasEmpanadas.Services
 
         public bool Login(Usuario user)
         {
-            Usuario UsuarioFromBD = UsuarioRepository.FindOne(user);
-            if (UsuarioFromBD != null)
+            Usuario UsuarioFromDB = UsuarioRepository.FindOneByEmail(user.Email);
+            if (UsuarioFromDB != null)
             {
-                // Establecer cookies y eso, ni idea como 
-                return true;
+                if (UsuarioFromDB.Password.Equals(user.Password))
+                {
+                    KeepInSession(UsuarioFromDB);
+                    return true;
+                }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Se mantiene la sesión en el http context 
+        /// </summary>
+        /// <param name="usuario"></param>
+        public void KeepInSession(Usuario usuario)
+        {
+            HttpContext.Current.Session["userLogged"] = usuario;
         }
     }
 }

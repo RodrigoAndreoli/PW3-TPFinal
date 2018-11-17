@@ -6,13 +6,14 @@
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="uk-card-default uk-card-hover uk-card-body">
-        <form action="login.html">
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
             <fieldset class="uk-fieldset">
                 <legend class="uk-legend">Inicia sesion:</legend>
                 <div class="uk-margin">
                     <div class="uk-inline uk-width-1-1">
                         <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
-                        <input name="username" class="uk-input uk-form-large" required placeholder="Nombre de usuario" type="text">
+                        <input name="email" class="uk-input uk-form-large" required placeholder="Email" type="text">
                     </div>
                 </div>
                 <div class="uk-margin">
@@ -25,7 +26,7 @@
                     <button type="submit" class="uk-button uk-button-primary uk-button-primary uk-button-large uk-width-1-1">LOG IN</button>
                 </div>
             </fieldset>
-        </form>
+        }
     </div>
 </div>
 

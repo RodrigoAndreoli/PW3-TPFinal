@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using System.Linq;
 
 namespace LasEmpanadas.Repository
 {
@@ -7,9 +8,9 @@ namespace LasEmpanadas.Repository
     {
         private MasterEntities db = new MasterEntities();
 
-        public Usuario FindOne(Usuario user)
+        public Usuario FindOneByEmail(string Email)
         {
-            return db.Usuario.Find(user.Email);
+            return db.Usuario.SingleOrDefault(x => x.Email == Email);
         }
     }
 }

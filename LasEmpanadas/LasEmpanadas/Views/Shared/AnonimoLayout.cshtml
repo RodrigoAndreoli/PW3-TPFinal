@@ -1,6 +1,15 @@
-﻿
+﻿@using LasEmpanadas.Models
+
 @{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
+    Usuario userLogged = (Usuario)HttpContext.Current.Session["userLogged"];
+    bool UserLoggedIn = userLogged != null;
+    string nombre = "";
+
+    if (UserLoggedIn)
+    {
+        nombre = userLogged.Email;
+    }
 }
 
 @section css{
@@ -20,11 +29,14 @@
                 <li><a href="/Pedidos/Iniciar">Inicia el pedido</a></li>
             </ul>
         </div>
-        <div class="uk-navbar-right">
-            <div class="uk-navbar-item">
-                <a href="/Login">Iniciar sesion</a>
+        @if (!UserLoggedIn)
+        {
+            <div class="uk-navbar-right">
+                <div class="uk-navbar-item">
+                    <a href="/User/Login">Iniciar sesion</a>
+                </div>
             </div>
-        </div>
+        }
     </nav>
 }
 

@@ -15,14 +15,12 @@ namespace LasEmpanadas.Services
             Pedido Pedido = new Pedido();
             Pedido.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
             Pedido.NombreNegocio = p.NombreNegocio;
-            Pedido.Descripcion = p.Descripcion;
             Pedido.PrecioDocena = p.PrecioDocena;
             Pedido.PrecioUnidad = p.PrecioUnidad;
             Pedido.Descripcion = p.Descripcion;
             Pedido.FechaCreacion = DateTime.Now;
             Pedido.IdUsuarioResponsable = 1;
             Pedido.IdEstadoPedido = 1;
-            Pedido.FechaCreacion = DateTime.Now;
             Pedido.FechaModificacion = null;
             Pedido.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
             db.Pedido.Add(Pedido);

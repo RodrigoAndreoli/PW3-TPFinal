@@ -29,7 +29,7 @@ namespace LasEmpanadas.Controllers
             else
             {
                 return View(p);
-            }            
+            }
         }
 
         public ActionResult Iniciado()

@@ -1666,7 +1666,7 @@
     <Content Include="Views\Pedidos\Eliminar.cshtml" />
     <Content Include="Views\Pedidos\Elegir.cshtml" />
     <Content Include="Views\Pedidos\Detalle.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

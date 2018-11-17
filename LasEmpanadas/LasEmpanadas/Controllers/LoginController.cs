@@ -8,22 +8,22 @@ using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
 {
-    public class LoginController : Controller
+    public class UserController : Controller
     {
         static LoginService LoginService = new LoginService();
 
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Iniciar(Usuario user)
+        public ActionResult Login(Usuario user)
         {
             if (ModelState.IsValid)
             {
                 LoginService.Login(user);
-                return View(user);
+                return RedirectToAction("Index");
             }
             else
             {
