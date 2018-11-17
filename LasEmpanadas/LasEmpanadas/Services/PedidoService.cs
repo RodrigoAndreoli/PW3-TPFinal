@@ -12,30 +12,30 @@ namespace LasEmpanadas.Services
 
         public void CreateAndSaveOrder(Pedido p)
         {
-            Pedido Pedido = new Pedido();
-            Pedido.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
-            Pedido.NombreNegocio = p.NombreNegocio;
-            Pedido.PrecioDocena = p.PrecioDocena;
-            Pedido.PrecioUnidad = p.PrecioUnidad;
-            Pedido.Descripcion = p.Descripcion;
-            Pedido.FechaCreacion = DateTime.Now;
-            Pedido.IdUsuarioResponsable = 1;
-            Pedido.IdEstadoPedido = 1;
-            Pedido.FechaModificacion = null;
-            Pedido.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
-            db.Pedido.Add(Pedido);
-            db.SaveChanges();
+            p.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
+            p.FechaCreacion = DateTime.Now;
+            p.IdEstadoPedido = 1;
+            p.FechaModificacion = null;
+            p.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
+            db.Pedido.Add(p);
 
             foreach (int idGusto in p.GustoEmpanadaDisponibles)
             {
                 InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
                 InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
                 InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
-                InvitacionPedidoGustoEmpanadaUsuario.Pedido = Pedido;
-                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = Pedido.IdPedido;
-                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = Pedido.IdUsuarioResponsable;
+                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
+                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
+                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = p.IdUsuarioResponsable;
                 db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
             }
+            /// Aca se iran armando las invitaciones
+            //foreach(int idInvitado in p.InvitacionPedido)
+            //{
+            //    InvitacionPedido inv = new InvitacionPedido();
+            //    inv.IdPedido = p.IdPedido;
+            //    inv.Token = new Guid(Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
+            //}
             db.SaveChanges();
 
         }
@@ -49,5 +49,7 @@ namespace LasEmpanadas.Services
         {
             return new List<Pedido>();
         }
+
+        
     }
 }
