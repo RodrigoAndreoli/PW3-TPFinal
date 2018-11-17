@@ -19,6 +19,15 @@ namespace LasEmpanadas.Models
         public int IdEstadoPedido { get; set; }
 
         [Required(ErrorMessage = "El campo es requerido")]
+        public int[] GustoEmpanadaDisponibles
+        {
+            get; set;
+        }
+        [Required(ErrorMessage = "Campo obligatorio.")]
+        [RegularExpression(@"^(([^<>()[\]\\.,;:\s@""]+(\.[^<>()[\]\\.,;:\s@""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$", ErrorMessage = "Email inválido.")]
+        public string[] EmailsInvitados { get; set; }
+
+        [Required(ErrorMessage = "El campo es requerido")]
         [Display(Name = "Nombre del negocio")]
         public string NombreNegocio { get; set; }
 

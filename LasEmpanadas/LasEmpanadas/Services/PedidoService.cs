@@ -8,9 +8,10 @@ namespace LasEmpanadas.Services
     public class PedidoService
     {
         PedidoRepository PedidoRepo = new PedidoRepository();
-
+        UsuarioRepository UsuarioRepo = new UsuarioRepository();
         UsuarioService UsuarioSvc = new UsuarioService();
 
+        MasterEntities Db = new MasterEntities();
         /// <summary>
         /// Crea y guarda un nuevo pedido
         /// </summary>
@@ -38,7 +39,24 @@ namespace LasEmpanadas.Services
 
             PedidoRepo.Create(Order);
 
+            //chequeo la lista de emails. Si no existe, creo un usuario nuevo
             UsuarioSvc.CheckEmailList(p.EmailsInvitados);
+           
+            //actualizo tabla invitacionPedido
+            //foreach (var email in p.EmailsInvitados) {
+                            
+            //    InvitacionPedido invitacionPedido = new InvitacionPedido
+            //    {                    
+            //        Pedido = p,
+            //        Completado = false,
+            //        Token = Guid.Empty,
+            //        Usuario = UsuarioRepo.FindOneByEmail(email),
+            //    };
+            //    Db.InvitacionPedido.Add(invitacionPedido);
+            //    Db.SaveChanges();
+            //}
+
+
 
             //para cada gusto de empanada y usuario, creo un objeto InvitacionPedidoGustoEmpanadaUsuario
             //foreach (int IdGusto in OrderView.GustosEmpanadas)
