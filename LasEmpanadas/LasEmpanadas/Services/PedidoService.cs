@@ -12,6 +12,7 @@ namespace LasEmpanadas.Services
 
         public void CreateAndSaveOrder(Pedido p)
         {
+            this.SignUpGuests(p.EmailUsuario);
             p.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
             p.FechaCreacion = DateTime.Now;
             p.IdEstadoPedido = 1;
@@ -50,6 +51,17 @@ namespace LasEmpanadas.Services
             return new List<Pedido>();
         }
 
-        
+        private void SignUpGuests(string[] emailInvitados)
+        {
+            foreach(string email in emailInvitados)
+            {
+                Usuario newUser = new Usuario();
+                newUser.Email = email;
+                db.Usuario.Add(newUser);
+            }
+            db.SaveChanges();
+        }
+
+
     }
 }
