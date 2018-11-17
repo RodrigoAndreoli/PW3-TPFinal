@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using LasEmpanadas.Models;
+﻿using LasEmpanadas.Models;
 using LasEmpanadas.Services;
+using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
 {
 
     public class PedidosController : Controller
     {
-    static PedidoService PedidoService = new PedidoService();
+        static PedidoService PedidoSvc = new PedidoService();
 
         public ActionResult Iniciar()
         {
@@ -19,16 +15,16 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Iniciar(Pedido p)
+        public ActionResult Iniciar(Pedido Order)
         {
             if (ModelState.IsValid)
             {
-                PedidoService.CreateAndSaveOrder(p);
-                return View(p);
+                PedidoSvc.CreateAndSaveOrder(Order);
+                return View(Order);
             }
             else
             {
-                return View(p);
+                return View(Order);
             }
         }
 
@@ -63,4 +59,5 @@ namespace LasEmpanadas.Controllers
         }
 
     }
+
 }

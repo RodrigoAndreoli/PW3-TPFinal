@@ -6,11 +6,13 @@ namespace LasEmpanadas.Repository
 
     public class UsuarioRepository
     {
-        private MasterEntities db = new MasterEntities();
+        private MasterEntities Db = new MasterEntities();
 
         public Usuario FindOneByEmail(string Email)
         {
-            return db.Usuario.SingleOrDefault(x => x.Email == Email);
+            return Db.Usuario.SingleOrDefault(Element => Element.Email == Email);
         }
+
     }
+
 }

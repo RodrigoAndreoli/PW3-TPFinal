@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <!-- #####   jQuery   ##### -->
@@ -8,6 +7,7 @@
     <!-- ##### FONT AWESOME #####-->
     <link rel="stylesheet" href="~/Content/css/fontawesome/fontawesome.min.css" />
     <script type="text/javascript" src="~/Content/js/fontawesome/fontawesome.min.js"></script>
+    
     @RenderSection("css")
     
     <!-- ####### SELECT2 ####### -->
@@ -24,19 +24,21 @@
     <link rel="stylesheet" href="~/Content/css/styles.css" />
     <script type="text/javascript" src="~/Content/js/scripts.js"></script>
 
-
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
+    
     @RenderSection("meta")
 
 </head>
 <body>
+   
     @RenderSection("nav", true)
-
-
+   
     <div>
         @RenderBody()
     </div>
+   
     @RenderSection("js")
+
 </body>
 </html>

@@ -1,5 +1,4 @@
 ﻿@using LasEmpanadas.Models
-
 @{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     Usuario userLogged = (Usuario)HttpContext.Current.Session["userLogged"];
@@ -15,12 +14,15 @@
 @section css{
     @RenderSection("css", false)
 }
+
 @section meta{
     @RenderSection("meta", false)
 }
+
 @section js{
     @RenderSection("js", false)
 }
+
 @section nav{
     <nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
         <div class="uk-navbar-left">

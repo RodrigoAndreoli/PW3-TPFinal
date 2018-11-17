@@ -2,43 +2,44 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace LasEmpanadas.Services
 {
     public class PedidoService
     {
-        private MasterEntities db = new MasterEntities();
+        private MasterEntities Db = new MasterEntities();
 
-        public void CreateAndSaveOrder(Pedido p)
+        public void CreateAndSaveOrder(Pedido Order)
         {
-            this.SignUpGuests(p.EmailUsuario);
-            p.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
-            p.FechaCreacion = DateTime.Now;
-            p.IdEstadoPedido = 1;
-            p.FechaModificacion = null;
-            p.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
-            db.Pedido.Add(p);
+            this.SignUpGuests(Order.EmailUsuario);
 
-            foreach (int idGusto in p.GustoEmpanadaDisponibles)
+            Order.IdPedido = Db.Pedido.Max(Element => Element.IdPedido) + 1;
+            Order.FechaCreacion = DateTime.Now;
+            Order.IdEstadoPedido = 1;
+            Order.FechaModificacion = null;
+            Order.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
+            Db.Pedido.Add(Order);
+
+            foreach (int IdGusto in Order.GustoEmpanadaDisponibles)
             {
                 InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
-                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
-                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
-                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
-                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
-                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = p.IdUsuarioResponsable;
-                db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
+                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = Db.GustoEmpanada.Find(IdGusto);
+                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = IdGusto;
+                InvitacionPedidoGustoEmpanadaUsuario.Pedido = Order;
+                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = Order.IdPedido;
+                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = Order.IdUsuarioResponsable;
+                Db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
             }
-            /// Aca se iran armando las invitaciones
-            //foreach(int idInvitado in p.InvitacionPedido)
-            //{
-            //    InvitacionPedido inv = new InvitacionPedido();
-            //    inv.IdPedido = p.IdPedido;
-            //    inv.Token = new Guid(Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
-            //}
-            db.SaveChanges();
 
+            /// Aca se iran armando las invitaciones
+            //foreach(int IdInvitado in Order.InvitacionPedido)
+            //{
+            //    InvitacionPedido Invitation = new InvitacionPedido();
+            //    Invitation.IdPedido = Order.IdPedido;
+            //    Invitation.Token = new Guid(Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
+            //}
+
+            Db.SaveChanges();
         }
 
         public List<Pedido> GetAll()
@@ -51,17 +52,18 @@ namespace LasEmpanadas.Services
             return new List<Pedido>();
         }
 
-        private void SignUpGuests(string[] emailInvitados)
+        private void SignUpGuests(string[ ] GuestsEmails)
         {
-            foreach(string email in emailInvitados)
+            foreach (string Email in GuestsEmails)
             {
-                Usuario newUser = new Usuario();
-                newUser.Email = email;
-                db.Usuario.Add(newUser);
+                Usuario NewUser = new Usuario();
+                NewUser.Email = Email;
+                Db.Usuario.Add(NewUser);
             }
-            db.SaveChanges();
+
+            Db.SaveChanges();
         }
 
-
     }
+
 }

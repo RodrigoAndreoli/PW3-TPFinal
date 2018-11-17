@@ -6,9 +6,11 @@
 @section css{
     @RenderSection("css",false)
 }
+
 @section meta{
     @RenderSection("meta",false)
 }
+
 @section js{
     @RenderSection("js",false)
 }
@@ -17,8 +19,12 @@
     <nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="/"><img class="logo" src="~/Content/images/logo.png" /></a></li>
-                <li><a href="/Pedidos/Iniciar">Encarga tus empanadas</a></li>
+                <li class="uk-active">
+                    <a href="/"><img class="logo" src="~/Content/images/logo.png" /></a>
+                </li>
+                <li>
+                    <a href="/Pedidos/Iniciar">Encarga tus empanadas</a>
+                </li>
             </ul>
         </div>
         <div class="uk-navbar-right">

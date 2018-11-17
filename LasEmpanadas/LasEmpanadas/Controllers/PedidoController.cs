@@ -1,65 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using LasEmpanadas.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using LasEmpanadas.Models;
 
 namespace LasEmpanadas.Controllers
 {
-    [EnableCors (origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PedidoController : ApiController
     {
-        private MasterEntities db = new MasterEntities();
+        private MasterEntities Db = new MasterEntities();
 
         // GET: api/Pedido
         public IQueryable<Pedido> GetPedido()
         {
-            return db.Pedido;
+            return Db.Pedido;
         }
 
-        // GET: api/Pedido/5
+        // GET: api/Pedido/{Id}
         [ResponseType(typeof(Pedido))]
-        public IHttpActionResult GetPedido(int id)
+        public IHttpActionResult GetPedido(int Id)
         {
-            Pedido pedido = db.Pedido.Find(id);
-            if (pedido == null)
+            Pedido Order = Db.Pedido.Find(Id);
+            if (Order == null)
             {
                 return NotFound();
             }
 
-            return Ok(pedido);
+            return Ok(Order);
         }
 
-        // PUT: api/Pedido/5
+        // PUT: api/Pedido/{Id}
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPedido(int id, Pedido pedido)
+        public IHttpActionResult PutPedido(int Id, Pedido Order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != pedido.IdPedido)
+            if (Id != Order.IdPedido)
             {
                 return BadRequest();
             }
 
-            db.Entry(pedido).State = EntityState.Modified;
+            Db.Entry(Order).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PedidoExists(id))
+                if (!PedidoExists(Id))
                 {
                     return NotFound();
                 }
@@ -74,22 +70,22 @@ namespace LasEmpanadas.Controllers
 
         // POST: api/Pedido
         [ResponseType(typeof(Pedido))]
-        public IHttpActionResult PostPedido(Pedido pedido)
+        public IHttpActionResult PostPedido(Pedido Order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Pedido.Add(pedido);
+            Db.Pedido.Add(Order);
 
             try
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             catch (DbUpdateException)
             {
-                if (PedidoExists(pedido.IdPedido))
+                if (PedidoExists(Order.IdPedido))
                 {
                     return Conflict();
                 }
@@ -99,37 +95,41 @@ namespace LasEmpanadas.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = pedido.IdPedido }, pedido);
+            return CreatedAtRoute("DefaultApi", new { Id = Order.IdPedido }, Order);
         }
 
-        // DELETE: api/Pedido/5
+        // DELETE: api/Pedido/{Id}
         [ResponseType(typeof(Pedido))]
-        public IHttpActionResult DeletePedido(int id)
+        public IHttpActionResult DeletePedido(int Id)
         {
-            Pedido pedido = db.Pedido.Find(id);
-            if (pedido == null)
+            Pedido Order = Db.Pedido.Find(Id);
+
+            if (Order == null)
             {
                 return NotFound();
             }
 
-            db.Pedido.Remove(pedido);
-            db.SaveChanges();
+            Db.Pedido.Remove(Order);
+            Db.SaveChanges();
 
-            return Ok(pedido);
+            return Ok(Order);
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool Disposing)
         {
-            if (disposing)
+            if (Disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
-            base.Dispose(disposing);
+
+            base.Dispose(Disposing);
         }
 
-        private bool PedidoExists(int id)
+        private bool PedidoExists(int Id)
         {
-            return db.Pedido.Count(e => e.IdPedido == id) > 0;
+            return Db.Pedido.Count(Element => Element.IdPedido == Id) > 0;
         }
+
     }
+
 }

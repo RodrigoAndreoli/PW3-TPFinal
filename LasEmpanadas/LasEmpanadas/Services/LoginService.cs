@@ -1,37 +1,37 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace LasEmpanadas.Services
 {
     public class LoginService
     {
-        static UsuarioRepository UsuarioRepository = new UsuarioRepository();
+        static UsuarioRepository UsuarioRepo = new UsuarioRepository();
 
-        public bool Login(Usuario user)
+        public bool Login(Usuario User)
         {
-            Usuario UsuarioFromDB = UsuarioRepository.FindOneByEmail(user.Email);
-            if (UsuarioFromDB != null)
+            Usuario UserFromDB = UsuarioRepo.FindOneByEmail(User.Email);
+            if (UserFromDB != null)
             {
-                if (UsuarioFromDB.Password.Equals(user.Password))
+                if (UserFromDB.Password.Equals(User.Password))
                 {
-                    KeepInSession(UsuarioFromDB);
+                    KeepInSession(UserFromDB);
                     return true;
                 }
             }
+
             return false;
         }
 
         /// <summary>
-        /// Se mantiene la sesión en el http context 
+        /// Se mantiene la sesión en el HTTP context.
         /// </summary>
         /// <param name="usuario"></param>
-        public void KeepInSession(Usuario usuario)
+        public void KeepInSession(Usuario User)
         {
-            HttpContext.Current.Session["userLogged"] = usuario;
+            HttpContext.Current.Session["userLogged"] = User;
         }
+
     }
+
 }

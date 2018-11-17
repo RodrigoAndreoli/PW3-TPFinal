@@ -1,16 +1,12 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
 {
     public class UserController : Controller
     {
-        static LoginService LoginService = new LoginService();
+        static LoginService LoginSvc = new LoginService();
 
         public ActionResult Login()
         {
@@ -18,11 +14,11 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Usuario user)
+        public ActionResult Login(Usuario User)
         {
             if (ModelState.IsValid)
             {
-                LoginService.Login(user);
+                LoginSvc.Login(User);
                 return RedirectToAction("Index");
             }
             else
@@ -30,5 +26,7 @@ namespace LasEmpanadas.Controllers
                 return View();
             }
         }
+
     }
+
 }
