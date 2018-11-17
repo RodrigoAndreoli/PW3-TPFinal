@@ -6,10 +6,7 @@ using System.Web;
 
 namespace LasEmpanadas.Models
 {
-<<<<<<< HEAD
-=======
-    //[MetadataType(typeof(PedidoMetadata))]
->>>>>>> 649c405a03664650f2fc132079cacc8015a5c4fd
+
     public partial class Pedido
     {
         public int[] GustoEmpanadaDisponibles { get; set; }
