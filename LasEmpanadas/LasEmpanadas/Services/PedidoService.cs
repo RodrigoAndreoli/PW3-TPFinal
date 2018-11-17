@@ -7,39 +7,66 @@ namespace LasEmpanadas.Services
 {
     public class PedidoService
     {
+        private UsuarioService usuarioService = new UsuarioService();
+
         private MasterEntities Db = new MasterEntities();
 
-        public void CreateAndSaveOrder(Pedido Order)
+        public void CreateAndSaveOrder(Pedido p)
         {
-            this.SignUpGuests(Order.EmailUsuario);
+            //creo un nuevo pedido
 
-            Order.IdPedido = Db.Pedido.Max(Element => Element.IdPedido) + 1;
-            Order.FechaCreacion = DateTime.Now;
-            Order.IdEstadoPedido = 1;
-            Order.FechaModificacion = null;
-            Order.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
-            Db.Pedido.Add(Order);
+            //this.SignUpGuests(p.EmailUsuario);
+            p.IdPedido = Db.Pedido.Max(x => x.IdPedido) + 1;
+            p.FechaCreacion = DateTime.Now;
+            p.IdEstadoPedido = 1;
+            p.FechaModificacion = null;
+            p.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
+            Db.Pedido.Add(p);
+            Db.SaveChanges();
 
-            foreach (int IdGusto in Order.GustoEmpanadaDisponibles)
+            //para cada email de usuario, creo un nuevo objeto InvitacionPedido
+            foreach (string email in p.EmailUsuario)
             {
-                InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
-                InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = Db.GustoEmpanada.Find(IdGusto);
-                InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = IdGusto;
-                InvitacionPedidoGustoEmpanadaUsuario.Pedido = Order;
-                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = Order.IdPedido;
-                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = Order.IdUsuarioResponsable;
-                Db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
+
+                InvitacionPedido invitacionPedido = new InvitacionPedido();
+                invitacionPedido.IdPedido = p.IdPedido;
+                invitacionPedido.Pedido = p;
+                //Si el usuario no existe, lo registra
+                if (usuarioService.FindByEmail(email) == null)
+                {
+                    usuarioService.RegisterUserByEmail(email);
+                }
+
+                invitacionPedido.Usuario = usuarioService.FindByEmail(email);
+                invitacionPedido.Token = Guid.Empty;//hay que generar el token
+                //invitacionPedido.Token = new Guid(Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
+                invitacionPedido.Completado = false;
+                Db.InvitacionPedido.Add(invitacionPedido);
+                Db.SaveChanges();
             }
 
-            /// Aca se iran armando las invitaciones
-            //foreach(int IdInvitado in Order.InvitacionPedido)
-            //{
-            //    InvitacionPedido Invitation = new InvitacionPedido();
-            //    Invitation.IdPedido = Order.IdPedido;
-            //    Invitation.Token = new Guid(Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
-            //}
+            //para cada gusto de empanada y usuario, creo un objeto InvitacionPedidoGustoEmpanadaUsuario
+            foreach (int idGusto in p.GustoEmpanadaDisponibles)
+            {
+                foreach (string email in p.EmailUsuario)
+                {
+                    InvitacionPedidoGustoEmpanadaUsuario invitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
+                    invitacionPedidoGustoEmpanadaUsuario.IdInvitacionPedidoGustoEmpanadaUsuario =
+                        Db.InvitacionPedidoGustoEmpanadaUsuario.Max(i => i.IdInvitacionPedidoGustoEmpanadaUsuario) + 1;
+                    invitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = Db.GustoEmpanada.Find(idGusto);
+                    invitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
+                    invitacionPedidoGustoEmpanadaUsuario.Pedido = p;
+                    invitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
+                    invitacionPedidoGustoEmpanadaUsuario.IdUsuario = usuarioService.FindByEmail(email).IdUsuario;
+                    invitacionPedidoGustoEmpanadaUsuario.Usuario = usuarioService.FindById(invitacionPedidoGustoEmpanadaUsuario.IdUsuario);
+                    invitacionPedidoGustoEmpanadaUsuario.Cantidad = 0;
+                    Db.InvitacionPedidoGustoEmpanadaUsuario.Add(invitacionPedidoGustoEmpanadaUsuario);
+                    Db.SaveChanges();
 
-            Db.SaveChanges();
+                }
+            }
+
+
         }
 
         public List<Pedido> GetAll()
@@ -52,17 +79,20 @@ namespace LasEmpanadas.Services
             return new List<Pedido>();
         }
 
-        private void SignUpGuests(string[ ] GuestsEmails)
-        {
-            foreach (string Email in GuestsEmails)
-            {
-                Usuario NewUser = new Usuario();
-                NewUser.Email = Email;
-                Db.Usuario.Add(NewUser);
-            }
+        //private void SignUpGuests(string[] emailInvitados)
+        //{
+        //    foreach(string email in emailInvitados)
+        //    {
+        //        Usuario newUser = new Usuario();
+        //        newUser.Email = email;
+        //        db.Usuario.Add(newUser);
+        //    }
+        //    db.SaveChanges();
+        //}
 
-            Db.SaveChanges();
-        }
+
+
+
 
     }
 
