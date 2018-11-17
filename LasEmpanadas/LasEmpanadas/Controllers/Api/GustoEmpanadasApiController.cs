@@ -8,7 +8,7 @@ using System.Web.Http.Description;
 
 namespace LasEmpanadas.Controllers
 {
-    public class GustoEmpanadasController : ApiController
+    public class GustoEmpanadasApiController : ApiController
     {
         MasterEntities Db = new MasterEntities();
 

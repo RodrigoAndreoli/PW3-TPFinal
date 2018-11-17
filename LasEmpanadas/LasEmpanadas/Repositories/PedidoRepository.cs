@@ -1,7 +1,7 @@
 ﻿using LasEmpanadas.Models;
 using System.Linq;
 
-namespace LasEmpanadas.Repository
+namespace LasEmpanadas.Repositories
 {
     public class PedidoRepository
     {

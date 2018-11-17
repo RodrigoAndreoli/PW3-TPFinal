@@ -10,7 +10,7 @@ using System.Web.Http.Description;
 namespace LasEmpanadas.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class PedidoController : ApiController
+    public class PedidosApiController : ApiController
     {
         MasterEntities Db = new MasterEntities();
 

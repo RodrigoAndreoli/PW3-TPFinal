@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
 {
-    public class PedidosController : Controller
+    public class PedidoController : Controller
     {
         PedidoService PedidoSvc = new PedidoService();
 
