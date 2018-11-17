@@ -10,14 +10,18 @@ namespace LasEmpanadas.Services
     {
         private MasterEntities db = new MasterEntities();
 
-        public void Save(Pedido p)
+        public void CreateAndSaveOrder(Pedido p)
         {
             Pedido Pedido = new Pedido();
             Pedido.NombreNegocio = p.NombreNegocio;
             Pedido.PrecioDocena = p.PrecioDocena;
             Pedido.PrecioUnidad = p.PrecioUnidad;
+            Pedido.Descripcion = p.Descripcion;
+            Pedido.FechaCreacion = DateTime.Now;
+            Pedido.IdUsuarioResponsable = 1;
             Pedido.IdEstadoPedido = 1;
             db.Pedido.Add(Pedido);
+            db.SaveChanges();
 
             foreach (int idGusto in p.GustoEmpanadaDisponibles)
             {

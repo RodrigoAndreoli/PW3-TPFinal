@@ -23,7 +23,7 @@ namespace LasEmpanadas.Controllers
         {
             if (ModelState.IsValid)
             {
-                PedidoService.Save(p);
+                PedidoService.CreateAndSaveOrder(p);
                 return View(p);
             }
             else
