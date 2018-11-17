@@ -4,10 +4,9 @@ using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
 {
-
     public class PedidosController : Controller
     {
-        static PedidoService PedidoSvc = new PedidoService();
+        PedidoService PedidoSvc = new PedidoService();
 
         public ActionResult Iniciar()
         {
@@ -19,7 +18,7 @@ namespace LasEmpanadas.Controllers
         {
             if (ModelState.IsValid)
             {
-                PedidoSvc.CreateAndSaveOrder(Order);
+                PedidoSvc.CreateOrder(Order);
                 return View(Order);
             }
             else

@@ -12,7 +12,7 @@ namespace LasEmpanadas.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PedidoController : ApiController
     {
-        private MasterEntities Db = new MasterEntities();
+        MasterEntities Db = new MasterEntities();
 
         // GET: api/Pedido
         public IQueryable<Pedido> GetPedido()

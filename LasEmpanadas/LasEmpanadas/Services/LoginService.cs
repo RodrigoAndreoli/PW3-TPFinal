@@ -6,16 +6,17 @@ namespace LasEmpanadas.Services
 {
     public class LoginService
     {
-        static UsuarioRepository UsuarioRepo = new UsuarioRepository();
+        UsuarioRepository UsuarioRepo = new UsuarioRepository();
 
-        public bool Login(Usuario User)
+        internal bool Login(Usuario User)
         {
-            Usuario UserFromDB = UsuarioRepo.FindOneByEmail(User.Email);
-            if (UserFromDB != null)
+            Usuario UserFromDb = UsuarioRepo.FindOneByEmail(User.Email);
+
+            if (UserFromDb != null)
             {
-                if (UserFromDB.Password.Equals(User.Password))
+                if (UserFromDb.Password.Equals(User.Password))
                 {
-                    KeepInSession(UserFromDB);
+                    KeepInSession(UserFromDb);
                     return true;
                 }
             }
@@ -26,8 +27,8 @@ namespace LasEmpanadas.Services
         /// <summary>
         /// Se mantiene la sesión en el HTTP context.
         /// </summary>
-        /// <param name="usuario"></param>
-        public void KeepInSession(Usuario User)
+        /// <param name="User"></param>
+        internal void KeepInSession(Usuario User)
         {
             HttpContext.Current.Session["userLogged"] = User;
         }

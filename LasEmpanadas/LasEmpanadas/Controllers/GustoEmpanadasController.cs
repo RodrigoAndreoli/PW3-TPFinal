@@ -10,7 +10,7 @@ namespace LasEmpanadas.Controllers
 {
     public class GustoEmpanadasController : ApiController
     {
-        private MasterEntities Db = new MasterEntities();
+        MasterEntities Db = new MasterEntities();
 
         // GET: api/GustoEmpanadas
         public IQueryable<GustoEmpanada> GetGustoEmpanada()

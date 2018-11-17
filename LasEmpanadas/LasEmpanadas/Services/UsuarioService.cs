@@ -1,35 +1,45 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace LasEmpanadas.Services
 {
     public class UsuarioService
     {
-        private MasterEntities db = new MasterEntities();
+        UsuarioRepository UsuarioRepo = new UsuarioRepository();
 
-        //registra un usuario ingresando el mail y asigna una contraseña generica
-        public void RegisterUserByEmail(string email)
+        internal void CheckEmailList(string[ ] EmailList)
         {
-            Usuario usuario = new Usuario();
-            usuario.Email = email;
-            usuario.Password = email + DateTime.Today;
-            usuario.IdUsuario = db.Usuario.Max(u => u.IdUsuario) + 1;
-            db.Usuario.Add(usuario);
-            db.SaveChanges();
+            foreach (string Email in EmailList)
+            {
+                if (UsuarioRepo.FindOneByEmail(Email) == null)
+                {
+                    RegisterUserFromEmail(Email);
+                }
+            }
         }
 
-        //recibe un email y devuelve un usuario
-        public Usuario FindByEmail(string email)
+        internal void RegisterUserFromEmail(string Email)
         {
-            return db.Usuario.Where(u => u.Email == email).FirstOrDefault();
+            string GeneratedPassword = GeneratePassword(Email);
+
+            Usuario User = new Usuario
+            {
+                Email = Email,
+                Password = GeneratedPassword
+            };
+
+            UsuarioRepo.Create(User);
         }
 
-        public Usuario FindById(int id)
+        internal string GeneratePassword(string Email)
         {
-            return db.Usuario.Where(u => u.IdUsuario == id).FirstOrDefault();
+            string FirstPart = Email.Split('@')[0];
+            string SecondPart = DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
+
+            return FirstPart + '.' + SecondPart;
         }
+
     }
+
 }

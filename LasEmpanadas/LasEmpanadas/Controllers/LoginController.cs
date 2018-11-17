@@ -6,7 +6,7 @@ namespace LasEmpanadas.Controllers
 {
     public class UserController : Controller
     {
-        static LoginService LoginSvc = new LoginService();
+        LoginService LoginSvc = new LoginService();
 
         public ActionResult Login()
         {
