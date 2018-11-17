@@ -13,13 +13,18 @@ namespace LasEmpanadas.Services
         public void CreateAndSaveOrder(Pedido p)
         {
             Pedido Pedido = new Pedido();
+            Pedido.IdPedido = db.Pedido.Max(x => x.IdPedido) + 1;
             Pedido.NombreNegocio = p.NombreNegocio;
+            Pedido.Descripcion = p.Descripcion;
             Pedido.PrecioDocena = p.PrecioDocena;
             Pedido.PrecioUnidad = p.PrecioUnidad;
             Pedido.Descripcion = p.Descripcion;
             Pedido.FechaCreacion = DateTime.Now;
             Pedido.IdUsuarioResponsable = 1;
             Pedido.IdEstadoPedido = 1;
+            Pedido.FechaCreacion = DateTime.Now;
+            Pedido.FechaModificacion = null;
+            Pedido.IdUsuarioResponsable = 1; //Placeholder, no tenemos sesion para levantar el idUsuario.
             db.Pedido.Add(Pedido);
             db.SaveChanges();
 
@@ -28,9 +33,9 @@ namespace LasEmpanadas.Services
                 InvitacionPedidoGustoEmpanadaUsuario InvitacionPedidoGustoEmpanadaUsuario = new InvitacionPedidoGustoEmpanadaUsuario();
                 InvitacionPedidoGustoEmpanadaUsuario.GustoEmpanada = db.GustoEmpanada.Find(idGusto);
                 InvitacionPedidoGustoEmpanadaUsuario.IdGustoEmpanada = idGusto;
-                InvitacionPedidoGustoEmpanadaUsuario.Pedido = p;
-                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = p.IdPedido;
-
+                InvitacionPedidoGustoEmpanadaUsuario.Pedido = Pedido;
+                InvitacionPedidoGustoEmpanadaUsuario.IdPedido = Pedido.IdPedido;
+                InvitacionPedidoGustoEmpanadaUsuario.IdUsuario = Pedido.IdUsuarioResponsable;
                 db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitacionPedidoGustoEmpanadaUsuario);
             }
             db.SaveChanges();
