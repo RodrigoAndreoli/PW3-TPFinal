@@ -1593,7 +1593,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Partials\Pedido.cs" />
-    <Compile Include="Models\PedidoView.cs" />
     <Compile Include="Models\EstadoPedido.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
