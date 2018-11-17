@@ -1620,6 +1620,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Partials\PedidoMetadata.cs" />
+    <Compile Include="Models\Partials\Usuario.cs" />
+    <Compile Include="Models\Partials\UsuarioMetadata.cs" />
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

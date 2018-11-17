@@ -15,7 +15,7 @@ namespace LasEmpanadas.Services
         /// Crea y guarda un nuevo pedido
         /// </summary>
         /// <param name="OrderView"></param>
-        internal void CreateOrder(PedidoView OrderView)
+        internal void CreateOrder(Pedido p)
         {
             Pedido Order = new Pedido
             {
@@ -24,21 +24,21 @@ namespace LasEmpanadas.Services
                 //Placeholder, no tenemos sesion para levantar el idUsuario.
                 IdUsuarioResponsable = 1,
 
-                NombreNegocio = OrderView.NombreNegocio,
-                Descripcion = OrderView.Descripcion,
+                NombreNegocio = p.NombreNegocio,
+                Descripcion = p.Descripcion,
 
                 //Inicializa el pedido en estado ABIERTO.
                 IdEstadoPedido = 1,
 
-                PrecioUnidad = OrderView.PrecioUnidad,
-                PrecioDocena = OrderView.PrecioDocena,
+                PrecioUnidad = p.PrecioUnidad,
+                PrecioDocena = p.PrecioDocena,
                 FechaCreacion = DateTime.Now,
                 FechaModificacion = null
             };
 
             PedidoRepo.Create(Order);
 
-            UsuarioSvc.CheckEmailList(OrderView.EmailsInvitados);
+            UsuarioSvc.CheckEmailList(p.EmailsInvitados);
 
             //para cada gusto de empanada y usuario, creo un objeto InvitacionPedidoGustoEmpanadaUsuario
             //foreach (int IdGusto in OrderView.GustosEmpanadas)

@@ -1,5 +1,5 @@
-﻿@using LasEmpanadas.Models.Views
-@model PedidoView
+﻿@using LasEmpanadas.Models
+@model Pedido
 @{
     ViewBag.Title = "Iniciar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
@@ -50,7 +50,7 @@
                     <label class="uk-form-label" for="gustos">Gustos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
                         <select id="selectGusto" class="uk-select multiple" name="GustosEmpanadas" multiple="multiple"></select>
-                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.GustosEmpanadas)</span>
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.GustoEmpanadaDisponibles)</span>
                     </div>
                 </div>
             </div>
