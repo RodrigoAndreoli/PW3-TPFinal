@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LasEmpanadas.Models.Views
 {
@@ -21,10 +17,10 @@ namespace LasEmpanadas.Models.Views
         public int PrecioDocena { get; set; }
 
         [Required(ErrorMessage = "Requerido")]
-        public int[] GustosEmpanadas { get; set; }
+        public int[ ] GustosEmpanadas { get; set; }
 
-        [Required(ErrorMessage = "Requerido")]
-        public string[] EmailsInvitados { get; set; }
+        //[Required(ErrorMessage = "Requerido")]
+        public string[ ] EmailsInvitados { get; set; }
 
     }
 }

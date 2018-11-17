@@ -1,5 +1,5 @@
-﻿@using LasEmpanadas.Models
-@model Pedido
+﻿@using LasEmpanadas.Models.Views
+@model PedidoView
 @{
     ViewBag.Title = "Iniciar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
@@ -10,44 +10,47 @@
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="iniciar-pedido-form uk-card-default uk-card-hover uk-card-body">
-        <h2>Encarga un nuevo Pedido</h2>
-        <hr />
-        @using (Html.BeginForm("iniciar", "pedidos", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
+        <h2>Encarga un nuevo Pedido</h2>        
+        @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
         {
             <div uk-grid>
                 <div class="uk-width-6-6">
-                    @Html.LabelFor(p => p.NombreNegocio, new {@class = "uk-form-label" })
+                    @Html.LabelFor(P => P.NombreNegocio, new { @class = "uk-form-label" })
                     <div class="uk-form-controls" uk-tooltip="title: Detalle el nombre del negocio...; pos: top-right">
-                        @Html.TextBoxFor(p => p.NombreNegocio, new { @class = "uk-input", @placeholder = "Nombre del negocio", required = "" })
+                        @Html.TextBoxFor(P => P.NombreNegocio, new { @class = "uk-input", @placeholder = "Nombre del negocio" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.NombreNegocio)</span>
                     </div>
                 </div>
                 <div class="uk-width-6-6">
-                    @Html.LabelFor(p => p.Descripcion, new { @class = "uk-form-label" })
+                    @Html.LabelFor(P => P.Descripcion, new { @class = "uk-form-label" })
                     <div class="uk-form-controls" uk-tooltip="title: Escriba un texto descriptivo para la invitación...; pos: top-right">
-                        @Html.TextAreaFor(p => p.Descripcion, new { @class = "uk-textarea ", @placeholder = "Descripción" })
+                        @Html.TextAreaFor(P => P.Descripcion, new { @class = "uk-textarea ", @placeholder = "Descripción" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.Descripcion)</span>
                     </div>
                 </div>
             </div>
             <div uk-grid>
                 <div class="uk-width-1-2">
-                    @Html.LabelFor(p => p.PrecioUnidad, new { @class = "uk-form-label" })
+                    @Html.LabelFor(P => P.PrecioUnidad, new { @class = "uk-form-label" })
                     <div class="uk-form-controls" uk-tooltip="title: Indique el precio por unidad que cobra el local...; pos: top-right">
-                        @Html.TextBoxFor(p => p.PrecioUnidad, new { @class = "uk-input ", @Type = "number", @placeholder = "Precio por unidad" })
+                        @Html.TextBoxFor(P => P.PrecioUnidad, new { @class = "uk-input ", @Type = "number", @placeholder = "Precio por unidad" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.PrecioUnidad)</span>
                     </div>
                 </div>
                 <div class="uk-width-1-2">
-                    @Html.LabelFor(p => p.PrecioDocena, new { @class = "uk-form-label"})
+                    @Html.LabelFor(P => P.PrecioDocena, new { @class = "uk-form-label" })
                     <div class="uk-form-controls" uk-tooltip="title: Indique el precio por docena que cobra el local...; pos: top-right">
-                        @Html.TextBoxFor(p => p.PrecioDocena, new { @class = "uk-input", @Type = "number", @placeholder = "Precio por docena" })
+                        @Html.TextBoxFor(P => P.PrecioDocena, new { @class = "uk-input", @Type = "number", @placeholder = "Precio por docena" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.PrecioDocena)</span>
                     </div>
                 </div>
             </div>
             <div uk-grid>
-                <div class="uk-width-3-6" >
+                <div class="uk-width-3-6">
                     <label class="uk-form-label" for="gustos">Gustos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
-                        <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
-                        </select>
+                        <select id="selectGusto" class="uk-select multiple" name="GustosEmpanadas" multiple="multiple"></select>
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.GustosEmpanadas)</span>
                     </div>
                 </div>
             </div>
@@ -55,12 +58,13 @@
                 <div class="uk-width-3-6">
                     <label class="uk-form-label" for="EmailUsuario">Invit&aacute; a tus amigos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
-                        <select id="selectEmail" class="uk-select multiple" name="EmailUsuario" multiple="multiple"></select>
+                        <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple"></select>
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.EmailsInvitados)</span>
                     </div>
                 </div>
             </div>
             <div uk-grid>
-                <div class="uk-width-6-6"  >
+                <div class="uk-width-6-6">
                     <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</a>
                     <input id="buttonSubmit" type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-button uk-button-primary uk-button-small" />
                 </div>

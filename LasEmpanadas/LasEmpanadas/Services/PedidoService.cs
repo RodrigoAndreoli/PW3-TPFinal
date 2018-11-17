@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.Views;
 using LasEmpanadas.Repositories;
 using System;
 
@@ -13,8 +14,8 @@ namespace LasEmpanadas.Services
         /// <summary>
         /// Crea y guarda un nuevo pedido
         /// </summary>
-        /// <param name="P"></param>
-        internal void CreateOrder(Pedido P)
+        /// <param name="OrderView"></param>
+        internal void CreateOrder(PedidoView OrderView)
         {
             Pedido Order = new Pedido
             {
@@ -23,34 +24,34 @@ namespace LasEmpanadas.Services
                 //Placeholder, no tenemos sesion para levantar el idUsuario.
                 IdUsuarioResponsable = 1,
 
-                NombreNegocio = P.NombreNegocio,
-                Descripcion = P.Descripcion,
+                NombreNegocio = OrderView.NombreNegocio,
+                Descripcion = OrderView.Descripcion,
 
                 //Inicializa el pedido en estado ABIERTO.
                 IdEstadoPedido = 1,
 
-                PrecioUnidad = P.PrecioUnidad,
-                PrecioDocena = P.PrecioDocena,
+                PrecioUnidad = OrderView.PrecioUnidad,
+                PrecioDocena = OrderView.PrecioDocena,
                 FechaCreacion = DateTime.Now,
                 FechaModificacion = null
             };
 
             PedidoRepo.Create(Order);
 
-            UsuarioSvc.CheckEmailList(P.EmailUsuario);
+            UsuarioSvc.CheckEmailList(OrderView.EmailsInvitados);
 
             //para cada gusto de empanada y usuario, creo un objeto InvitacionPedidoGustoEmpanadaUsuario
-            //foreach (int IdGusto in P.GustoEmpanadaDisponibles)
+            //foreach (int IdGusto in OrderView.GustosEmpanadas)
             //{
-            //    foreach (string Email in P.EmailUsuario)
+            //    foreach (string Email in OrderView.EmailUsuario)
             //    {
             //        InvitacionPedidoGustoEmpanadaUsuario InvitationQuantityPerFlavor = new InvitacionPedidoGustoEmpanadaUsuario();
             //        InvitationQuantityPerFlavor.IdInvitacionPedidoGustoEmpanadaUsuario =
             //        Db.InvitacionPedidoGustoEmpanadaUsuario.Max(Element => Element.IdInvitacionPedidoGustoEmpanadaUsuario) + 1;
             //        InvitationQuantityPerFlavor.GustoEmpanada = Db.GustoEmpanada.Find(IdGusto);
             //        InvitationQuantityPerFlavor.IdGustoEmpanada = IdGusto;
-            //        InvitationQuantityPerFlavor.Pedido = P;
-            //        InvitationQuantityPerFlavor.IdPedido = P.IdPedido;
+            //        InvitationQuantityPerFlavor.Pedido = OrderView;
+            //        InvitationQuantityPerFlavor.IdPedido = OrderView.IdPedido;
             //        InvitationQuantityPerFlavor.IdUsuario = UsuarioSvc.FindByEmail(Email).IdUsuario;
             //        InvitationQuantityPerFlavor.Usuario = UsuarioSvc.FindById(InvitationQuantityPerFlavor.IdUsuario);
             //        InvitationQuantityPerFlavor.Cantidad = 0;

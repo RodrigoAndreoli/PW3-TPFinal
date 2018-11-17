@@ -10,7 +10,7 @@
     background-image: url("../images/fondo-naranja.jpg");
 }
 
-
-
-
-    
+.validation-msg {
+    color: red;
+    font-style: italic;
+}

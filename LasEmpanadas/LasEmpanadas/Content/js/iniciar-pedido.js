@@ -2,7 +2,7 @@
             
     $('#selectGusto').select2({
         ajax: {
-            url: 'http://localhost:52521/api/GustoEmpanadas',
+            url: 'http://localhost:52521/api/GustoEmpanadasApi',
             dataType: 'json',
             processResults: function (data) {
                 var a = [];
