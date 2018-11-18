@@ -19,20 +19,11 @@ namespace LasEmpanadas.Models
         public int IdEstadoPedido { get; set; }
 
         [Required(ErrorMessage = "El campo es requerido")]
-        public int[] GustoEmpanadaDisponibles
-        {
-            get; set;
-        }
-        [Required(ErrorMessage = "Campo obligatorio.")]
-        //[RegularExpression(@"^(([^<>()[\]\\.,;:\s@""]+(\.[^<>()[\]\\.,;:\s@""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$", ErrorMessage = "Email inválido.")]
-        public string[] EmailsInvitados { get; set; }
-
-        [Required(ErrorMessage = "El campo es requerido")]
         [Display(Name = "Nombre del negocio")]
         public string NombreNegocio { get; set; }
 
         [Required(ErrorMessage = "El campo es requerido")]
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "El campo es requerido")]
@@ -49,6 +40,13 @@ namespace LasEmpanadas.Models
 
         public virtual EstadoPedido EstadoPedido { get; set; }
 
+        [Required(ErrorMessage = "El campo es requerido")]
+        public int[ ] GustoEmpanadaDisponibles { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio.")]
+        //[RegularExpression(@"^(([^<>()[\]\\.,;:\s@""]+(\.[^<>()[\]\\.,;:\s@""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$", ErrorMessage = "Email inválido.")]
+        public string[ ] EmailsInvitados { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvitacionPedido> InvitacionPedido { get; set; }
 
@@ -56,8 +54,8 @@ namespace LasEmpanadas.Models
         public virtual ICollection<InvitacionPedidoGustoEmpanadaUsuario> InvitacionPedidoGustoEmpanadaUsuario { get; set; }
 
         public virtual Usuario Usuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GustoEmpanada> GustoEmpanada { get; set; }
     }
 }

@@ -47,7 +47,7 @@
             </div>
             <div uk-grid>
                 <div class="uk-width-3-6">
-                    <label class="uk-form-label" for="gustos">Gustos:</label>
+                    <label class="uk-form-label" for="selectGusto">Gustos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple"></select>
                         <span class="validation-msg">@Html.ValidationMessageFor(P => P.GustoEmpanadaDisponibles)</span>
@@ -56,7 +56,7 @@
             </div>
             <div uk-grid>
                 <div class="uk-width-3-6">
-                    <label class="uk-form-label" for="EmailUsuario">Invit&aacute; a tus amigos:</label>
+                    <label class="uk-form-label" for="selectEmail">Invit&aacute; a tus amigos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
                         <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple"></select>
                         <span class="validation-msg">@Html.ValidationMessageFor(P => P.EmailsInvitados)</span>

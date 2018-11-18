@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using LasEmpanadas.Models;
+﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
+using System;
 
 namespace LasEmpanadas.Services
 {
     public class InvitacionPedidoService
     {
-        UsuarioRepository usuarioRepo = new UsuarioRepository();
-        InvitacionPedidoRepository invitacionPedidoRepo = new InvitacionPedidoRepository();
+        InvitacionPedidoRepository InvitacionPedidoRepo = new InvitacionPedidoRepository();
 
-        internal void Create(Pedido p)
+        UsuarioService UsuarioSvc = new UsuarioService();
+
+        internal void Create(Pedido Order)
         {
-            foreach (string email in p.EmailsInvitados) {
-                InvitacionPedido invitacionPedido = new InvitacionPedido
+            foreach (string Email in Order.EmailsInvitados)
+            {
+                InvitacionPedido Invitation = new InvitacionPedido
                 {
                     Completado = false,
-                    Token = Guid.Empty,
-                    IdUsuario = usuarioRepo.FindOneByEmail(email).IdUsuario,
-                    IdPedido = p.IdPedido,                    
+                    Token = Guid.NewGuid(),
+                    IdUsuario = UsuarioSvc.GetIdFromEmail(Email),
+                    IdPedido = Order.IdPedido
                 };
-                invitacionPedidoRepo.Create(invitacionPedido);
+
+                InvitacionPedidoRepo.Create(Invitation);
             }
         }
+
     }
+
 }

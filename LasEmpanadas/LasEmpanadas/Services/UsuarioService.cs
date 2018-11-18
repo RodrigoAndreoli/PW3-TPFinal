@@ -40,6 +40,11 @@ namespace LasEmpanadas.Services
             return FirstPart + '.' + SecondPart;
         }
 
+        internal int GetIdFromEmail(string Email)
+        {
+            return UsuarioRepo.FindOneByEmail(Email).IdUsuario;
+        }
+
     }
 
 }
