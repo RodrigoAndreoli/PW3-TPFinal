@@ -36,7 +36,7 @@ namespace LasEmpanadas.Services
         {
             string FirstPart = Email.Split('@')[0];
             string SecondPart = DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-
+      
             return FirstPart + '.' + SecondPart;
         }
 
