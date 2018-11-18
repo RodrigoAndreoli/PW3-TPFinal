@@ -1,7 +1,5 @@
 ﻿using LasEmpanadas.Models;
-using LasEmpanadas.Models.Views;
 using LasEmpanadas.Repositories;
-using LasEmpanadas.Services;
 using System;
 
 namespace LasEmpanadas.Services
@@ -18,13 +16,28 @@ namespace LasEmpanadas.Services
         /// <summary>
         /// Crea y guarda un nuevo pedido
         /// </summary>
-        /// <param name="Order"></param>
-        internal void CreateOrder(Pedido Order)
+        /// <param name="OrderDTO"></param>
+        internal Pedido CreateOrder(Pedido OrderDTO)
         {
-            //Creo un nuevo registro en la tabla Pedido
-            Order.IdUsuarioResponsable = 1;
-            Order.IdEstadoPedido = 1;
-            Order.FechaCreacion = DateTime.Now;
+            Pedido Order = new Pedido
+            {
+                IdPedido = PedidoRepo.GetNextId(),
+
+                //Placeholder, no tenemos sesion para levantar el idUsuario.
+                IdUsuarioResponsable = 1,
+
+                NombreNegocio = OrderDTO.NombreNegocio,
+                Descripcion = OrderDTO.Descripcion,
+
+                //Inicializa el pedido en estado ABIERTO.
+                IdEstadoPedido = 1,
+
+                PrecioUnidad = OrderDTO.PrecioUnidad,
+                PrecioDocena = OrderDTO.PrecioDocena,
+                FechaCreacion = DateTime.Now,
+                FechaModificacion = null
+            };
+
             PedidoRepo.Create(Order);
 
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
@@ -32,7 +45,10 @@ namespace LasEmpanadas.Services
 
             //Creo un nuevo registro en la tabla InvitacionPedido.
             InvitacionPedidoSvc.Create(Order);
+
             InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
+
+            return Order;
         }
 
     }

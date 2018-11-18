@@ -1,5 +1,4 @@
 ﻿using LasEmpanadas.Models;
-using LasEmpanadas.Models.Views;
 using LasEmpanadas.Services;
 using System.Web.Mvc;
 
@@ -15,16 +14,16 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Iniciar(Pedido Order)
+        public ActionResult Iniciar(Pedido OrderDTO)
         {
             if (ModelState.IsValid)
             {
-                PedidoSvc.CreateOrder(Order);
-                return RedirectToAction("Iniciado");           
+                Pedido Order = PedidoSvc.CreateOrder(OrderDTO);
+                return RedirectToAction("Iniciado", new { id = Order.IdPedido });
             }
             else
             {
-                return View(Order);
+                return View(OrderDTO);
             }
         }
 
