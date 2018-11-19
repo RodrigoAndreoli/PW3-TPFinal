@@ -9,7 +9,7 @@ namespace LasEmpanadas.Services
     public class PedidoService
     {
         PedidoRepository PedidoRepo = new PedidoRepository();
-
+        LoginService Loginsvc = new LoginService();
         UsuarioService UsuarioSvc = new UsuarioService();
         InvitacionPedidoService InvitacionPedidoSvc = new InvitacionPedidoService();
         InvitacionPedidoGustoEmpanadaUsuarioService InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
@@ -22,8 +22,7 @@ namespace LasEmpanadas.Services
         internal Pedido CreateOrder(Pedido Order)
         {
             //Placeholder, no tenemos sesion para levantar el idUsuario.
-            Order.IdUsuarioResponsable = 1;
-
+            Order.IdUsuarioResponsable = Loginsvc.GetLoggedUserId();
             //Inicializa el pedido en estado ABIERTO.
             Order.IdEstadoPedido = 1;
             Order.FechaCreacion = DateTime.Now;

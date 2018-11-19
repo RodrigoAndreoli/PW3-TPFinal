@@ -1,6 +1,8 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 using System.Web;
+using System;
+using System.Web.Mvc;
 
 
 namespace LasEmpanadas.Services
@@ -21,12 +23,16 @@ namespace LasEmpanadas.Services
                 if (UserFromDb.Password.Equals(User.Password))
                 {
                     Session["loggedUser"] = UserFromDb;
-                    Session["idUser"] = User.IdUsuario;
-                    Session["emailUser"] = User.Email;
+                    Session["idUser"] = UserFromDb.IdUsuario;
+                    Session["emailUser"] = UserFromDb.Email;
                     return true;
                 }
             }
              return false; 
+        }
+
+        internal int GetLoggedUserId() {
+            return Convert.ToInt32(Session["idUser"]);
         }
 
         /// <summary>
