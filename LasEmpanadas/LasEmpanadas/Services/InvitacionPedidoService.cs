@@ -27,6 +27,10 @@ namespace LasEmpanadas.Services
                 EmailSvc.SendEmail(Email,Invitation.Token);
             }
         }
+        public InvitacionPedido GetInvitationByToken(string token)
+        {
+            return InvitacionPedidoRepo.FindOneByToken(new System.Guid(token));
+        }
 
     }
 

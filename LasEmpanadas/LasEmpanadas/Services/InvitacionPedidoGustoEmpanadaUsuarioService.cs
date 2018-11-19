@@ -27,6 +27,13 @@ namespace LasEmpanadas.Services
                 }
             }
         }
+        public InvitacionPedidoGustoEmpanadaUsuario OpenInvitation(InvitacionPedido miInvitacion)
+        {
+            InvitacionPedidoGustoEmpanadaUsuario invAEditar = new InvitacionPedidoGustoEmpanadaUsuario();
+            invAEditar.IdPedido = miInvitacion.IdPedido;
+            invAEditar.IdUsuario = miInvitacion.IdUsuario;
+            return invAEditar;
+        }
         
     }
 

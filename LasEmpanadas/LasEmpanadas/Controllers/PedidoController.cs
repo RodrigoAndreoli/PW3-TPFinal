@@ -9,6 +9,8 @@ namespace LasEmpanadas.Controllers
     public class PedidoController : Controller
     {
         PedidoService PedidoSvc = new PedidoService();
+        InvitacionPedidoService InvPedidoSvc = new InvitacionPedidoService();
+        InvitacionPedidoGustoEmpanadaUsuarioService InvPedidoGustoSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
 
         public ActionResult Iniciar()
         {
@@ -63,13 +65,15 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Elegir()
+        public ActionResult Elegir(string token)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+            InvitacionPedido miInvitacion = InvPedidoSvc.GetInvitationByToken(token);
+            InvitacionPedidoGustoEmpanadaUsuario invitacionAElegir = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+            return View(invitacionAElegir);
         }
 
         public ActionResult Detalle()
