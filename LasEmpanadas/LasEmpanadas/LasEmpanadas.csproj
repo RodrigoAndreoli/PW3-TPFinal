@@ -225,6 +225,7 @@
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\System.Web.WebPages.Razor.xml" />
     <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="Content\css\datatables\datatables.min.css" />
     <Content Include="Content\css\fontawesome\fontawesome.min.css" />
     <Content Include="Content\css\error-style.css" />
     <Content Include="Content\css\iniciar-pedido.css" />
@@ -1586,8 +1587,10 @@
     <Content Include="Content\images\slider1.jpeg" />
     <Content Include="Content\images\slider2.jpg" />
     <Content Include="Content\images\slider3.png" />
+    <Content Include="Content\js\datatables\datatables.min.js" />
     <Content Include="Content\js\fontawesome\fontawesome.min.js" />
     <Content Include="Content\js\iniciar-pedido.js" />
+    <Content Include="Content\js\lista-pedidos.js" />
     <Content Include="Content\js\jQuery\jquery-3.3.1.min.js" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\css\select2\select2.css" />

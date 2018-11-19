@@ -1,5 +1,6 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Services;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
@@ -34,7 +35,8 @@ namespace LasEmpanadas.Controllers
 
         public ActionResult Lista()
         {
-            return View();
+            List<Pedido> OrderList = PedidoSvc.GetList();
+            return View(OrderList);
         }
 
         public ActionResult Editar()

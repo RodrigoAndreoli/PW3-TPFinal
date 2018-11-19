@@ -1,6 +1,7 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace LasEmpanadas.Services
 {
@@ -39,6 +40,13 @@ namespace LasEmpanadas.Services
             InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
 
             return CreatedOrder;
+        }
+
+        internal List<Pedido> GetList()
+        {
+            List<Pedido> OrderList = PedidoRepo.GetAll();
+
+            return OrderList;
         }
 
     }
