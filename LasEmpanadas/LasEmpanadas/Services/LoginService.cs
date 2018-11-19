@@ -2,26 +2,31 @@
 using LasEmpanadas.Repositories;
 using System.Web;
 
+
 namespace LasEmpanadas.Services
 {
-    public class LoginService
+    public class LoginService : System.Web.UI.Page
     {
+        
         UsuarioRepository UsuarioRepo = new UsuarioRepository();
+        
 
         internal bool Login(Usuario User)
         {
             Usuario UserFromDb = UsuarioRepo.FindOneByEmail(User.Email);
 
+
             if (UserFromDb != null)
             {
                 if (UserFromDb.Password.Equals(User.Password))
                 {
-                    KeepInSession(UserFromDb);
+                    Session["loggedUser"] = UserFromDb;
+                    Session["idUser"] = User.IdUsuario;
+                    Session["emailUser"] = User.Email;
                     return true;
                 }
             }
-
-            return false;
+             return false; 
         }
 
         /// <summary>

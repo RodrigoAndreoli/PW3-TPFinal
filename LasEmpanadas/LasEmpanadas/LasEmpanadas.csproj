@@ -1788,7 +1788,7 @@
     <Content Include="Views\Pedido\Eliminar.cshtml" />
     <Content Include="Views\Pedido\Elegir.cshtml" />
     <Content Include="Views\Pedido\Detalle.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1799,6 +1799,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

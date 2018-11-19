@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
-
+    string userLogged = Session["emailUser"].ToString();
 }
 
 @section css{
@@ -16,23 +16,30 @@
 }
 
 @section nav{
-    <nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
-        <div class="uk-navbar-left">
-            <ul class="uk-navbar-nav">
-                <li class="uk-active">
-                    <a href="/"><img class="logo" src="~/Content/images/logo.png" /></a>
-                </li>
-                <li>
-                    <a href="/Pedido/Iniciar">Encarga tus empanadas</a>
-                </li>
-            </ul>
+<nav class="uk-navbar uk-background-default" uk-sticky="bottom: #offset" uk-navbar="">
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active">
+                <a href="/"><img class="logo" src="~/Content/images/logo.png" /></a>
+            </li>
+            <li>
+                <a href="/Pedido/Iniciar">Encarga tus empanadas</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="uk-navbar-right">
+        <div class="uk-navbar-item">
+            <a href="/Home/Logout"><i class="fas fa-sign-in-alt"></i>Cerrar sesión</a>
+            
         </div>
-        <div class="uk-navbar-right">
-            <div class="uk-navbar-item">
-                <a href="/Login"><i class="fas fa-sign-in-alt"></i>Username</a>
-            </div>
+        <div class="uk-navbar-item">
+            <i class="fas fa-sign-in-alt">@userLogged</i>
+            
         </div>
-    </nav>
+    </div>
+
+</nav>
 }
 
 @RenderBody()

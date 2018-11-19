@@ -5,7 +5,7 @@
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="uk-card-default uk-card-hover uk-card-body">
-        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
         {
             <fieldset class="uk-fieldset">
                 <legend class="uk-legend">Inicia sesion:</legend>
@@ -21,6 +21,8 @@
                         <input name="password" class="uk-input uk-form-large" required placeholder="Contraseña" type="password">
                     </div>
                 </div>
+                <p class="uk-text-danger" id="errorGeneral" name="errorGeneral">@ViewBag.ErrorGeneral</p>
+
                 <div class="uk-margin">
                     <button type="submit" class="uk-button uk-button-primary uk-button-primary uk-button-large uk-width-1-1">LOG IN</button>
                 </div>

@@ -11,6 +11,10 @@ namespace LasEmpanadas.Controllers
 
         public ActionResult Iniciar()
         {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
             return View();
         }
 
@@ -35,6 +39,10 @@ namespace LasEmpanadas.Controllers
 
         public ActionResult Lista()
         {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             List<Pedido> OrderList = PedidoSvc.GetList();
             return View(OrderList);
         }
@@ -46,16 +54,28 @@ namespace LasEmpanadas.Controllers
 
         public ActionResult Eliminar()
         {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
         public ActionResult Elegir()
         {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
         public ActionResult Detalle()
         {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
