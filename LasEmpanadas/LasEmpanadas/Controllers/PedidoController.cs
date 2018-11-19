@@ -14,16 +14,16 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Iniciar(Pedido OrderDTO)
+        public ActionResult Iniciar(Pedido Order)
         {
             if (ModelState.IsValid)
             {
-                Pedido Order = PedidoSvc.CreateOrder(OrderDTO);
-                return RedirectToAction("Iniciado", new { id = Order.IdPedido });
+                Pedido CreatedOrder = PedidoSvc.CreateOrder(Order);
+                return RedirectToAction("Iniciado", new { id = CreatedOrder.IdPedido });
             }
             else
             {
-                return View(OrderDTO);
+                return View(Order);
             }
         }
 

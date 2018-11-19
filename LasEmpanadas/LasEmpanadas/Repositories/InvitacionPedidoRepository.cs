@@ -1,8 +1,6 @@
 ﻿using LasEmpanadas.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace LasEmpanadas.Repositories
 {
@@ -10,13 +8,31 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
-        internal int GetNextId() => Db.InvitacionPedido.Max(Element => Element.IdInvitacionPedido) + 1;
+        internal List<InvitacionPedido> GetAll() => Db.InvitacionPedido.ToList();
 
-        internal void Create(InvitacionPedido i)
+        internal InvitacionPedido FindOneById(int Id) => Db.InvitacionPedido.SingleOrDefault(Element => Element.IdInvitacionPedido == Id);
+
+        internal void Complete(InvitacionPedido Invitation)
         {
-            i.IdInvitacionPedido = GetNextId();
-            Db.InvitacionPedido.Add(i);
+            InvitacionPedido InvitationFromDb = FindOneById(Invitation.IdInvitacionPedido);
+            InvitationFromDb.Completado = true;
             Db.SaveChanges();
         }
+
+        internal InvitacionPedido Create(InvitacionPedido Invitation)
+        {
+            Db.InvitacionPedido.Add(Invitation);
+            Db.SaveChanges();
+
+            return Invitation;
+        }
+
+        internal void Delete(InvitacionPedido Invitation)
+        {
+            Db.InvitacionPedido.Remove(Invitation);
+            Db.SaveChanges();
+        }
+
     }
+
 }

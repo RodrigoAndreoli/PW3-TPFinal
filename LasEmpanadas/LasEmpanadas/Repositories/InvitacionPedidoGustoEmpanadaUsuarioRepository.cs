@@ -1,8 +1,6 @@
-﻿using System;
+﻿using LasEmpanadas.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using LasEmpanadas.Models;
 
 namespace LasEmpanadas.Repositories
 {
@@ -10,13 +8,33 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
-        internal int GetNextId() => Db.InvitacionPedidoGustoEmpanadaUsuario.Max(Element => Element.IdInvitacionPedidoGustoEmpanadaUsuario) + 1;
+        internal List<InvitacionPedidoGustoEmpanadaUsuario> GetAll() => Db.InvitacionPedidoGustoEmpanadaUsuario.ToList();
 
-        internal void Create(InvitacionPedidoGustoEmpanadaUsuario i)
+        internal InvitacionPedidoGustoEmpanadaUsuario FindOneById(int Id) => Db.InvitacionPedidoGustoEmpanadaUsuario.SingleOrDefault(Element => Element.IdInvitacionPedidoGustoEmpanadaUsuario == Id);
+
+        internal InvitacionPedidoGustoEmpanadaUsuario Create(InvitacionPedidoGustoEmpanadaUsuario InvitationContent)
         {
-            i.IdInvitacionPedidoGustoEmpanadaUsuario = GetNextId();
-            Db.InvitacionPedidoGustoEmpanadaUsuario.Add(i);
+            Db.InvitacionPedidoGustoEmpanadaUsuario.Add(InvitationContent);
+            Db.SaveChanges();
+
+            return InvitationContent;
+        }
+
+        internal InvitacionPedidoGustoEmpanadaUsuario Update(InvitacionPedidoGustoEmpanadaUsuario InvitationContent)
+        {
+            InvitacionPedidoGustoEmpanadaUsuario InvitationContentFromDb = FindOneById(InvitationContent.IdPedido);
+            InvitationContentFromDb.Cantidad = InvitationContent.Cantidad;
+            Db.SaveChanges();
+
+            return InvitationContentFromDb;
+        }
+
+        internal void Delete(InvitacionPedidoGustoEmpanadaUsuario InvitationContent)
+        {
+            Db.InvitacionPedidoGustoEmpanadaUsuario.Remove(InvitationContent);
             Db.SaveChanges();
         }
+
     }
+
 }

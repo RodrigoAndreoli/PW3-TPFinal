@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LasEmpanadas.Repositories
@@ -7,22 +8,28 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
-        internal Usuario FindOneByEmail(string Email) => Db.Usuario.SingleOrDefault(Element => Element.Email == Email);
+        internal List<Usuario> GetAll() => Db.Usuario.ToList();
 
         internal Usuario FindOneById(int Id) => Db.Usuario.SingleOrDefault(Element => Element.IdUsuario == Id);
 
-        internal void Create(Usuario User)
+        internal Usuario FindOneByEmail(string Email) => Db.Usuario.SingleOrDefault(Element => Element.Email == Email);
+
+        internal Usuario Create(Usuario User)
         {
             Db.Usuario.Add(User);
             Db.SaveChanges();
+
+            return User;
         }
 
-        internal void Update(Usuario User)
+        internal Usuario Update(Usuario User)
         {
             Usuario UserFromDb = FindOneById(User.IdUsuario);
             UserFromDb.Email = User.Email;
             UserFromDb.Password = User.Password;
             Db.SaveChanges();
+
+            return UserFromDb;
         }
 
         internal void Delete(Usuario User)

@@ -16,29 +16,19 @@ namespace LasEmpanadas.Services
         /// <summary>
         /// Crea y guarda un nuevo pedido
         /// </summary>
-        /// <param name="OrderDTO"></param>
-        internal Pedido CreateOrder(Pedido OrderDTO)
+        /// <param name="Order"></param>
+        internal Pedido CreateOrder(Pedido Order)
         {
-            Pedido Order = new Pedido
-            {
-                IdPedido = PedidoRepo.GetNextId(),
+            //Placeholder, no tenemos sesion para levantar el idUsuario.
+            Order.IdUsuarioResponsable = 1;
 
-                //Placeholder, no tenemos sesion para levantar el idUsuario.
-                IdUsuarioResponsable = 1,
+            //Inicializa el pedido en estado ABIERTO.
+            Order.IdEstadoPedido = 1;
 
-                NombreNegocio = OrderDTO.NombreNegocio,
-                Descripcion = OrderDTO.Descripcion,
+            Order.FechaCreacion = DateTime.Now;
+            Order.FechaModificacion = null;
 
-                //Inicializa el pedido en estado ABIERTO.
-                IdEstadoPedido = 1,
-
-                PrecioUnidad = OrderDTO.PrecioUnidad,
-                PrecioDocena = OrderDTO.PrecioDocena,
-                FechaCreacion = DateTime.Now,
-                FechaModificacion = null
-            };
-
-            PedidoRepo.Create(Order);
+            Pedido CreatedOrder = PedidoRepo.Create(Order);
 
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
             UsuarioSvc.CheckEmailList(Order.EmailsInvitados);
@@ -48,7 +38,7 @@ namespace LasEmpanadas.Services
 
             InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
 
-            return Order;
+            return CreatedOrder;
         }
 
     }
