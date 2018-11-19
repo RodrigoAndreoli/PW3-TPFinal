@@ -1729,6 +1729,7 @@
     <Compile Include="Repositories\InvitacionPedidoRepository.cs" />
     <Compile Include="Repositories\PedidoRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\InvitacionPedidoGustoEmpanadaUsuarioService.cs" />
     <Compile Include="Services\InvitacionPedidoService.cs" />
     <Compile Include="Services\LoginService.cs" />

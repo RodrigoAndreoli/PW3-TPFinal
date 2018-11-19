@@ -9,6 +9,7 @@ namespace LasEmpanadas.Services
         InvitacionPedidoRepository InvitacionPedidoRepo = new InvitacionPedidoRepository();
 
         UsuarioService UsuarioSvc = new UsuarioService();
+        EmailService EmailSvc = new EmailService();
 
         internal void Create(Pedido Order)
         {
@@ -23,6 +24,7 @@ namespace LasEmpanadas.Services
                 };
 
                 InvitacionPedidoRepo.Create(Invitation);
+                EmailSvc.SendEmail(Email,Invitation.Token);
             }
         }
 

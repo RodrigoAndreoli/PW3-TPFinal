@@ -3,6 +3,7 @@ using LasEmpanadas.Repositories;
 using System;
 using System.Collections.Generic;
 
+
 namespace LasEmpanadas.Services
 {
     public class PedidoService
@@ -25,20 +26,15 @@ namespace LasEmpanadas.Services
 
             //Inicializa el pedido en estado ABIERTO.
             Order.IdEstadoPedido = 1;
-
             Order.FechaCreacion = DateTime.Now;
             Order.FechaModificacion = null;
-
             Pedido CreatedOrder = PedidoRepo.Create(Order);
 
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
             UsuarioSvc.CheckEmailList(Order.EmailsInvitados);
-
             //Creo un nuevo registro en la tabla InvitacionPedido.
             InvitacionPedidoSvc.Create(Order);
-
             InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
-
             return CreatedOrder;
         }
 
@@ -49,6 +45,7 @@ namespace LasEmpanadas.Services
             return OrderList;
         }
 
+        
     }
 
 }
