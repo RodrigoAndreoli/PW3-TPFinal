@@ -60,6 +60,18 @@ namespace LasEmpanadas.Repositories
             Db.SaveChanges();
         }
 
+        //internal Pedido Attach(Pedido Order)
+        //{
+        //    Db.Pedido.Attach(Order);
+        //    foreach(var Gusto in Order.GustoEmpanada)
+        //    {
+        //        Db.GustoEmpanada.Attach(Gusto);
+        //    }
+        //    Db.SaveChanges();
+
+        //    return Order;
+        //}
+
         public List<Pedido> FindPedidosByUser(int? IdUser)
         {
             List<Pedido> MisPedidos = Db.Pedido.Where(x => x.IdUsuarioResponsable == IdUser).ToList();

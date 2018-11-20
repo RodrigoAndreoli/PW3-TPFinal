@@ -28,11 +28,15 @@ namespace LasEmpanadas.Services
             Order.IdEstadoPedido = 1;
             Order.FechaCreacion = DateTime.Now;
             Order.FechaModificacion = null;
-            foreach(int idGustoEmpanada in Order.GustoEmpanadaDisponibles)
-            {
-                Order.GustoEmpanada.Add(GustoEmpanadaSvc.FindById(idGustoEmpanada));
-            }
+            
             Pedido CreatedOrder = PedidoRepo.Create(Order);
+
+            //foreach (int idGustoEmpanada in Order.GustoEmpanadaDisponibles)
+            //{
+            //    CreatedOrder.GustoEmpanada.Add(GustoEmpanadaSvc.FindById(idGustoEmpanada));
+            //}
+
+            //CreatedOrder = PedidoRepo.Attach(CreatedOrder);
 
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
             UsuarioSvc.CheckEmailList(Order.EmailsInvitados);
