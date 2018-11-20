@@ -20,13 +20,18 @@
     function initializeSelectGusto(){
         $('#selectGusto').select2({
             ajax: {
-                url: 'http://localhost:52521/api/GustoEmpanadasApi',
+                url: 'http://localhost:52521/GustoEmpanada/All',
                 dataType: 'json',
                 processResults: function (data) {
                     var a = [];
-                    data.forEach(function (gusto) {
-                        a.push({ "id": gusto.IdGustoEmpanada, "text": gusto.Nombre })
-                    });
+                    if (data.length) {
+                        data.forEach(function (gusto) {
+                            a.push({ "id": gusto.Id, "text": gusto.Gusto })
+                        });
+                    } else {
+                        debugger;
+                        a.push({ "id": data.Id, "text": data.Gusto })
+                    }
                     return {
                         results: a
                     };

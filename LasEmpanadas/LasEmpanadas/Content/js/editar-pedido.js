@@ -1,11 +1,9 @@
 ﻿$(document).ready(function () {
     if (!$('#selectGusto').hasClass("select2-hidden-accessible")) {
         initializeSelectGusto();
-        TraerTodosLosGustos();
     } else {
         $('#selectGusto').select2('destroy');
         initializeSelectGusto();
-        TraerTodosLosGustos();
     }
 
     $('#selectEmail').select2({
@@ -59,6 +57,8 @@
                 }
             }
         });
+        traerGustosSeleccionados();
+
     }
 
 });
