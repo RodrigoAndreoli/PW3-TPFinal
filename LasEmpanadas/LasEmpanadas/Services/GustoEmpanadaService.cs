@@ -15,5 +15,10 @@ namespace LasEmpanadas.Services
         {
             return GustoEmpanadaRepository.FindAll();
         }
+
+        public GustoEmpanada FindById(int idGustoEmpanada)
+        {
+            return GustoEmpanadaRepository.FindOnyById(idGustoEmpanada);
+        }
     }
 }

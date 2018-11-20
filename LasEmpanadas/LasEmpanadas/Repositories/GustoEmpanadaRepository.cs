@@ -14,5 +14,9 @@ namespace LasEmpanadas.Repositories
         {
             return Db.GustoEmpanada.ToList();
         }
+        public GustoEmpanada FindOnyById(int idGustoEmpanada)
+        {
+            return Db.GustoEmpanada.Find(idGustoEmpanada);
+        }
     }
 }
