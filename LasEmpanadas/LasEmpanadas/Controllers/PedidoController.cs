@@ -16,7 +16,7 @@ namespace LasEmpanadas.Controllers
         {
             if (Session["loggedUser"] == null)
             {
-                return RedirectToAction("Login","Home");
+                return RedirectToAction("Login", "Home");
             }
             return View();
         }
@@ -65,15 +65,23 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Elegir(string token)
+        public ActionResult Elegir(System.Guid token)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            InvitacionPedido miInvitacion = InvPedidoSvc.GetInvitationByToken(token);
+            InvitacionPedido miInvitacion = InvPedidoSvc.GetInvitationByToken(token);            
+            Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
             InvitacionPedidoGustoEmpanadaUsuario invitacionAElegir = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+            invitacionAElegir.Pedido = PedidoAEditar;
             return View(invitacionAElegir);
+        }
+
+        [HttpPost]
+        public ActionResult Elegir(InvitacionPedidoGustoEmpanadaUsuario seleccionUsuario)
+        {
+            return View();
         }
 
         public ActionResult Detalle()
