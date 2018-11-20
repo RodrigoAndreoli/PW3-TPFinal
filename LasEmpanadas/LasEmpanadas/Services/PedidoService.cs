@@ -87,7 +87,7 @@ namespace LasEmpanadas.Services
             Pedido Pedido = PedidoRepo.FindOneById(idPedido);
             List<InvitacionPedidoGustoEmpanadaUsuario> invitacionPedidoGustos = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(idPedido);
             List<GustoEmpanada> Gustos = new List<GustoEmpanada>();
-            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(idPedido);
+            List<InvitacionPedido> invitaciones = InvitacionPedidoSvc.FindAllByPedidoId(idPedido);
 
             foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
             {
@@ -114,7 +114,8 @@ namespace LasEmpanadas.Services
                 NombreNegocio = Pedido.NombreNegocio,
                 PrecioDocena = Pedido.PrecioDocena,
                 PrecioUnidad = Pedido.PrecioUnidad,
-                usuarios = Usuarios
+                usuarios = Usuarios,
+                invitaciones = invitaciones
             };
             return PedidoCompleto;
         }

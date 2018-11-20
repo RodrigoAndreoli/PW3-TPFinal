@@ -1,6 +1,7 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace LasEmpanadas.Services
 {
@@ -43,6 +44,11 @@ namespace LasEmpanadas.Services
             string SecondPart = DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
       
             return FirstPart + '.' + SecondPart;
+        }
+
+        internal List<Usuario> FindAll()
+        {
+            return UsuarioRepo.GetAll();
         }
 
         internal int GetIdFromEmail(string Email)

@@ -34,9 +34,14 @@ namespace LasEmpanadas.Repositories
             Db.SaveChanges();
         }
 
-        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
+        internal List<InvitacionPedido> FindAllByPedidoId(int? idPedido)
         {
-            throw new NotImplementedException();
+            return Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
+        }
+
+        internal List<InvitacionPedido> FindAllIncompleteByPedidoId(int idPedido)
+        {
+            return Db.InvitacionPedido.Where(x => (x.IdPedido == idPedido && x.Completado == false)).ToList();
         }
     }
 

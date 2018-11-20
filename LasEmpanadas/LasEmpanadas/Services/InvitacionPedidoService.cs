@@ -34,9 +34,14 @@ namespace LasEmpanadas.Services
             return InvitacionPedidoRepo.FindOneById(idUsuario);
         }
 
-        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
+        internal List<InvitacionPedido> FindAllByPedidoId(int? idPedido)
         {
-            return InvitacionPedidoRepo.FindOneByPedidoId(idPedido);
+            return InvitacionPedidoRepo.FindAllByPedidoId(idPedido);
+        }
+
+        internal List<InvitacionPedido> FindAllIncompleteByPedidoId(int idPedido)
+        {
+            return InvitacionPedidoRepo.FindAllIncompleteByPedidoId(idPedido);
         }
     }
 

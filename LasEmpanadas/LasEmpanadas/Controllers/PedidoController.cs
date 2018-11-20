@@ -13,6 +13,7 @@ namespace LasEmpanadas.Controllers
 {
     public class PedidoController : Controller
     {
+        EmailService EmailService = new EmailService();
         PedidoService PedidoSvc = new PedidoService();
         InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         public ActionResult Iniciar()
@@ -61,10 +62,11 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(PedidoCompletoDTO Pedido, int EnvioDeEmail)
+        public ActionResult Editar(PedidoCompletoDTO Pedido, int reenviar)
         {
             Pedido P = PedidoSvc.BuildPedido(Pedido);
             PedidoSvc.Edit(P);
+            EmailService.SendEmailToManyUsers(Pedido.IdPedido, reenviar);
             return RedirectToAction("Index");
         }
 
@@ -99,7 +101,6 @@ namespace LasEmpanadas.Controllers
         {
             List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
             PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
-            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(IdPedido);
 
             foreach (GustoEmpanada g in p.gustoEmpanadas){
                 GustoEmpanadaDTO ge = new GustoEmpanadaDTO();

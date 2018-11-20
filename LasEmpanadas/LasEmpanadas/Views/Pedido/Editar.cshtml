@@ -71,14 +71,23 @@
                         <tbody>
                             @foreach (Usuario u in Model.usuarios)
                             {
+                                var invitacionUsuario = @Model.invitaciones.Find(x => x.IdUsuario == u.IdUsuario);
                                 <tr>
                                     <td>@u.Email</td>
                                     <td><a href="/Email">Reenviar</a></td>
-                                    <td></td>
+                                    <td>@invitacionUsuario.Completado</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+
+                    <label class="uk-form-label" for="reenviar">Reenviar emails</label>
+                    <select name="reenviar">
+                        <option value="1" selected>A nadie</option>
+                        <option value="2">Re-enviar invitacion a todos</option>
+                        <option value="3">Enviar soo a los nuevos</option>
+                        <option value="4">Re-Enviar solo a los que no eligieron gustos</option>
+                    </select>
                 </div>
             </div>
             <div uk-grid>
