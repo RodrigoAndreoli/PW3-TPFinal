@@ -1678,12 +1678,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\GustoEmpanadasApiController.cs" />
     <Compile Include="Controllers\Api\PedidosApiController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\PedidoCompletoDTO.cs" />
     <Compile Include="Models\Partials\Pedido.cs" />
     <Compile Include="Models\EstadoPedido.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -1730,6 +1732,7 @@
     <Compile Include="Repositories\PedidoRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\GustoEmpanadaService.cs" />
     <Compile Include="Services\InvitacionPedidoGustoEmpanadaUsuarioService.cs" />
     <Compile Include="Services\InvitacionPedidoService.cs" />
     <Compile Include="Services\LoginService.cs" />
@@ -1800,6 +1803,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\Email\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

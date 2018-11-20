@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
     string userLogged = Session["emailUser"].ToString();
+    int idUser = Convert.ToInt32(Session["idUser"]);
 }
 
 @section css{
@@ -24,6 +25,9 @@
             </li>
             <li>
                 <a href="/Pedido/Iniciar">Encarga tus empanadas</a>
+            </li>
+            <li>
+                <a href="/Pedido/Lista?IdUser=@idUser">Mis Pedidos</a>
             </li>
         </ul>
     </div>

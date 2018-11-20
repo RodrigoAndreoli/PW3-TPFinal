@@ -19,6 +19,11 @@ namespace LasEmpanadas.Services
             }
         }
 
+        internal Usuario FindOneById(int idUsuario)
+        {
+            return UsuarioRepo.FindOneById(idUsuario);
+        }
+
         internal void RegisterUserFromEmail(string Email)
         {
             string GeneratedPassword = GeneratePassword(Email);

@@ -28,6 +28,10 @@ namespace LasEmpanadas.Services
             }
         }
 
+        internal InvitacionPedido findOneByUserId(int idUsuario)
+        {
+            return InvitacionPedidoRepo.FindOneById(idUsuario);
+        }
     }
 
 }

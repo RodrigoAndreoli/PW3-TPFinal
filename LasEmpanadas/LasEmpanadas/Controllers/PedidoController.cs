@@ -1,7 +1,10 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
@@ -14,7 +17,7 @@ namespace LasEmpanadas.Controllers
         {
             if (Session["loggedUser"] == null)
             {
-                return RedirectToAction("Login","Home");
+                return RedirectToAction("Login", "Home");
             }
             return View();
         }
@@ -39,19 +42,27 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Lista()
+        public ActionResult Lista(int? IdUser)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            List<Pedido> OrderList = PedidoSvc.GetList();
+            List<Pedido> OrderList = PedidoSvc.FindPedidosByUser(IdUser);
             return View(OrderList);
         }
 
-        public ActionResult Editar()
+        public ActionResult Editar(int? IdPedido)
         {
-            return View();
+            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(PedidoCompletoDTO Pedido)
+        {
+            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            return View(p);
         }
 
         public ActionResult Eliminar()

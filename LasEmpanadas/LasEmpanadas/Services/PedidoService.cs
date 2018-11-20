@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace LasEmpanadas.Services
         UsuarioService UsuarioSvc = new UsuarioService();
         InvitacionPedidoService InvitacionPedidoSvc = new InvitacionPedidoService();
         InvitacionPedidoGustoEmpanadaUsuarioService InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
-
+        GustoEmpanadaService GustoEmpanadaSvc = new GustoEmpanadaService();
 
         /// <summary>
         /// Crea y guarda un nuevo pedido
@@ -37,6 +38,11 @@ namespace LasEmpanadas.Services
             return CreatedOrder;
         }
 
+        internal Pedido FindOneById(int? IdPedido)
+        {
+           return PedidoRepo.FindOneById(IdPedido);
+        }
+
         internal List<Pedido> GetList()
         {
             List<Pedido> OrderList = PedidoRepo.GetAll();
@@ -44,7 +50,50 @@ namespace LasEmpanadas.Services
             return OrderList;
         }
 
-        
+        internal List<Pedido> FindPedidosByUser(int? IdUser)
+        {
+            return PedidoRepo.FindPedidosByUser(IdUser);
+            }
+
+        internal List<Pedido> FindAll()
+        {
+            return PedidoRepo.GetAll();
+        }
+
+        public PedidoCompletoDTO ObtenerPedidoCompleto(int? idPedido)
+        {
+            Pedido Pedido = PedidoRepo.FindOneById(idPedido);
+            List<InvitacionPedidoGustoEmpanadaUsuario> invitacionPedidoGustos = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(idPedido);
+            List<GustoEmpanada> Gustos = new List<GustoEmpanada>();
+            foreach(InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
+            {
+                if (!Gustos.Contains(i.GustoEmpanada))
+                    Gustos.Add(i.GustoEmpanada);
+            }
+
+            List<Usuario> Usuarios = new List<Usuario>();
+            foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
+            {
+                if (!Usuarios.Contains(i.Usuario))
+                    Usuarios.Add(i.Usuario);
+            }
+
+            PedidoCompletoDTO PedidoCompleto = new PedidoCompletoDTO
+            {
+                Descripcion = Pedido.Descripcion,
+                FechaCreacion = Pedido.FechaCreacion,
+                FechaModificacion = Pedido.FechaModificacion,
+                gustoEmpanadas = Gustos,
+                IdEstadoPedido = Pedido.IdEstadoPedido,
+                IdPedido = Pedido.IdPedido,
+                IdUsuarioResponsable = Pedido.IdUsuarioResponsable,
+                NombreNegocio = Pedido.NombreNegocio,
+                PrecioDocena = Pedido.PrecioDocena,
+                PrecioUnidad = Pedido.PrecioUnidad,
+                usuarios = Usuarios
+            };
+            return PedidoCompleto;
+        }
     }
 
 }
