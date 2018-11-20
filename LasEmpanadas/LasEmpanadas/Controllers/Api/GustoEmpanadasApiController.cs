@@ -1,60 +1,65 @@
-﻿using LasEmpanadas.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using LasEmpanadas.Models;
 
-namespace LasEmpanadas.Controllers
+namespace LasEmpanadas.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GustoEmpanadasApiController : ApiController
     {
-        MasterEntities Db = new MasterEntities();
+        private MasterEntities db = new MasterEntities();
 
-        // GET: api/GustoEmpanadas
+        // GET: api/GustoEmpanadasApi
         public IQueryable<GustoEmpanada> GetGustoEmpanada()
         {
-            return Db.GustoEmpanada;
+            return db.GustoEmpanada;
         }
 
-        // GET: api/GustoEmpanadas/{Id}
+        // GET: api/GustoEmpanadasApi/5
         [ResponseType(typeof(GustoEmpanada))]
-        public IHttpActionResult GetGustoEmpanada(int Id)
+        public IHttpActionResult GetGustoEmpanada(int id)
         {
-            GustoEmpanada Gusto = Db.GustoEmpanada.Find(Id);
-
-            if (Gusto == null)
+            GustoEmpanada gustoEmpanada = db.GustoEmpanada.Find(id);
+            if (gustoEmpanada == null)
             {
                 return NotFound();
             }
 
-            return Ok(Gusto);
+            return Ok(gustoEmpanada);
         }
 
-        // PUT: api/GustoEmpanadas/{Id}
+        // PUT: api/GustoEmpanadasApi/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGustoEmpanada(int Id, GustoEmpanada Gusto)
+        public IHttpActionResult PutGustoEmpanada(int id, GustoEmpanada gustoEmpanada)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (Id != Gusto.IdGustoEmpanada)
+            if (id != gustoEmpanada.IdGustoEmpanada)
             {
                 return BadRequest();
             }
 
-            Db.Entry(Gusto).State = EntityState.Modified;
+            db.Entry(gustoEmpanada).State = EntityState.Modified;
 
             try
             {
-                Db.SaveChanges();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GustoEmpanadaExists(Id))
+                if (!GustoEmpanadaExists(id))
                 {
                     return NotFound();
                 }
@@ -67,24 +72,24 @@ namespace LasEmpanadas.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/GustoEmpanadas
+        // POST: api/GustoEmpanadasApi
         [ResponseType(typeof(GustoEmpanada))]
-        public IHttpActionResult PostGustoEmpanada(GustoEmpanada Gusto)
+        public IHttpActionResult PostGustoEmpanada(GustoEmpanada gustoEmpanada)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Db.GustoEmpanada.Add(Gusto);
+            db.GustoEmpanada.Add(gustoEmpanada);
 
             try
             {
-                Db.SaveChanges();
+                db.SaveChanges();
             }
             catch (DbUpdateException)
             {
-                if (GustoEmpanadaExists(Gusto.IdGustoEmpanada))
+                if (GustoEmpanadaExists(gustoEmpanada.IdGustoEmpanada))
                 {
                     return Conflict();
                 }
@@ -94,41 +99,37 @@ namespace LasEmpanadas.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { Id = Gusto.IdGustoEmpanada }, Gusto);
+            return CreatedAtRoute("DefaultApi", new { id = gustoEmpanada.IdGustoEmpanada }, gustoEmpanada);
         }
 
-        // DELETE: api/GustoEmpanadas/{Id}
+        // DELETE: api/GustoEmpanadasApi/5
         [ResponseType(typeof(GustoEmpanada))]
-        public IHttpActionResult DeleteGustoEmpanada(int Id)
+        public IHttpActionResult DeleteGustoEmpanada(int id)
         {
-            GustoEmpanada Gusto = Db.GustoEmpanada.Find(Id);
-
-            if (Gusto == null)
+            GustoEmpanada gustoEmpanada = db.GustoEmpanada.Find(id);
+            if (gustoEmpanada == null)
             {
                 return NotFound();
             }
 
-            Db.GustoEmpanada.Remove(Gusto);
-            Db.SaveChanges();
+            db.GustoEmpanada.Remove(gustoEmpanada);
+            db.SaveChanges();
 
-            return Ok(Gusto);
+            return Ok(gustoEmpanada);
         }
 
-        protected override void Dispose(bool Disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (Disposing)
+            if (disposing)
             {
-                Db.Dispose();
+                db.Dispose();
             }
-
-            base.Dispose(Disposing);
+            base.Dispose(disposing);
         }
 
-        private bool GustoEmpanadaExists(int Id)
+        private bool GustoEmpanadaExists(int id)
         {
-            return Db.GustoEmpanada.Count(Element => Element.IdGustoEmpanada == Id) > 0;
+            return db.GustoEmpanada.Count(e => e.IdGustoEmpanada == id) > 0;
         }
-
     }
-
 }

@@ -1,7 +1,12 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.Helpers;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 
 namespace LasEmpanadas.Controllers
@@ -9,8 +14,8 @@ namespace LasEmpanadas.Controllers
     public class PedidoController : Controller
     {
         PedidoService PedidoSvc = new PedidoService();
-        InvitacionPedidoService InvPedidoSvc = new InvitacionPedidoService();
         InvitacionPedidoGustoEmpanadaUsuarioService InvPedidoGustoSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
+        InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
 
         public ActionResult Iniciar()
         {
@@ -41,19 +46,28 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Lista()
+        public ActionResult Lista(int? IdUser)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            List<Pedido> OrderList = PedidoSvc.GetList();
+            List<Pedido> OrderList = PedidoSvc.FindPedidosByUser(IdUser);
             return View(OrderList);
         }
 
-        public ActionResult Editar()
+        public ActionResult Editar(int? IdPedido)
         {
-            return View();
+            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(PedidoCompletoDTO Pedido, int EnvioDeEmail)
+        {
+            Pedido P = PedidoSvc.BuildPedido(Pedido);
+            PedidoSvc.Edit(P);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Eliminar()
@@ -71,7 +85,7 @@ namespace LasEmpanadas.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            InvitacionPedido miInvitacion = InvPedidoSvc.GetInvitationByToken(token);            
+            InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationByToken(token);            
             Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
             PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
             InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
@@ -85,14 +99,35 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(int? IdPedido)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+
+            PedidoCompletoDTO OrderDTO = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+
+            return View(OrderDTO);
         }
+
+        public string ObtenerPedidoCompleto (int IdPedido)
+        {
+            List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
+            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(IdPedido);
+
+            foreach (GustoEmpanada g in p.gustoEmpanadas){
+                GustoEmpanadaDTO ge = new GustoEmpanadaDTO();
+                ge.Id = g.IdGustoEmpanada;
+                ge.Gusto = g.Nombre;
+                gustoEmpanadaDTO.Add(ge);
+            }
+            string jsonArray = JsonConvert.SerializeObject(gustoEmpanadaDTO);
+
+            return jsonArray;
+        }
+
 
     }
 

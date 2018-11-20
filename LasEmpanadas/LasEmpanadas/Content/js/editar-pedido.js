@@ -16,8 +16,27 @@
         
     });
 
+    function traerGustosSeleccionados() {
+        idPedido = $('#idPedido').val();
 
-    function initializeSelectGusto(){
+        $.ajax({
+            url: 'http://localhost:52521/Pedido/ObtenerPedidoCompleto?idPedido='+idPedido,
+            dataType: 'json',
+            success: function (data) {
+                if (data.length) {
+                    data.forEach(function (gusto) {
+                        a.push({ "id": gusto.Id})
+                    });
+                } else {
+                    a.push({ "id": data.Id })
+                }
+                $('#selectGusto').val(a).trigger('change');
+            },
+            dataType: dataType
+        });
+    }
+
+    function initializeSelectGusto() {
         $('#selectGusto').select2({
             ajax: {
                 url: 'http://localhost:52521/GustoEmpanada/All',
@@ -30,7 +49,7 @@
                         });
                     } else {
                         debugger;
-                        a.push({ "id": data.Id, "text": data.Gusto })
+                        a.push({ "id": data.Id, "text": data.Gusto }) 
                     }
                     return {
                         results: a
@@ -38,6 +57,8 @@
                 }
             }
         });
+        traerGustosSeleccionados();
+
     }
 
 });

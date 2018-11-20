@@ -1,7 +1,92 @@
-﻿@{
+﻿@using LasEmpanadas.Models.DTO
+@using LasEmpanadas.Models
+
+@model PedidoCompletoDTO
+@{
     ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
-<h2>Editar</h2>
+<link rel="stylesheet" href="~/Content/css/iniciar-pedido.css" />
+<script type="text/javascript" src="~/Content/js/editar-pedido.js"></script>
 
+<div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
+    <div class="iniciar-pedido-form uk-card-default uk-card-hover uk-card-body">
+        <h2>Encarga un nuevo Pedido</h2>
+        @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
+        {
+            @Html.TextBoxFor(P => P.IdPedido, new { id = "idPedido", Style = "display: none" })
+            <div uk-grid>
+                <div class="uk-width-6-6">
+                    @Html.LabelFor(P => P.NombreNegocio, new { @class = "uk-form-label" })
+                    <div class="uk-form-controls" uk-tooltip="title: Detalle el nombre del negocio...; pos: top-right">
+                        @Html.TextBoxFor(P => P.NombreNegocio, new { @class = "uk-input", @placeholder = "Nombre del negocio" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.NombreNegocio)</span>
+                    </div>
+                </div>
+                <div class="uk-width-6-6">
+                    @Html.LabelFor(P => P.Descripcion, new { @class = "uk-form-label" })
+                    <div class="uk-form-controls" uk-tooltip="title: Escriba un texto descriptivo para la invitación...; pos: top-right">
+                        @Html.TextAreaFor(P => P.Descripcion, new { @class = "uk-textarea ", @placeholder = "Descripción" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.Descripcion)</span>
+                    </div>
+                </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-1-2">
+                    @Html.LabelFor(P => P.PrecioUnidad, new { @class = "uk-form-label" })
+                    <div class="uk-form-controls" uk-tooltip="title: Indique el precio por unidad que cobra el local...; pos: top-right">
+                        @Html.TextBoxFor(P => P.PrecioUnidad, new { @class = "uk-input ", @Type = "number", @placeholder = "Precio por unidad" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.PrecioUnidad)</span>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    @Html.LabelFor(P => P.PrecioDocena, new { @class = "uk-form-label" })
+                    <div class="uk-form-controls" uk-tooltip="title: Indique el precio por docena que cobra el local...; pos: top-right">
+                        @Html.TextBoxFor(P => P.PrecioDocena, new { @class = "uk-input", @Type = "number", @placeholder = "Precio por docena" })
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.PrecioDocena)</span>
+                    </div>
+                </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-3-6">
+                    <label class="uk-form-label" for="selectGusto">Gustos:</label>
+                    <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
+                        <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple"></select>
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.gustoEmpanadas)</span>
+                    </div>
+                </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-3-6">
+                    <label class="uk-form-label" for="selectEmail">Sección de amigos:</label>
+                    <table class="uk-table uk-table-divider">
+                        <thead>
+                            <tr>
+                                <td>Usuario</td>
+                                <td>Reenviar email</td>
+                                <td>Ya eligió</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Usuario u in Model.usuarios)
+                            {
+                                <tr>
+                                    <td>@u.Email</td>
+                                    <td><a href="/Email">Reenviar</a></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-6-6">
+                    <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</a>
+                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-button uk-button-primary uk-button-small" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

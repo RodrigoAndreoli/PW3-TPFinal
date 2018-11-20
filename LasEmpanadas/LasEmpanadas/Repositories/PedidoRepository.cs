@@ -10,7 +10,7 @@ namespace LasEmpanadas.Repositories
 
         internal List<Pedido> GetAll() => Db.Pedido.ToList();
 
-        internal Pedido FindOneById(int Id) => Db.Pedido.SingleOrDefault(Element => Element.IdPedido == Id);
+        internal Pedido FindOneById(int? Id) => Db.Pedido.SingleOrDefault(Element => Element.IdPedido == Id);
 
         internal int GetNextId() => Db.Pedido.Max(Element => Element.IdPedido) + 1;
 
@@ -58,6 +58,32 @@ namespace LasEmpanadas.Repositories
         {
             Db.Pedido.Remove(Order);
             Db.SaveChanges();
+        }
+
+        public List<Pedido> FindPedidosByUser(int? IdUser)
+        {
+            List<Pedido> MisPedidos = Db.Pedido.Where(x => x.IdUsuarioResponsable == IdUser).ToList();
+            List<InvitacionPedido> MisPedidosInvolucrados = Db.InvitacionPedido.Where(x => x.IdUsuario == IdUser).ToList();
+
+            List<int> PedidosReferidosAMi = new List<int>();
+
+            foreach (Pedido p in MisPedidos){
+                if (PedidosReferidosAMi != null && !PedidosReferidosAMi.Contains(p.IdPedido))
+                {
+                    PedidosReferidosAMi.Add(p.IdPedido);
+                }
+            }
+
+            foreach (InvitacionPedido p in MisPedidosInvolucrados)
+            {
+                if (PedidosReferidosAMi != null && !PedidosReferidosAMi.Contains(p.IdPedido))
+                {
+                    PedidosReferidosAMi.Add(p.IdPedido);
+                }
+            }
+
+            return Db.Pedido.Where(x => PedidosReferidosAMi.Contains(x.IdPedido)).ToList();
+
         }
 
     }

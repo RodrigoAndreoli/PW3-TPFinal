@@ -1,4 +1,6 @@
-﻿using LasEmpanadas.Models;
+﻿using System;
+using System.Collections.Generic;
+using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 
 namespace LasEmpanadas.Services
@@ -27,6 +29,7 @@ namespace LasEmpanadas.Services
                 }
             }
         }
+
         public InvitacionPedidoGustoEmpanadaUsuario OpenInvitation(InvitacionPedido miInvitacion)
         {
             InvitacionPedidoGustoEmpanadaUsuario invAEditar = new InvitacionPedidoGustoEmpanadaUsuario();
@@ -34,7 +37,12 @@ namespace LasEmpanadas.Services
             invAEditar.IdUsuario = miInvitacion.IdUsuario;
             return invAEditar;
         }
-        
+
+
+        internal List<InvitacionPedidoGustoEmpanadaUsuario> FindAllByPedido(int? idPedido)
+        {
+            return InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(idPedido);
+        }
     }
 
 }
