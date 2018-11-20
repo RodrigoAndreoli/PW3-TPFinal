@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,10 @@ namespace LasEmpanadas.Repositories
             Db.SaveChanges();
         }
 
+        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

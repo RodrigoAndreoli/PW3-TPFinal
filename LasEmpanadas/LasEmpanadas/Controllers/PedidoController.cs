@@ -14,7 +14,7 @@ namespace LasEmpanadas.Controllers
     public class PedidoController : Controller
     {
         PedidoService PedidoSvc = new PedidoService();
-
+        InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         public ActionResult Iniciar()
         {
             if (Session["loggedUser"] == null)
@@ -99,6 +99,8 @@ namespace LasEmpanadas.Controllers
         {
             List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
             PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(IdPedido);
+
             foreach (GustoEmpanada g in p.gustoEmpanadas){
                 GustoEmpanadaDTO ge = new GustoEmpanadaDTO();
                 ge.Id = g.IdGustoEmpanada;

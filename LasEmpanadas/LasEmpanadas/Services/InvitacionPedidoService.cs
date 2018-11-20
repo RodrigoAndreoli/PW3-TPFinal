@@ -1,6 +1,7 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace LasEmpanadas.Services
 {
@@ -31,6 +32,11 @@ namespace LasEmpanadas.Services
         internal InvitacionPedido FindOneByUserId(int idUsuario)
         {
             return InvitacionPedidoRepo.FindOneById(idUsuario);
+        }
+
+        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
+        {
+            return InvitacionPedidoRepo.FindOneByPedidoId(idPedido);
         }
     }
 

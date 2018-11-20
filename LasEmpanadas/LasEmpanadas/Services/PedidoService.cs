@@ -87,7 +87,9 @@ namespace LasEmpanadas.Services
             Pedido Pedido = PedidoRepo.FindOneById(idPedido);
             List<InvitacionPedidoGustoEmpanadaUsuario> invitacionPedidoGustos = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(idPedido);
             List<GustoEmpanada> Gustos = new List<GustoEmpanada>();
-            foreach(InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
+            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(idPedido);
+
+            foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
             {
                 if (!Gustos.Contains(i.GustoEmpanada))
                     Gustos.Add(i.GustoEmpanada);

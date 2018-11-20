@@ -17,6 +17,8 @@ namespace LasEmpanadas.Models.DTO
         public System.DateTime FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
 
+        public List<InvitacionPedidoGustoEmpanadaUsuario> CantidadEmpanadasPorGustosYUsuarios { get; set; }
+        public List<InvitacionPedido> invitaciones { get; set; }
         public List<Usuario> usuarios { get; set; }
         public List<GustoEmpanada> gustoEmpanadas { get; set; }
     }
