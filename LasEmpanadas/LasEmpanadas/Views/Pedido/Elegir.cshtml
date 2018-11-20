@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Elegir";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+    int cant = 0;
 }
 
 <h2 class="uk-heading-line uk-text-center"><span>Elija los gustos que desee</span></h2>
@@ -24,4 +25,18 @@
 
     </div>
 </div>
+@using (Html.BeginForm())
+{
+    foreach(GustoEmpanada gusto in Model.Pedido.GustoEmpanada)
+    {
+        @Html.LabelFor(i => i.GustoEmpanada,"Gusto: "+ gusto.Nombre)<br />
+        @Html.HiddenFor(i => gusto.IdGustoEmpanada)
+        
+        @*@Html.NameFor(i => gusto.Nombre)<br />*@
+        @Html.LabelFor(i => i.Cantidad)<br />
+        @Html.EditorFor(i => i.Cantidad)<br />
 
+        <input type="submit" value="Grabar" />
+    }
+
+}
