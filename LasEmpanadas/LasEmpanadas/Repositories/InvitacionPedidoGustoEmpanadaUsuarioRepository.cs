@@ -40,6 +40,7 @@ namespace LasEmpanadas.Repositories
         {
             return Db.InvitacionPedidoGustoEmpanadaUsuario.Where(x => x.IdPedido == idPedido).ToList();
         }
+
     }
 
 }

@@ -15,6 +15,8 @@ namespace LasEmpanadas.Repositories
 
         internal InvitacionPedido FindOneByToken(System.Guid token) => Db.InvitacionPedido.SingleOrDefault(e => e.Token == token);
 
+        internal List<InvitacionPedido> FindAllByPedido(int? idPedido) => Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
+
         internal void Complete(InvitacionPedido Invitation)
         {
             InvitacionPedido InvitationFromDb = FindOneById(Invitation.IdInvitacionPedido);
@@ -40,6 +42,7 @@ namespace LasEmpanadas.Repositories
         {
             return Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
         }
+
     }
 
 }

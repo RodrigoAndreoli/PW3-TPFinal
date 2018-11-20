@@ -70,11 +70,11 @@
                     <th>
                         @if (Pedido.IdUsuarioResponsable == idUser)
                         {
-                            @Html.ActionLink(" ", "Eliminar", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-trash-alt fa-lg uk-text-danger" })
+                            @Html.ActionLink(" ", "Eliminar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-trash-alt fa-lg uk-text-danger" })
                         }
                         else
                         {
-                            <i class="fas fa-times fa-lg uk-text-danger"></i>
+                            <i class="fas fa-times fa-lg uk-text-muted"></i>
                         }
                     </th>
                     </tr>

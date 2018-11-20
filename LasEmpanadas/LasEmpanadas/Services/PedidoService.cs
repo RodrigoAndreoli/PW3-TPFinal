@@ -54,6 +54,8 @@ namespace LasEmpanadas.Services
 
         internal void DeleteOrder(Pedido Order)
         {
+            InvitacionPedidoGustoEmpanadaUsuarioSvc.DeleteByOrder(Order);
+            InvitacionPedidoSvc.DeleteByOrder(Order);
             PedidoRepo.Delete(Order);
         }
 

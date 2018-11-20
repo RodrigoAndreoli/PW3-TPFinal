@@ -4,16 +4,16 @@
 @{
     ViewBag.Title = "Eliminar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
-    int Cantidad = 0;
-    foreach (var Invitacion in Model.invitaciones)
-    {
-        Cantidad ++;
-    }
+    //int Cantidad = 0;
+    //foreach (var Invitacion in Model.invitaciones)
+    //{
+    //    Cantidad++;
+    //}
 }
 
 <h2>Eliminar</h2>
 
 <p>Esta seguro que desea eliminar el pedido @Model.IdPedido ?</p>
-<p>Actualmente posee @Cantidad pedidos confirmados.</p>
+@*<p>Actualmente posee @Cantidad pedidos confirmados.</p>*@
 
-@Html.ActionLink("Eliminar", "EliminarConfirmado", "Pedido", new { id = Model.IdPedido }, null)
+@Html.ActionLink("Eliminar", "EliminarConfirmado", "Pedido", new { idPedido = Model.IdPedido }, null)

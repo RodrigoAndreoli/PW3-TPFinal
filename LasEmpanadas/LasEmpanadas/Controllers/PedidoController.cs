@@ -84,7 +84,7 @@ namespace LasEmpanadas.Controllers
         {
             Pedido Order = PedidoSvc.FindOneById(IdPedido);
             PedidoSvc.DeleteOrder(Order);
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         public ActionResult Elegir(System.Guid token)

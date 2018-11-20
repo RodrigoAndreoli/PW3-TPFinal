@@ -43,6 +43,16 @@ namespace LasEmpanadas.Services
         {
             return InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(idPedido);
         }
+
+        internal void DeleteByOrder(Pedido Order)
+        {
+            List<InvitacionPedidoGustoEmpanadaUsuario> Rows = InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(Order.IdPedido);
+            foreach (var Row in Rows)
+            {
+                InvitacionPedidoGustoEmpanadaUsuarioRepo.Delete(Row);
+            }
+        }
+
     }
 
 }

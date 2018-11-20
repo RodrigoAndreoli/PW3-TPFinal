@@ -70,7 +70,9 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_GustoEmpanadaDisponiblePedido_GustoEmpanada">
-          <End Role="GustoEmpanada" Type="Self.GustoEmpanada" Multiplicity="1" />
+          <End Role="GustoEmpanada" Type="Self.GustoEmpanada" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GustoEmpanadaDisponiblePedido" Type="Self.GustoEmpanadaDisponiblePedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GustoEmpanada">
@@ -82,7 +84,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GustoEmpanadaDisponiblePedido_Pedido">
-          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="GustoEmpanadaDisponiblePedido" Type="Self.GustoEmpanadaDisponiblePedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pedido">

@@ -10,13 +10,10 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
-        public List<GustoEmpanada> FindAll()
-        {
-            return Db.GustoEmpanada.ToList();
-        }
-        public GustoEmpanada FindOnyById(int idGustoEmpanada)
-        {
-            return Db.GustoEmpanada.Find(idGustoEmpanada);
-        }
+        internal List<GustoEmpanada> FindAll => Db.GustoEmpanada.ToList();
+
+        internal GustoEmpanada FindOnyById(int idGustoEmpanada) => Db.GustoEmpanada.Find(idGustoEmpanada);
+
     }
+
 }

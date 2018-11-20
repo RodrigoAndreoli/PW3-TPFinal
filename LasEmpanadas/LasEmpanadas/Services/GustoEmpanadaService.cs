@@ -13,7 +13,7 @@ namespace LasEmpanadas.Services
 
         public List<GustoEmpanada> FindAll()
         {
-            return GustoEmpanadaRepository.FindAll();
+            return GustoEmpanadaRepository.FindAll;
         }
 
         public GustoEmpanada FindById(int idGustoEmpanada)
