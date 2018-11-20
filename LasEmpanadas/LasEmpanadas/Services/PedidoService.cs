@@ -72,6 +72,15 @@ namespace LasEmpanadas.Services
             return OrderList;
         }
 
+        internal void Delete(Pedido pedido)
+        {
+            PedidoRepo.Delete(pedido);
+        }
+
+        internal void DeleteById(int? id) {
+            PedidoRepo.DeleteById(id);
+        }
+
         internal List<Pedido> FindPedidosByUser(int? IdUser)
         {
             return PedidoRepo.FindPedidosByUser(IdUser);

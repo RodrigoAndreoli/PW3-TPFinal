@@ -38,6 +38,11 @@ namespace LasEmpanadas.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal List<InvitacionPedido> FindAllByOrder(int? id)
+        {
+            return Db.InvitacionPedido.Where(i => i.IdPedido == id && i.Completado == true).ToList();
+        }
     }
 
 }

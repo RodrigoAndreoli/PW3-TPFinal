@@ -38,6 +38,11 @@ namespace LasEmpanadas.Services
         {
             return InvitacionPedidoRepo.FindOneByPedidoId(idPedido);
         }
+
+        internal int CountCompleteById(int? id)
+        {
+            return InvitacionPedidoRepo.FindAllByOrder(id).Count;
+        }
     }
 
 }

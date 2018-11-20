@@ -10,7 +10,10 @@ namespace LasEmpanadas.Repositories
 
         internal List<Pedido> GetAll() => Db.Pedido.ToList();
 
-        internal Pedido FindOneById(int? Id) => Db.Pedido.SingleOrDefault(Element => Element.IdPedido == Id);
+        internal Pedido FindOneById(int? Id) {
+            Pedido p = Db.Pedido.Where(Element => Element.IdPedido == Id).FirstOrDefault();
+            return p;
+                }
 
         internal int GetNextId() => Db.Pedido.Max(Element => Element.IdPedido) + 1;
 
@@ -48,6 +51,17 @@ namespace LasEmpanadas.Repositories
             Db.Pedido.Remove(Order);
             Db.SaveChanges();
         }
+
+        internal void DeleteById(int? id) {
+
+            Pedido pedido = Db.Pedido.Where(p => p.IdPedido == id).FirstOrDefault();     
+            Db.Pedido.Remove(pedido);
+            Db.SaveChanges();
+        }
+            
+
+           
+        
 
         public List<Pedido> FindPedidosByUser(int? IdUser)
         {

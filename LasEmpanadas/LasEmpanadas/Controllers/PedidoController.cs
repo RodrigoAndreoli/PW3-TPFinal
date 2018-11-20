@@ -68,14 +68,32 @@ namespace LasEmpanadas.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Eliminar()
+        public ActionResult Eliminar(int? id)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
+
+            Pedido p = PedidoSvc.FindOneById(id);
+            ViewBag.CantidadDePedidosConfirmados = InvitacionPedidoService.CountCompleteById(id);
+            return View(p);
+        }
+
+        
+        public ActionResult EliminarConfirm(int? id)
+        {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            PedidoSvc.DeleteById(id);
+
             return View();
         }
+
+
+
 
         public ActionResult Elegir()
         {

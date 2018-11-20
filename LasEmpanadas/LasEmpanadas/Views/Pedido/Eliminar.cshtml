@@ -1,7 +1,13 @@
-﻿@{
+﻿@model LasEmpanadas.Models.Pedido
+
+@{
     ViewBag.Title = "Eliminar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
 <h2>Eliminar</h2>
 
+<p>Esta seguro que desea eliminar el pedido @Model.NombreNegocio ?</p>
+<p>Actualmente posee @ViewBag.CantidadDePedidosConfirmados pedidos confirmados</p>
+
+@Html.ActionLink("Eliminar", "EliminarConfirm", "Pedido", new { id = Model.IdPedido }, null)
