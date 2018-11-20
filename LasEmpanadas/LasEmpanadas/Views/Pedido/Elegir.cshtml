@@ -1,7 +1,27 @@
-﻿@{
+﻿@using LasEmpanadas.Models
+@model InvitacionPedidoGustoEmpanadaUsuario
+@{
     ViewBag.Title = "Elegir";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
-<h2>Elegir</h2>
+<h2 class="uk-heading-line uk-text-center"><span>Elija los gustos que desee</span></h2>
+
+<div class="uk-section uk-section-muted">
+    <div class="uk-container">
+
+        <h3>Negocio: <b>@Model.Pedido.NombreNegocio</b>.</h3>
+
+        <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
+            <div>
+                <p>Descripcion:@Model.Pedido.Descripcion</p>
+            </div>
+            <div>
+                <p>Precio por Unidad: $ @Model.Pedido.PrecioUnidad.</p><br />
+                <p>Precio por Docenta: $ @Model.Pedido.PrecioDocena</p>
+            </div>
+        </div>
+
+    </div>
+</div>
 

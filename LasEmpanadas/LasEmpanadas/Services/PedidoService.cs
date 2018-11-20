@@ -44,6 +44,10 @@ namespace LasEmpanadas.Services
             return OrderList;
         }
 
+        internal Pedido GetPedidoById(int id)
+        {
+            return PedidoRepo.FindOneById(id);
+        }
         
     }
 
