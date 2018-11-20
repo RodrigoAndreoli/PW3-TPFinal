@@ -15,7 +15,6 @@ namespace LasEmpanadas.Controllers
     {
         EmailService EmailService = new EmailService();
         PedidoService PedidoSvc = new PedidoService();
-        InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         public ActionResult Iniciar()
         {
             if (Session["loggedUser"] == null)
