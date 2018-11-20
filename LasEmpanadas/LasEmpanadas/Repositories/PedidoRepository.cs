@@ -14,6 +14,17 @@ namespace LasEmpanadas.Repositories
 
         internal int GetNextId() => Db.Pedido.Max(Element => Element.IdPedido) + 1;
 
+        internal List<GustoEmpanada> GetGustoEmpanadasDisponibles(int idPedido)
+        {
+            Pedido p = Db.Pedido.Single(e => e.IdPedido == idPedido);
+            List<GustoEmpanada> gustos = new List<GustoEmpanada>();
+            foreach(GustoEmpanada gusto in p.GustoEmpanada)
+            {
+                gustos.Add(gusto);
+            }
+            return gustos;
+        }
+
         internal void Close(Pedido Order)
         {
             Pedido OrderFromDb = FindOneById(Order.IdPedido);

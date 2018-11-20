@@ -73,9 +73,10 @@ namespace LasEmpanadas.Controllers
             }
             InvitacionPedido miInvitacion = InvPedidoSvc.GetInvitationByToken(token);            
             Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
-            InvitacionPedidoGustoEmpanadaUsuario invitacionAElegir = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
-            invitacionAElegir.Pedido = PedidoAEditar;
-            return View(invitacionAElegir);
+            PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
+            InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+            invitacionAUtilizar.Pedido = PedidoAEditar;
+            return View(invitacionAUtilizar);
         }
 
         [HttpPost]

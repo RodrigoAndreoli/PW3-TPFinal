@@ -44,9 +44,14 @@ namespace LasEmpanadas.Services
             return OrderList;
         }
 
-        internal Pedido GetPedidoById(int id)
+        internal Pedido GetPedidoById(int idPedido)
         {
-            return PedidoRepo.FindOneById(id);
+            return PedidoRepo.FindOneById(idPedido);
+        }
+
+        internal List<GustoEmpanada> GetGustosDisponibles(int idPedido)
+        {
+            return PedidoRepo.GetGustoEmpanadasDisponibles(idPedido);
         }
         
     }
