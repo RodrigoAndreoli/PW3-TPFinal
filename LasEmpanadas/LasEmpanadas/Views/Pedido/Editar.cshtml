@@ -15,6 +15,7 @@
         <h2>Encarga un nuevo Pedido</h2>
         @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
         {
+            @Html.TextBoxFor(P => P.IdPedido, new { id = "idPedido", Style = "display: none" })
             <div uk-grid>
                 <div class="uk-width-6-6">
                     @Html.LabelFor(P => P.NombreNegocio, new { @class = "uk-form-label" })
@@ -68,14 +69,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (Usuario u in Model.usuarios)
-                        {
-                            <tr>
-                                <td>@u.Email</td>
-                                <td><a href="/Email">Reenviar</a></td>
-                                <td>Si</td>
-                            </tr>
-                        }
+                            @foreach (Usuario u in Model.usuarios)
+                            {
+                                <tr>
+                                    <td>@u.Email</td>
+                                    <td><a href="/Email">Reenviar</a></td>
+                                    <td>Si</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

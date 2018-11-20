@@ -1,9 +1,11 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Http.Description;
 using System.Web.Mvc;
 
@@ -59,10 +61,11 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(PedidoCompletoDTO Pedido)
+        public ActionResult Editar(PedidoCompletoDTO Pedido, int EnvioDeEmail)
         {
-            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
-            return View(p);
+            Pedido P = PedidoSvc.BuildPedido(Pedido);
+            PedidoSvc.Edit(P);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Eliminar()
@@ -91,6 +94,22 @@ namespace LasEmpanadas.Controllers
             }
             return View();
         }
+
+        public string ObtenerPedidoCompleto (int IdPedido)
+        {
+            List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
+            PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            foreach (GustoEmpanada g in p.gustoEmpanadas){
+                GustoEmpanadaDTO ge = new GustoEmpanadaDTO();
+                ge.Id = g.IdGustoEmpanada;
+                ge.Gusto = g.Nombre;
+                gustoEmpanadaDTO.Add(ge);
+            }
+            string jsonArray = JsonConvert.SerializeObject(gustoEmpanadaDTO);
+
+            return jsonArray;
+        }
+
 
     }
 

@@ -28,7 +28,7 @@ namespace LasEmpanadas.Services
             }
         }
 
-        internal InvitacionPedido findOneByUserId(int idUsuario)
+        internal InvitacionPedido FindOneByUserId(int idUsuario)
         {
             return InvitacionPedidoRepo.FindOneById(idUsuario);
         }

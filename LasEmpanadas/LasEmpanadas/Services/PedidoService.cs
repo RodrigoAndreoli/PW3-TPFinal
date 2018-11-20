@@ -43,6 +43,28 @@ namespace LasEmpanadas.Services
            return PedidoRepo.FindOneById(IdPedido);
         }
 
+        internal void Edit(Pedido p)
+        {
+            PedidoRepo.Update(p);
+        }
+
+        internal Pedido BuildPedido(PedidoCompletoDTO Pedido)
+        {
+            Pedido p = new Pedido
+            {
+                Descripcion = Pedido.Descripcion,
+                FechaCreacion = Pedido.FechaCreacion,
+                FechaModificacion = Pedido.FechaModificacion,
+                IdEstadoPedido = Pedido.IdEstadoPedido,
+                IdPedido = Pedido.IdPedido,
+                IdUsuarioResponsable = Pedido.IdUsuarioResponsable,
+                NombreNegocio = Pedido.NombreNegocio,
+                PrecioDocena = Pedido.PrecioDocena,
+                PrecioUnidad = Pedido.PrecioUnidad,
+            };
+            return p;
+        }
+
         internal List<Pedido> GetList()
         {
             List<Pedido> OrderList = PedidoRepo.GetAll();
