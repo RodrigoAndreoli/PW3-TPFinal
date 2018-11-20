@@ -25,49 +25,58 @@
             <tbody>
                 @foreach (var Pedido in Model)
                 {
-                    <tr>
-                        <th>@Pedido.FechaCreacion</th>
-                        <th>@Pedido.NombreNegocio</th>
-                        <th>
-                            @if (Pedido.IdEstadoPedido == 1)
+                <tr>
+                    <th>@Pedido.FechaCreacion</th>
+                    <th>@Pedido.NombreNegocio</th>
+                    <th>
+                        @if (Pedido.IdEstadoPedido == 1)
+                        {
+                            <i class="fas fa-box-open fa-lg uk-text-warning" title="Abierto"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-box fa-lg" title="Cerrado"></i>
+                        }
+                    </th>
+                    <th>
+                        @if (Pedido.IdUsuarioResponsable == idUser)
+                        {
+                            <i class="fas fa-user-circle fa-lg" title="Responsable"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-users fa-lg" title="Invitado"></i>
+                        }
+                    </th>
+                    <th>
+                        @if (Pedido.IdEstadoPedido == 1)
+                        {
+                            if (Pedido.IdUsuarioResponsable == idUser)
                             {
-                                <i class="fas fa-box-open fa-lg uk-text-warning" title="Abierto"></i>
-                            }
-                            else
-                            {
-                                <i class="fas fa-box fa-lg" title="Cerrado"></i>
-                            }
-                        </th>
-                        <th>
-                            @if (Pedido.IdUsuarioResponsable == idUser)
-                            {
-                                <i class="fas fa-user-circle fa-lg" title="Responsable"></i>
-                            }
-                            else
-                            {
-                                <i class="fas fa-users fa-lg" title="Invitado"></i>
-                            }
-                        </th>
-                        <th>
-                            @if (Pedido.IdEstadoPedido == 1)
-                            {
-                                if (Pedido.IdUsuarioResponsable == idUser)
-                                {
-                                    @Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })
-                                }
-                                else
-                                {
-                                    @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
-                                }
-
+                                @Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })
                             }
                             else
                             {
                                 @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
                             }
-                        </th>
-                        <th>@Html.ActionLink(" ", "Elegir", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-clipboard-list fa-lg uk-text-success" })</th>
-                        <th>@Html.ActionLink(" ", "Eliminar", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-trash-alt fa-lg uk-text-danger" })</th>
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
+                        }
+                    </th>
+                    <th>@Html.ActionLink(" ", "Elegir", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-clipboard-list fa-lg uk-text-success" })</th>
+                    <th>
+                        @if (Pedido.IdUsuarioResponsable == idUser)
+                        {
+                            @Html.ActionLink(" ", "Eliminar", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-trash-alt fa-lg uk-text-danger" })
+                        }
+                        else
+                        {
+                            <i class="fas fa-times fa-lg uk-text-danger"></i>
+                        }
+                    </th>
                     </tr>
                 }
             </tbody>

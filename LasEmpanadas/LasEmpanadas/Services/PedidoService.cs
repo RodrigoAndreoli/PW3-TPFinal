@@ -52,6 +52,11 @@ namespace LasEmpanadas.Services
             PedidoRepo.Update(p);
         }
 
+        internal void DeleteOrder(Pedido Order)
+        {
+            PedidoRepo.Delete(Order);
+        }
+
         internal Pedido BuildPedido(PedidoCompletoDTO Pedido)
         {
             Pedido p = new Pedido

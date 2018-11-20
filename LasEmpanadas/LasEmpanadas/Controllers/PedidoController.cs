@@ -70,13 +70,21 @@ namespace LasEmpanadas.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Eliminar()
+        public ActionResult Eliminar(int? IdPedido)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+            PedidoCompletoDTO OrderDTO = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+            return View(OrderDTO);
+        }
+
+        public ActionResult EliminarConfirmado(int IdPedido)
+        {
+            Pedido Order = PedidoSvc.FindOneById(IdPedido);
+            PedidoSvc.DeleteOrder(Order);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Elegir(System.Guid token)
