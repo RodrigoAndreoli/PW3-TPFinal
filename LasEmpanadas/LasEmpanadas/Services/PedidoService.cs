@@ -114,7 +114,8 @@ namespace LasEmpanadas.Services
                 NombreNegocio = Pedido.NombreNegocio,
                 PrecioDocena = Pedido.PrecioDocena,
                 PrecioUnidad = Pedido.PrecioUnidad,
-                usuarios = Usuarios
+                usuarios = Usuarios,
+                CantidadEmpanadasPorGustosYUsuarios = invitacionPedidoGustos
             };
             return PedidoCompleto;
         }

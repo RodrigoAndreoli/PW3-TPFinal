@@ -86,13 +86,16 @@ namespace LasEmpanadas.Controllers
             return View();
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(int? IdPedido)
         {
             if (Session["loggedUser"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+
+            PedidoCompletoDTO OrderDTO = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
+
+            return View(OrderDTO);
         }
 
         public string ObtenerPedidoCompleto (int IdPedido)

@@ -36,7 +36,7 @@ namespace LasEmpanadas.Repositories
 
         internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
         {
-            throw new NotImplementedException();
+            return Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
         }
     }
 

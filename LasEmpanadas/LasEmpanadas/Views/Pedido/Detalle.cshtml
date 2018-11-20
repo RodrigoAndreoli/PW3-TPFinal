@@ -1,7 +1,46 @@
-﻿@{
+﻿@using LasEmpanadas.Models.DTO
+@model PedidoCompletoDTO
+@{
     ViewBag.Title = "Detalle";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
-<h2>Detalle</h2>
+<div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
+    <div class="uk-card-default uk-card-hover uk-card-body">
+        <h1>Pedido #: @Model.IdPedido</h1>
+        <h1>Usuario responsable: @Model.usuarios.Find(x => x.IdUsuario == Model.IdUsuarioResponsable).Email</h1>
+        <h1>Nombre del negocio: @Model.NombreNegocio</h1>
+        <h1>Descripcion: @Model.Descripcion</h1>
+        <h1>
+            Estado del pedido:
+            @if (Model.IdEstadoPedido == 1)
+            {
+                <span>Abierto</span>
+            }
+            else
+            {
+                <span>Cerrado</span>
+            }
+        </h1>
+        <h1>Precio por unidad: @Model.PrecioUnidad</h1>
+        <h1>Precio por docena: @Model.PrecioDocena</h1>
+        <h1>Fecha de creaci&oacute;n: @Model.FechaCreacion</h1>
+        @if (@Model.FechaModificacion != null)
+        {
+            <h1>Fecha de &uacute;ltima modificaci&oacute;n: @Model.FechaModificacion</h1>
+        }
 
+        <h1>Detalle del pedido:</h1>
+        @foreach (var User in Model.usuarios)
+        {
+            <h2>@User.Email</h2>
+            foreach (var Cant in Model.CantidadEmpanadasPorGustosYUsuarios.Where(x => x.IdUsuario == User.IdUsuario).ToList())
+            {
+
+                <h3>@Model.gustoEmpanadas.Find(x => x.IdGustoEmpanada == Cant.IdGustoEmpanada).Nombre<span>, @Cant.Cantidad</span></h3>
+            }
+        }
+
+        @Html.ActionLink("Ir a Lista Pedidos", "Lista", "Pedido", new { IdUser = Convert.ToInt32(Session["idUser"]) }, new { @class = "fa-lg uk-text-primary" })
+    </div>
+</div>
