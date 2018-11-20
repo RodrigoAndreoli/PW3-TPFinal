@@ -3,12 +3,10 @@
 @{
     ViewBag.Title = "Lista";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+    int idUser = Convert.ToInt32(Session["idUser"]);
 }
 
 <script type="text/javascript" src="~/Content/js/lista-pedidos.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="uk-card-default uk-card-hover uk-card-body">
@@ -19,7 +17,7 @@
                     <th>Nombre Negocio</th>
                     <th>Estado</th>
                     <th>Rol</th>
-                    <th>Editar</th>
+                    <th>Ver/Editar</th>
                     <th>Elegir Gustos</th>
                     <th>Eliminar</th>
                 </tr>
@@ -41,7 +39,7 @@
                             }
                         </th>
                         <th>
-                            @if (Pedido.IdUsuarioResponsable == 1)
+                            @if (Pedido.IdUsuarioResponsable == idUser)
                             {
                                 <i class="fas fa-user-circle fa-lg" title="Responsable"></i>
                             }
@@ -50,7 +48,24 @@
                                 <i class="fas fa-users fa-lg" title="Invitado"></i>
                             }
                         </th>
-                        <th>@Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })</th>
+                        <th>
+                            @if (Pedido.IdEstadoPedido == 1)
+                            {
+                                if (Pedido.IdUsuarioResponsable == idUser)
+                                {
+                                    @Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
+                                }
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
+                            }
+                        </th>
                         <th>@Html.ActionLink(" ", "Elegir", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-clipboard-list fa-lg uk-text-success" })</th>
                         <th>@Html.ActionLink(" ", "Eliminar", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-trash-alt fa-lg uk-text-danger" })</th>
                     </tr>
