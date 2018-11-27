@@ -23,6 +23,7 @@
             url: 'http://localhost:52521/Pedido/ObtenerPedidoCompleto?idPedido='+idPedido,
             dataType: 'json',
             success: function (data) {
+                var a = [];
                 if (data.length) {
                     data.forEach(function (gusto) {
                         a.push({ "id": gusto.Id})
@@ -32,7 +33,6 @@
                 }
                 $('#selectGusto').val(a).trigger('change');
             },
-            dataType: dataType
         });
     }
 

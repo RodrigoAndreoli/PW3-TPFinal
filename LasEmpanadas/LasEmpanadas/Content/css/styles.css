@@ -3,7 +3,8 @@
 }
 
 .slider {
-    background-image: url('../images/fondo-naranja.jpg');
+    background-image: url('../images/fondo-naranja.jpeg');
+    background-position-y: -250px;
 }
 
 .main-container {
