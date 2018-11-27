@@ -20,12 +20,14 @@ namespace LasEmpanadas.Services
             try
             {
             smtp.Send("lasempanadas.empanadas@gmail.com", email,
-               "Nueva invitacion a pedido", "http://localhost:52521/Pedido/Elegir/"+token.ToString());
+               "Nueva invitacion a pedido", "http://localhost:52521/Pedido/Elegir?token="+token.ToString());
                 return 1;
             } catch (Exception)
             {
                 return 0;
             }
         }
+
+
     }
 }
