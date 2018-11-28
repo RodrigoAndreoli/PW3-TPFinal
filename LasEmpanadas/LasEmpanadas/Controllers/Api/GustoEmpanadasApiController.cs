@@ -9,7 +9,9 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using LasEmpanadas.Models;
+using Newtonsoft.Json;
 
 namespace LasEmpanadas.Controllers.Api
 {
@@ -19,9 +21,9 @@ namespace LasEmpanadas.Controllers.Api
         private MasterEntities db = new MasterEntities();
 
         // GET: api/GustoEmpanadasApi
-        public IQueryable<GustoEmpanada> GetGustoEmpanada()
+        public string GetGustoEmpanada()    
         {
-            return db.GustoEmpanada;
+            return JsonConvert.SerializeObject (db.GustoEmpanada.FirstOrDefault(), WebApiConfig.JsonSettings);
         }
 
         // GET: api/GustoEmpanadasApi/5

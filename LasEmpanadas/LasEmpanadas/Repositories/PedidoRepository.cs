@@ -6,7 +6,7 @@ namespace LasEmpanadas.Repositories
 {
     public class PedidoRepository
     {
-        MasterEntities Db = new MasterEntities();
+        public MasterEntities Db = new MasterEntities();
 
         internal List<Pedido> GetAll() => Db.Pedido.ToList();
 
