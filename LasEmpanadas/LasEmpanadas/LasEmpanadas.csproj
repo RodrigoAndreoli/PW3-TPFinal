@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -241,6 +242,7 @@
     <Content Include="Content\fonts\fontawesome\fa-regular-400.svg" />
     <Content Include="Content\fonts\fontawesome\fa-solid-900.svg" />
     <Content Include="Content\images\empanadas.png" />
+    <Content Include="Content\images\fondo-naranja.jpeg" />
     <Content Include="Content\images\fondo-naranja.jpg" />
     <Content Include="Content\images\fontawesome\brands\500px.svg" />
     <Content Include="Content\images\fontawesome\brands\accessible-icon.svg" />
