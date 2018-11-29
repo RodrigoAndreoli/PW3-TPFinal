@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Repositories;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,20 @@ namespace LasEmpanadas.Services
         public GustoEmpanada FindById(int idGustoEmpanada)
         {
             return GustoEmpanadaRepository.FindOnyById(idGustoEmpanada);
+        }
+
+        internal List<GustoEmpanadaDTO> GetAllAsView()
+        {
+            List<GustoEmpanada> Gustos = FindAll();
+            List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
+            foreach (GustoEmpanada g in Gustos)
+            {
+                GustoEmpanadaDTO ge = new GustoEmpanadaDTO();
+                ge.Id = g.IdGustoEmpanada;
+                ge.Gusto = g.Nombre;
+                gustoEmpanadaDTO.Add(ge);
+            }
+            return gustoEmpanadaDTO;
         }
     }
 }
