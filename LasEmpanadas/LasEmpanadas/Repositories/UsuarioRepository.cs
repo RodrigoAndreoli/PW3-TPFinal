@@ -8,6 +8,11 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
+        public UsuarioRepository(MasterEntities db)
+        {
+            Db = db;
+        }
+
         internal List<Usuario> GetAll() => Db.Usuario.ToList();
 
         internal Usuario FindOneById(int Id) => Db.Usuario.SingleOrDefault(Element => Element.IdUsuario == Id);

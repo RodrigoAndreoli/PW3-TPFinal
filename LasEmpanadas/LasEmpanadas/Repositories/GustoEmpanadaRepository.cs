@@ -10,6 +10,11 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
+        public GustoEmpanadaRepository(MasterEntities db)
+        {
+            Db = db;
+        }
+
         internal List<GustoEmpanada> FindAll => Db.GustoEmpanada.ToList();
 
         internal GustoEmpanada FindOnyById(int idGustoEmpanada) => Db.GustoEmpanada.Find(idGustoEmpanada);

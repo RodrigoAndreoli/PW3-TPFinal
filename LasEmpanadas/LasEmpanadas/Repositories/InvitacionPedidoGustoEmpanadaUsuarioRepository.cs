@@ -9,6 +9,11 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
+        public InvitacionPedidoGustoEmpanadaUsuarioRepository(MasterEntities db)
+        {
+            Db = db;
+        }
+
         internal List<InvitacionPedidoGustoEmpanadaUsuario> GetAll() => Db.InvitacionPedidoGustoEmpanadaUsuario.ToList();
 
         internal InvitacionPedidoGustoEmpanadaUsuario FindOneById(int Id) => Db.InvitacionPedidoGustoEmpanadaUsuario.SingleOrDefault(Element => Element.IdInvitacionPedidoGustoEmpanadaUsuario == Id);

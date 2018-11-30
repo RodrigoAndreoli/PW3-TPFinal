@@ -8,6 +8,11 @@ namespace LasEmpanadas.Repositories
     {
         MasterEntities Db = new MasterEntities();
 
+        public PedidoRepository(MasterEntities db)
+        {
+            Db = db;
+        }
+
         internal List<Pedido> GetAll() => Db.Pedido.ToList();
 
         internal Pedido FindOneById(int? Id) => Db.Pedido.SingleOrDefault(Element => Element.IdPedido == Id);
