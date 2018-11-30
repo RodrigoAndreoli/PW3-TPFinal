@@ -9,9 +9,21 @@ namespace LasEmpanadas.Services
 {
     public class LoginService : System.Web.UI.Page
     {
-        
-        UsuarioRepository UsuarioRepo = new UsuarioRepository();
-        
+
+        UsuarioRepository UsuarioRepo;
+        private MasterEntities db;
+
+        public LoginService()
+        {
+            this.db = new MasterEntities();
+            this.UsuarioRepo = new UsuarioRepository(db);
+        }
+
+        public LoginService(MasterEntities db)
+        {
+            this.db = db;
+            this.UsuarioRepo = new UsuarioRepository(db);
+        }
 
         internal bool Login(Usuario User)
         {

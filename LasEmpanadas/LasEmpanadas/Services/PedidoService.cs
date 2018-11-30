@@ -9,12 +9,36 @@ namespace LasEmpanadas.Services
 {
     public class PedidoService
     {
-        PedidoRepository PedidoRepo = new PedidoRepository();
-        LoginService Loginsvc = new LoginService();
-        UsuarioService UsuarioSvc = new UsuarioService();
-        InvitacionPedidoService InvitacionPedidoSvc = new InvitacionPedidoService();
-        InvitacionPedidoGustoEmpanadaUsuarioService InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
-        GustoEmpanadaService GustoEmpanadaSvc = new GustoEmpanadaService();
+        PedidoRepository PedidoRepo;
+        MasterEntities Db;
+        LoginService Loginsvc;
+        UsuarioService UsuarioSvc;
+        InvitacionPedidoService InvitacionPedidoSvc;
+        InvitacionPedidoGustoEmpanadaUsuarioService InvitacionPedidoGustoEmpanadaUsuarioSvc;
+        GustoEmpanadaService GustoEmpanadaSvc;
+
+
+        public PedidoService()
+        {
+            this.Db = new MasterEntities();
+            this.PedidoRepo = new PedidoRepository(this.Db);
+            this.Loginsvc = new LoginService(this.Db);
+            this.UsuarioSvc = new UsuarioService(this.Db);
+            this.InvitacionPedidoSvc = new InvitacionPedidoService(this.Db);
+            this.InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(this.Db);
+            this.GustoEmpanadaSvc = new GustoEmpanadaService(this.Db);
+        }
+        public PedidoService(MasterEntities db)
+        {
+            this.Db = db;
+            this.PedidoRepo = new PedidoRepository(this.Db);
+            this.Loginsvc = new LoginService(this.Db);
+            this.UsuarioSvc = new UsuarioService(this.Db);
+            this.InvitacionPedidoSvc = new InvitacionPedidoService(this.Db);
+            this.InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(this.Db);
+            this.GustoEmpanadaSvc = new GustoEmpanadaService(this.Db);
+        }
+
 
         /// <summary>
         /// Crea y guarda un nuevo pedido
@@ -29,12 +53,16 @@ namespace LasEmpanadas.Services
             Order.FechaCreacion = DateTime.Now;
             Order.FechaModificacion = null;
             
-            Pedido CreatedOrder = PedidoRepo.Create(Order);
+            ///Pedido CreatedOrder = PedidoRepo.Create(Order);
 
-            //foreach (int idGustoEmpanada in Order.GustoEmpanadaDisponibles)
-            //{
-            //    CreatedOrder.GustoEmpanada.Add(GustoEmpanadaSvc.FindById(idGustoEmpanada));
-            //}
+            foreach (int idGustoEmpanada in Order.GustoEmpanadaDisponibles)
+            {
+                Order.GustoEmpanada.Add(GustoEmpanadaSvc.FindById(idGustoEmpanada));
+                ///var gustoDisponible = PedidoRepo.Db.GustoEmpanada.Find(idGustoEmpanada);
+                ///CreatedOrder.GustoEmpanada.Add(gustoDisponible);
+            }
+            Pedido CreatedOrder = PedidoRepo.Create(Order);
+            //PedidoRepo.SaveChanges();
 
             //CreatedOrder = PedidoRepo.Attach(CreatedOrder);
 
@@ -140,7 +168,8 @@ namespace LasEmpanadas.Services
                 PrecioDocena = Pedido.PrecioDocena,
                 PrecioUnidad = Pedido.PrecioUnidad,
                 usuarios = Usuarios,
-                CantidadEmpanadasPorGustosYUsuarios = invitacionPedidoGustos
+                CantidadEmpanadasPorGustosYUsuarios = invitacionPedidoGustos,
+                 invitaciones = invitaciones
             };
             return PedidoCompleto;
         }

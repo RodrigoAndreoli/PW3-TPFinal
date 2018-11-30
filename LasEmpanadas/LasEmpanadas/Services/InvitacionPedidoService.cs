@@ -7,10 +7,27 @@ namespace LasEmpanadas.Services
 {
     public class InvitacionPedidoService
     {
-        InvitacionPedidoRepository InvitacionPedidoRepo = new InvitacionPedidoRepository();
+        InvitacionPedidoRepository InvitacionPedidoRepo;
 
-        UsuarioService UsuarioSvc = new UsuarioService();
-        EmailService EmailSvc = new EmailService();
+        UsuarioService UsuarioSvc;
+        EmailService EmailSvc;
+        private MasterEntities db;
+
+        public InvitacionPedidoService()
+        {
+            this.db = new MasterEntities();
+            this.InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
+            this.UsuarioSvc = new UsuarioService(db);
+            this.EmailSvc = new EmailService();
+        }
+
+        public InvitacionPedidoService(MasterEntities db)
+        {
+            this.db = db;
+            this.InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
+            this.UsuarioSvc = new UsuarioService(db);
+            this.EmailSvc = new EmailService();
+        }
 
         internal void Create(Pedido Order)
         {

@@ -6,7 +6,20 @@ namespace LasEmpanadas.Services
 {
     public class UsuarioService
     {
-        UsuarioRepository UsuarioRepo = new UsuarioRepository();
+        UsuarioRepository UsuarioRepo;
+        private MasterEntities db;
+
+        public UsuarioService()
+        {
+            this.db = new MasterEntities();
+            this.UsuarioRepo = new UsuarioRepository(this.db);
+        }
+
+        public UsuarioService(MasterEntities db)
+        {
+            this.db = db;
+            this.UsuarioRepo = new UsuarioRepository(this.db);
+        }
 
         internal void CheckEmailList(string[ ] EmailList)
         {

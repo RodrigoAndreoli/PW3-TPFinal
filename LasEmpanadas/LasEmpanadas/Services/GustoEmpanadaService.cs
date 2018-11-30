@@ -10,7 +10,20 @@ namespace LasEmpanadas.Services
 {
     public class GustoEmpanadaService
     {
-        GustoEmpanadaRepository GustoEmpanadaRepository = new GustoEmpanadaRepository();
+        GustoEmpanadaRepository GustoEmpanadaRepository;
+        private MasterEntities db;
+
+        public GustoEmpanadaService()
+        {
+            this.db = new MasterEntities();
+            this.GustoEmpanadaRepository = new GustoEmpanadaRepository(db);
+        }
+
+        public GustoEmpanadaService(MasterEntities db)
+        {
+            this.db = db;
+            this.GustoEmpanadaRepository = new GustoEmpanadaRepository(db);
+        }
 
         public List<GustoEmpanada> FindAll()
         {
