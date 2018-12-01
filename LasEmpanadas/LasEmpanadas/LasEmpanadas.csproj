@@ -1593,6 +1593,7 @@
     <Content Include="Content\images\slider2.jpg" />
     <Content Include="Content\images\slider3.png" />
     <Content Include="Content\js\datatables\datatables.min.js" />
+    <Content Include="Content\js\elegir-pedido.js" />
     <Content Include="Content\js\fontawesome\fontawesome.min.js" />
     <Content Include="Content\js\editar-pedido.js" />
     <Content Include="Content\js\iniciar-pedido.js" />

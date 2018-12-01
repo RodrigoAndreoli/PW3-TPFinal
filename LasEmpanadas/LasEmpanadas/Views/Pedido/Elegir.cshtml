@@ -6,37 +6,77 @@
     int cant = 0;
 }
 
-<h2 class="uk-heading-line uk-text-center"><span>Elija los gustos que desee</span></h2>
+<script type="text/javascript" src="~/Content/js/elegir-pedido.js"></script>
 
-<div class="uk-section uk-section-muted">
-    <div class="uk-container">
-
-        <h3>Negocio: <b>@Model.Pedido.NombreNegocio</b>.</h3>
-
-        <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
-            <div>
-                <p>Descripcion:@Model.Pedido.Descripcion</p>
-            </div>
-            <div>
-                <p>Precio por Unidad: $ @Model.Pedido.PrecioUnidad.</p><br />
-                <p>Precio por Docenta: $ @Model.Pedido.PrecioDocena</p>
-            </div>
+<article class="uk-comment uk-comment-primary">
+    <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+        <div class="uk-width-auto">
+            <img class="uk-comment-avatar"
+                 src="https://b.kisscc0.com/20180730/ate/kisscc0-shopping-cart-shopping-centre-logo-shopping-list-shopping-cart-5b5f96de4eb6b9.8805151715329911983224.jpg"
+                 width="80" height="80" alt="" />
         </div>
+        <div class="uk-width-expand">
+            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><b>@Model.Pedido.NombreNegocio</b></a></h4>
+            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                <li class="uk-text-uppercase">
+                    <i class="fas fa-clock uk-padding-small"></i>
+                    @Model.Pedido.FechaCreacion
+                </li>
+                <li class="uk-text-uppercase uk-text-success">
+                    <i class="fas fa-box-open fa-lg uk-text-warning uk-padding-small" title="Abierto"></i>
+                    @Model.Pedido.EstadoPedido.Nombre
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="uk-panel uk-panel-box uk-text-break">
+        <p>@Model.Pedido.Descripcion</p>
 
+        <p class="uk-text-right uk-text-bottom uk-text-meta">
+            <i class="fas fa-user uk-padding-small"></i>Responsable: <b>@Model.Pedido.Usuario.Email</b>
+        </p>
     </div>
+</article>
+
+<h2 class="uk-heading-bullet uk-padding uk-padding-remove-bottom"><span>Elija los gustos que desee</span></h2>
+
+<div uk-grid class="uk-background-muted uk-padding-small">    
+    <div class="uk-width-auto@m uk-text-left">Unidad $ <span id="precio-unidad">@Model.Pedido.PrecioUnidad</span></div>
+    <div class="uk-width-auto@m uk-text-left">Docena $ <span id="precio-docena">@Model.Pedido.PrecioDocena</span></div>
 </div>
-@using (Html.BeginForm())
+
+@using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-horizontal", @id = "form" }))
 {
-    foreach(GustoEmpanada gusto in Model.Pedido.GustoEmpanada)
-    {
-        @Html.LabelFor(i => i.GustoEmpanada,"Gusto: "+ gusto.Nombre)<br />
-        @Html.HiddenFor(i => gusto.IdGustoEmpanada)
-        
-        @*@Html.NameFor(i => gusto.Nombre)<br />*@
-        @Html.LabelFor(i => i.Cantidad)<br />
-        @Html.EditorFor(i => i.Cantidad)<br />
-
-        <input type="submit" value="Grabar" />
-    }
-
+    <div class="uk-overflow-auto uk-padding">
+        <table class="uk-table uk-table-divider uk-table-hover ">
+            <thead>
+                <tr>
+                    <th class="uk-text-left">Gusto</th>
+                    <th class="uk-text-left">Cantidad</th>
+                    <th class="uk-text-left">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (GustoEmpanada gusto in Model.Pedido.GustoEmpanada)
+                {
+                    <tr>
+                        <td>
+                            @Html.LabelFor(i => i.GustoEmpanada, gusto.Nombre)
+                            @Html.HiddenFor(i => gusto.IdGustoEmpanada)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input uk-form-width-small cantidad", @Type = "number", @placeholder = "Cantidad" })
+                        </td>
+                        <td>$ <span class="precio-subtotal">0</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr>
+        <div class="uk-text-large uk-text-right uk-card-body">
+            Total: $<b><span id="precio-total">150</span></b>
+        </div>
+        <input type="submit" value="Grabar" class="uk-button uk-button-primary uk-width-1-2 uk-align-center"  />
+    </div>
 }
+
