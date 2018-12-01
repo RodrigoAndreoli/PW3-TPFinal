@@ -29,6 +29,8 @@ namespace LasEmpanadas.Services
             this.EmailSvc = new EmailService();
         }
 
+
+
         internal void Create(Pedido Order)
         {
             foreach (string Email in Order.EmailsInvitados)
@@ -42,7 +44,7 @@ namespace LasEmpanadas.Services
                 };
 
                 InvitacionPedidoRepo.Create(Invitation);
-                EmailSvc.SendEmail(Email,Invitation.Token);
+                EmailSvc.SendEmail(Email, Invitation.Token);
             }
             InvitacionPedido Responsible = new InvitacionPedido
             {
@@ -71,6 +73,11 @@ namespace LasEmpanadas.Services
         internal List<InvitacionPedido> FindAllByPedidoId(int? idPedido)
         {
             return InvitacionPedidoRepo.FindAllByPedidoId(idPedido);
+        }
+
+        internal InvitacionPedido FindOneByToken(System.Guid token)
+        {
+            return InvitacionPedidoRepo.FindOneByToken(token);
         }
 
         internal void DeleteByOrder(Pedido Order)

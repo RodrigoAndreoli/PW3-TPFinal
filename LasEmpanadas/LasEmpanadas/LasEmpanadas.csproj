@@ -1683,8 +1683,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Api\GustoEmpanadasApiController.cs" />
-    <Compile Include="Controllers\Api\PedidosApiController.cs" />
+    <Compile Include="Controllers\Api\PedidoController.cs" />
     <Compile Include="Controllers\GustoEmpanadaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1692,7 +1691,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\ConfirmarcionGustoDTO.cs" />
     <Compile Include="Models\DTO\GustoEmpanadaDTO.cs" />
+    <Compile Include="Models\DTO\GustosEmpanadasCantidad.cs" />
     <Compile Include="Models\DTO\PedidoCompletoDTO.cs" />
     <Compile Include="Models\Partials\Pedido.cs" />
     <Compile Include="Models\EstadoPedido.cs">
