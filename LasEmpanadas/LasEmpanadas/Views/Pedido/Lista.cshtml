@@ -49,24 +49,31 @@
                         }
                     </th>
                     <th>
-                        @if (Pedido.IdEstadoPedido == 1)
+                        @if (Pedido.IdEstadoPedido == 1 && Pedido.IdUsuarioResponsable == idUser)
                         {
-                            if (Pedido.IdUsuarioResponsable == idUser)
-                            {
-                                @Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
-                            }
-
+                            @Html.ActionLink(" ", "Editar", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-marker fa-lg uk-text-info" })
                         }
                         else
                         {
                             @Html.ActionLink(" ", "Detalle", "Pedido", new { idPedido = Pedido.IdPedido }, new { @class = "fas fa-search fa-lg uk-text-info" })
                         }
                     </th>
-                    <th>@Html.ActionLink(" ", "Elegir", "Pedido", new { id = Pedido.IdPedido }, new { @class = "fas fa-clipboard-list fa-lg uk-text-success" })</th>
+                    <th>
+                        @if (Pedido.IdEstadoPedido == 1)
+                        {
+                            foreach (var Invitation in Pedido.InvitacionPedido)
+                            {
+                                if (Invitation.IdUsuario == idUser)
+                                {
+                                    @Html.ActionLink(" ", "ElegirGustos", "Pedido", new { id = Invitation.IdInvitacionPedido }, new { @class = "fas fa-clipboard-list fa-lg uk-text-success" })
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <i class="fas fa-times fa-lg uk-text-muted"></i>
+                        }
+                    </th>
                     <th>
                         @if (Pedido.IdUsuarioResponsable == idUser)
                         {

@@ -54,7 +54,7 @@ namespace LasEmpanadas.Services
             InvitacionPedidoRepo.Create(Responsible);
         }
 
-        public InvitacionPedido GetInvitationById(int id)
+        public InvitacionPedido GetInvitationById(int? id)
         {
             return InvitacionPedidoRepo.FindOneById(id);
         }
@@ -68,14 +68,14 @@ namespace LasEmpanadas.Services
             return InvitacionPedidoRepo.FindOneById(idUsuario);
         }
 
-        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
+        internal List<InvitacionPedido> FindAllByPedidoId(int? idPedido)
         {
-            return InvitacionPedidoRepo.FindOneByPedidoId(idPedido);
+            return InvitacionPedidoRepo.FindAllByPedidoId(idPedido);
         }
 
         internal void DeleteByOrder(Pedido Order)
         {
-            List<InvitacionPedido> Rows = InvitacionPedidoRepo.FindAllByPedido(Order.IdPedido);
+            List<InvitacionPedido> Rows = InvitacionPedidoRepo.FindAllByPedidoId(Order.IdPedido);
             foreach (var Row in Rows)
             {
                 InvitacionPedidoRepo.Delete(Row);

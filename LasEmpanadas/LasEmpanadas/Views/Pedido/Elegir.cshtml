@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Elegir";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
-    int cant = 0;
 }
 
 <script type="text/javascript" src="~/Content/js/elegir-pedido.js"></script>
@@ -11,9 +10,7 @@
 <article class="uk-comment uk-comment-primary">
     <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            <img class="uk-comment-avatar"
-                 src="https://b.kisscc0.com/20180730/ate/kisscc0-shopping-cart-shopping-centre-logo-shopping-list-shopping-cart-5b5f96de4eb6b9.8805151715329911983224.jpg"
-                 width="80" height="80" alt="" />
+            <i class="fas fa-shopping-cart fa-5x"></i>
         </div>
         <div class="uk-width-expand">
             <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><b>@Model.Pedido.NombreNegocio</b></a></h4>

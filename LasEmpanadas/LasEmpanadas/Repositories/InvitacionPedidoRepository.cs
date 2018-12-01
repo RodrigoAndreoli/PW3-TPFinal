@@ -16,11 +16,11 @@ namespace LasEmpanadas.Repositories
 
         internal List<InvitacionPedido> GetAll() => Db.InvitacionPedido.ToList();
 
-        internal InvitacionPedido FindOneById(int Id) => Db.InvitacionPedido.SingleOrDefault(Element => Element.IdInvitacionPedido == Id);
+        internal InvitacionPedido FindOneById(int? Id) => Db.InvitacionPedido.SingleOrDefault(Element => Element.IdInvitacionPedido == Id);
 
         internal InvitacionPedido FindOneByToken(System.Guid token) => Db.InvitacionPedido.SingleOrDefault(e => e.Token == token);
 
-        internal List<InvitacionPedido> FindAllByPedido(int? idPedido) => Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
+        internal List<InvitacionPedido> FindAllByPedidoId(int? idPedido) => Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
 
         internal void Complete(InvitacionPedido Invitation)
         {
@@ -41,11 +41,6 @@ namespace LasEmpanadas.Repositories
         {
             Db.InvitacionPedido.Remove(Invitation);
             Db.SaveChanges();
-        }
-
-        internal List<InvitacionPedido> FindOneByPedidoId(int? idPedido)
-        {
-            return Db.InvitacionPedido.Where(x => x.IdPedido == idPedido).ToList();
         }
 
     }

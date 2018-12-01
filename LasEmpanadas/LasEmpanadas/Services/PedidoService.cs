@@ -140,7 +140,7 @@ namespace LasEmpanadas.Services
             Pedido Pedido = PedidoRepo.FindOneById(idPedido);
             List<InvitacionPedidoGustoEmpanadaUsuario> invitacionPedidoGustos = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(idPedido);
             List<GustoEmpanada> Gustos = new List<GustoEmpanada>();
-            List<InvitacionPedido> invitaciones = InvitacionPedidoSvc.FindOneByPedidoId(idPedido);
+            List<InvitacionPedido> invitaciones = InvitacionPedidoSvc.FindAllByPedidoId(idPedido);
 
             foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
             {

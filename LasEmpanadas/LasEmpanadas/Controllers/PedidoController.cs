@@ -149,7 +149,7 @@ namespace LasEmpanadas.Controllers
         {
             List<GustoEmpanadaDTO> gustoEmpanadaDTO = new List<GustoEmpanadaDTO>();
             PedidoCompletoDTO p = PedidoSvc.ObtenerPedidoCompleto(IdPedido);
-            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindOneByPedidoId(IdPedido);
+            List<InvitacionPedido> invitaciones = InvitacionPedidoService.FindAllByPedidoId(IdPedido);
 
             foreach (GustoEmpanada g in p.gustoEmpanadas){
                 GustoEmpanadaDTO ge = new GustoEmpanadaDTO();
