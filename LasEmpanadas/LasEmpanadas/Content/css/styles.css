@@ -9,6 +9,8 @@
 
 .main-container {
     background-image: url("../images/fondo-naranja.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .validation-msg {

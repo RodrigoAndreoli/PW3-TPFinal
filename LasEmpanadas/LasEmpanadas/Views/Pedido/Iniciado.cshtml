@@ -1,7 +1,15 @@
 ﻿@{
     ViewBag.Title = "Iniciado";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+    Response.AddHeader("REFRESH", "3;URL=../Home/Index ");
 }
 
-<h2>Iniciado</h2>
-
+<div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
+    <div class="uk-card-default uk-card-hover uk-card-body">
+        <div class="uk-grid-large uk-text-center" uk-grid>
+            <i class="fas fa-clipboard-check fa-3x uk-text-success uk-width-1-5 uk-margin-top"></i>
+            <h1 class="uk-width-3-5">El pedido fue creado correctamente</h1>
+            <i class="fas fa-clipboard-check fa-3x uk-text-success uk-width-1-5 uk-margin-top"></i>
+        </div>
+    </div>
+</div>
