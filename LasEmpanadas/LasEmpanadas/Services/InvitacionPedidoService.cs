@@ -92,7 +92,7 @@ namespace LasEmpanadas.Services
             return valido;
         }
 
-        public bool CheckUsuarioValidoByIDToken(int idUser, System.Guid token)
+        public bool CheckUsuarioValidoByTokenInvitacion(int idUser, System.Guid token)
         {
             bool valido = false;
             if (InvitacionPedidoRepo.FindOneByToken(token).IdUsuario == idUser)
