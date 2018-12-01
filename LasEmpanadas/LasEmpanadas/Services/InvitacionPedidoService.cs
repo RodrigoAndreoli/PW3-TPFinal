@@ -82,6 +82,25 @@ namespace LasEmpanadas.Services
             }
         }
 
+        public bool CheckUsuarioValidoByIDInvitacion(int idUser, int idInvitacion)
+        {
+            bool valido = false;
+            if(InvitacionPedidoRepo.FindOneById(idInvitacion).IdUsuario == idUser)
+            {
+                valido = true;
+            }
+            return valido;
+        }
+
+        public bool CheckUsuarioValidoByIDToken(int idUser, System.Guid token)
+        {
+            bool valido = false;
+            if (InvitacionPedidoRepo.FindOneByToken(token).IdUsuario == idUser)
+            {
+                valido = true;
+            }
+            return valido;
+        }
     }
 
 }

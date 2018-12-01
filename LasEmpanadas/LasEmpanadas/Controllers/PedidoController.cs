@@ -101,12 +101,17 @@ namespace LasEmpanadas.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationById(id);
-            Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
-            PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
-            InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
-            invitacionAUtilizar.Pedido = PedidoAEditar;
-            return View("Elegir",invitacionAUtilizar);
+            
+            if (InvitacionPedidoService.CheckUsuarioValidoByIDInvitacion(int.Parse(Session["idUser"].ToString()), id))
+            {
+                InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationById(id);
+                Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
+                PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
+                InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+                invitacionAUtilizar.Pedido = PedidoAEditar;
+                return View("Elegir", invitacionAUtilizar);
+            }
+            return RedirectToAction("Lista");
         }
         /// <summary>
         /// TODO: Tengo que pasar todo el choclo a un servicio
