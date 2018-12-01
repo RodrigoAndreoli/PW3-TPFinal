@@ -101,8 +101,8 @@ namespace LasEmpanadas.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            
-            if (InvitacionPedidoService.CheckUsuarioValidoByIDInvitacion(int.Parse(Session["idUser"].ToString()), id))
+            int idUser = int.Parse(Session["idUser"].ToString());
+            if (InvitacionPedidoService.CheckUsuarioValidoByIDInvitacion(idUser, id))
             {
                 InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationById(id);
                 Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
@@ -111,7 +111,7 @@ namespace LasEmpanadas.Controllers
                 invitacionAUtilizar.Pedido = PedidoAEditar;
                 return View("Elegir", invitacionAUtilizar);
             }
-            return RedirectToAction("Lista");
+            return RedirectToAction("Lista", new { idUser = idUser});
         }
         /// <summary>
         /// TODO: Tengo que pasar todo el choclo a un servicio
@@ -124,12 +124,17 @@ namespace LasEmpanadas.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationByToken(token);            
-            Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
-            PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
-            InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
-            invitacionAUtilizar.Pedido = PedidoAEditar;
-            return View(invitacionAUtilizar);
+            int idUser = int.Parse(Session["idUser"].ToString());
+            if (InvitacionPedidoService.CheckUsuarioValidoByTokenInvitacion(idUser, token))
+            {
+                InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationByToken(token);
+                Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
+                PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
+                InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+                invitacionAUtilizar.Pedido = PedidoAEditar;
+                return View(invitacionAUtilizar);
+            }
+            return RedirectToAction("Lista", new { idUser = idUser });
         }
 
         [HttpPost]
