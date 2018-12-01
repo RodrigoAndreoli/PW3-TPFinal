@@ -25,6 +25,7 @@ namespace LasEmpanadas.Controllers
             }
 
             ViewBag.TodosLosGustos = GustoEmpanadaService.GetAllAsView();
+            ViewBag.LosGustos = GustoEmpanadaService.FindAll();
             return View();
         }
 
@@ -89,7 +90,29 @@ namespace LasEmpanadas.Controllers
             PedidoSvc.DeleteOrder(Order);
             return RedirectToAction("Lista");
         }
-
+        /// <summary>
+        /// TODO: Tengo que pasar todo el choclo a un servicio
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ElegirGustos(int id)
+        {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            InvitacionPedido miInvitacion = InvitacionPedidoService.GetInvitationById(id);
+            Pedido PedidoAEditar = PedidoSvc.GetPedidoById(miInvitacion.IdPedido);
+            PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
+            InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
+            invitacionAUtilizar.Pedido = PedidoAEditar;
+            return View("Elegir",invitacionAUtilizar);
+        }
+        /// <summary>
+        /// TODO: Tengo que pasar todo el choclo a un servicio
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public ActionResult Elegir(System.Guid token)
         {
             if (Session["loggedUser"] == null)
