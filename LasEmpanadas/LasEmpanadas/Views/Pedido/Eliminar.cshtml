@@ -4,16 +4,22 @@
 @{
     ViewBag.Title = "Eliminar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
-    //int Cantidad = 0;
-    //foreach (var Invitacion in Model.invitaciones)
-    //{
-    //    Cantidad++;
-    //}
+    int idUser = Convert.ToInt32(Session["idUser"]);
+    int Cantidad = 0;
+    foreach (var Invitacion in Model.invitaciones)
+    {
+        Cantidad++;
+    }
 }
 
-<h2>Eliminar</h2>
-
-<p>Esta seguro que desea eliminar el pedido @Model.IdPedido ?</p>
+<div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
+    <div class="uk-card-default uk-card-hover uk-card-body uk-text-center">
+        <h1>¿Est&aacute; seguro que desea eliminar el pedido?</h1>
+        <h5 class="uk-text-muted uk-margin-large-bottom">Este pedido posee actualmente @Cantidad invitaciones que tambi&eacute;n ser&aacute;n eliminadas</h5>
+        <div>
+            @Html.ActionLink(" ", "Lista", "Pedido", new { IdUser = idUser }, new { @class = "fas fa-undo fa-2x uk-text-warning uk-float-left" })
+            @Html.ActionLink(" ", "EliminarConfirmado", "Pedido", new { idPedido = Model.IdPedido }, new { @class = "fas fa-trash-alt fa-2x uk-text-danger uk-float-right" })
+        </div>
+    </div>
+</div>
 @*<p>Actualmente posee @Cantidad pedidos confirmados.</p>*@
-
-@Html.ActionLink("Eliminar", "EliminarConfirmado", "Pedido", new { idPedido = Model.IdPedido }, null)
