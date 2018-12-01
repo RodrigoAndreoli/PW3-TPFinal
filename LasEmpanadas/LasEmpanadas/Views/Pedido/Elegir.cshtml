@@ -7,8 +7,20 @@
 
 <script type="text/javascript" src="~/Content/js/elegir-pedido.js"></script>
 
+
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="uk-card uk-card-default">
+        <div id="success" class="uk-alert-success" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <h3>Enviado!</h3>
+            <p>Se han enviado los gustos exitosamente.</p>
+        </div>
+
+        <div id="fail" class="uk-alert-danger" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <h3>Ups!</h3>
+            <p>No se ha podido enviar los gustos, vuelva a intentar.</p>
+        </div>
         <div class="uk-card-media-top">
             <div class="uk-comment uk-comment-primary">
                 <div class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
@@ -52,6 +64,8 @@
             </div>
             @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-horizontal", @id = "form" }))
             {
+                @Html.HiddenFor(i => i.IdUsuario)
+                <input type="hidden" id="token" value="@ViewBag.token"></input>
                 <table class="uk-table uk-table-divider uk-table-hover uk-text-center">
                     <thead>
                         <tr>
@@ -66,7 +80,7 @@
                             <tr>
                                 <td>
                                     @Html.LabelFor(i => i.GustoEmpanada, gusto.Nombre)
-                                    @Html.HiddenFor(i => gusto.IdGustoEmpanada)
+                                    @Html.HiddenFor(i => gusto.IdGustoEmpanada, new { @class = "idGustoEmpanada"})
                                 </td>
                                 <td>
                                     @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad" })
@@ -80,9 +94,11 @@
                 <div class="uk-text-large">
                     Total: $<b><span id="precio-total">150</span></b>
                 </div>
-                <input type="submit" value="Guardar" class="uk-button uk-button-primary uk-margin-medium-top uk-text-bold" />
+                <input id="grabar" type="submit" value="Guardar" class="uk-button uk-button-primary uk-margin-medium-top uk-text-bold" />
             }
         </div>
     </div>
 </div>
+
+
 
