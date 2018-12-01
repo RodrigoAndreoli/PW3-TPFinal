@@ -109,6 +109,7 @@ namespace LasEmpanadas.Controllers
                 PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
                 InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
                 invitacionAUtilizar.Pedido = PedidoAEditar;
+                ViewBag.token = miInvitacion.Token.ToString();
                 return View("Elegir", invitacionAUtilizar);
             }
             return RedirectToAction("Lista", new { idUser = idUser});
@@ -132,6 +133,7 @@ namespace LasEmpanadas.Controllers
                 PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
                 InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
                 invitacionAUtilizar.Pedido = PedidoAEditar;
+                ViewBag.token = miInvitacion.Token.ToString();
                 return View(invitacionAUtilizar);
             }
             return RedirectToAction("Lista", new { idUser = idUser });

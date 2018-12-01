@@ -1,8 +1,11 @@
 ﻿$(document).ready(function () {
+    $("#success").hide();
+    $("#fail").hide();
     calcularSubtotal();
     calcularTotal();
     $(".cantidad").change(calcularSubtotal);
     $(".cantidad").change(calcularTotal);
+    $("#grabar").click(saveGustos);
 });
 
 function calcularSubtotal() {
@@ -21,4 +24,43 @@ function calcularTotal() {
         total += parseInt( $(this).html() );
     });
     $("#precio-total").html(total);
+}
+
+function saveGustos() {
+    var idUser = parseInt($("#IdUsuario").val());
+    $.ajax({
+        url: "#",
+        type: 'POST',
+        headers: {
+            Accept: "application/json",
+            contentType: "application/json"
+        },
+        dataType: 'json',
+        data: {
+            "IdUsuario": idUser,
+            "Token": $("#token").val(),
+            "GustosEmpanadasCantidad": getGustosCantidad()
+        },        
+        success: function () { sendSuccessAlert(); }
+    });
+}
+function getGustosCantidad() {
+    var cantidades = $(".cantidad");
+    var arr = [];
+    $(".idGustoEmpanada").each(function (i) {
+        if (cantidades.get(i).value > 0) {
+            arr.push({ "IdGustoEmpanada": $(this).val(), "Cantidad": cantidades.get(i).value });
+        }
+    });
+    return arr;
+}
+
+function sendSuccessAlert() {
+    $("#success").show();
+    setTimeout("$('#success').hide();", 4000);
+}
+
+function sendFailAlert() {
+    $("#fail").show();
+    setTimeout("$('#fail').hide();", 4000);
 }
