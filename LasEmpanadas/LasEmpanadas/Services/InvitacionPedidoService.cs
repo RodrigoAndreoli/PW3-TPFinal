@@ -44,6 +44,14 @@ namespace LasEmpanadas.Services
                 InvitacionPedidoRepo.Create(Invitation);
                 EmailSvc.SendEmail(Email,Invitation.Token);
             }
+            InvitacionPedido Responsible = new InvitacionPedido
+            {
+                Completado = false,
+                Token = Guid.NewGuid(),
+                IdUsuario = Order.IdUsuarioResponsable,
+                IdPedido = Order.IdPedido
+            };
+            InvitacionPedidoRepo.Create(Responsible);
         }
 
         public InvitacionPedido GetInvitationById(int id)
