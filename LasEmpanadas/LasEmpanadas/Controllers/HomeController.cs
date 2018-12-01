@@ -11,9 +11,6 @@ namespace LasEmpanadas.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (Session["loggedUser"]==null) {
-                return RedirectToAction("Login");
-            }
             return View();
         }
 

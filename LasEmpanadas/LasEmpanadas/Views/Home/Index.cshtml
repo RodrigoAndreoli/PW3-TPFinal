@@ -1,6 +1,16 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+
+    Object obj = Session["loggedUser"];
+
+    if (obj == null)
+    {
+        Layout = "~/Views/Shared/AnonimoLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+    }
 }
 
 <div class="slider uk-height-large uk-width-expand uk-background-cover uk-light " uk-parallax="bgy: -20">
