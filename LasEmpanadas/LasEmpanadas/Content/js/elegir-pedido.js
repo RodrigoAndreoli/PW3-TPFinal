@@ -49,6 +49,7 @@ function saveGustos() {
                 pos: 'top-right',
                 timeout: 3000
             });
+            setTimeout("location.reload();", 3000);
         },
         error: function (data) {
             jQuery.parseJSON(data);
