@@ -172,7 +172,7 @@ namespace LasEmpanadas.Services
             return PedidoRepo.FindOneById(idPedido);
         }
 
-        internal List<GustoEmpanada> GetGustosDisponibles(int idPedido)
+        internal List<GustoEmpanada> GetGustosDisponibles(int? idPedido)
         {
             return PedidoRepo.GetGustoEmpanadasDisponibles(idPedido);
         }
@@ -191,7 +191,7 @@ namespace LasEmpanadas.Services
         {
             Pedido Pedido = PedidoRepo.FindOneById(idPedido);
             List<InvitacionPedidoGustoEmpanadaUsuario> invitacionPedidoGustos = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(idPedido);
-            List<GustoEmpanada> Gustos = new List<GustoEmpanada>();
+            List<GustoEmpanada> Gustos = GetGustosDisponibles(idPedido);
             List<InvitacionPedido> invitaciones = InvitacionPedidoSvc.FindAllByPedidoId(idPedido);
 
             foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Elegir";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+    int idUser = Convert.ToInt32(Session["idUser"]);
 }
 
 <script type="text/javascript" src="~/Content/js/elegir-pedido.js"></script>
@@ -83,7 +84,13 @@
                                     @Html.HiddenFor(i => gusto.IdGustoEmpanada, new { @class = "idGustoEmpanada"})
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad" })
+                                    @foreach (InvitacionPedidoGustoEmpanadaUsuario invitation in gusto.InvitacionPedidoGustoEmpanadaUsuario)
+                                    {
+                                        if (invitation.IdGustoEmpanada == gusto.IdGustoEmpanada && invitation.IdUsuario == idUser && invitation.IdPedido == Model.IdPedido)
+                                        {
+                                            @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad", @Value = invitation.Cantidad })
+                                        }
+                                    }
                                 </td>
                                 <td>$ <span class="precio-subtotal">0</span></td>
                             </tr>
