@@ -18,6 +18,7 @@ namespace LasEmpanadas.Controllers
         InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         GustoEmpanadaService GustoEmpanadaService = new GustoEmpanadaService();
         UsuarioService UsuarioService = new UsuarioService();
+
         public ActionResult Iniciar()
         {
             if (Session["loggedUser"] == null)
@@ -26,6 +27,11 @@ namespace LasEmpanadas.Controllers
             }
 
             ViewBag.TodosLosGustos = GustoEmpanadaService.GetAllAsView();
+            return View();
+        }
+
+        public ActionResult Iniciar(int id)
+        {
             return View();
         }
 
