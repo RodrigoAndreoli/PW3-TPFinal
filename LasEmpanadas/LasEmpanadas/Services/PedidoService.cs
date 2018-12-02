@@ -46,7 +46,7 @@ namespace LasEmpanadas.Services
             Pedido p = FindOneById(ip.IdPedido);
 
 
-            List<InvitacionPedidoGustoEmpanadaUsuario> i = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(p.IdPedido);
+            List<InvitacionPedidoGustoEmpanadaUsuario> i = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedidoAndUser(p.IdPedido, c.IdUsuario);
 
             String mensaje = "";
             foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
