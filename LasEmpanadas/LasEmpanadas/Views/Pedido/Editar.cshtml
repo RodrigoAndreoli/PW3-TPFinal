@@ -56,7 +56,14 @@
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
                             @foreach (var gusto in gustos)
                             {
-                                <option>@gusto.Gusto</option>
+                                if (Model.gustoEmpanadas.Any(x => x.IdGustoEmpanada == gusto.Id))
+                                {
+                                    <option selected>@gusto.Gusto</option>
+                                }
+                                else
+                                {
+                                    <option>@gusto.Gusto</option>
+                                }
                             }
                         </select>
                         <span class="validation-msg">@Html.ValidationMessageFor(P => P.gustoEmpanadas)</span>
