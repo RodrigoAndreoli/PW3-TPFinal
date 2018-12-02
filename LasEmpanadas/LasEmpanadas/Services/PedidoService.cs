@@ -173,7 +173,8 @@ namespace LasEmpanadas.Services
             }
 
             List<Usuario> Usuarios = new List<Usuario>();
-            foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
+            //foreach (InvitacionPedidoGustoEmpanadaUsuario i in invitacionPedidoGustos)
+            foreach (InvitacionPedido i in invitaciones)
             {
                 if (!Usuarios.Contains(i.Usuario))
                     Usuarios.Add(i.Usuario);
