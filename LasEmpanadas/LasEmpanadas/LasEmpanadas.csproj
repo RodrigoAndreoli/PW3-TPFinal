@@ -1660,6 +1660,7 @@
     <Content Include="Content\js\select2\select2.full.min.js" />
     <Content Include="Content\js\select2\select2.js" />
     <Content Include="Content\js\select2\select2.min.js" />
+    <Content Include="Content\js\Toastr\jquery.toaster.js" />
     <Content Include="Content\js\uikit\uikit-icons.js" />
     <Content Include="Content\js\uikit\uikit-icons.min.js" />
     <Content Include="Content\js\uikit\uikit.js" />
@@ -1694,6 +1695,7 @@
     <Compile Include="Models\DTO\ConfirmarcionGustoDTO.cs" />
     <Compile Include="Models\DTO\GustoEmpanadaDTO.cs" />
     <Compile Include="Models\DTO\GustosEmpanadasCantidad.cs" />
+    <Compile Include="Models\DTO\JSONResponseDTO.cs" />
     <Compile Include="Models\DTO\PedidoCompletoDTO.cs" />
     <Compile Include="Models\Partials\Pedido.cs" />
     <Compile Include="Models\EstadoPedido.cs">

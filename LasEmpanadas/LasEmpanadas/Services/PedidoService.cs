@@ -85,7 +85,7 @@ namespace LasEmpanadas.Services
                 }
                 else
                 {
-                    mensaje = "Hay gustos que no están disponibles";                 
+                    mensaje = "El gusto de id: " + g.IdGustoEmpanada +" no está disponible.";                 
                 }
             }
             return mensaje;

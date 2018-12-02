@@ -43,10 +43,13 @@ function saveGustos() {
         },        
         success: function (data) {
             debugger;
-            sendSuccessAlert();
+            var response = jQuery.parseJSON(data);
+            $.toaster(response.message, response.status, 'success');
         },
         error: function (data) {
-            debugger;
+            jQuery.parseJSON(data);
+            var response = jQuery.parseJSON(data);
+            $.toaster(response.message, response.status, 'success');
         }
     });
 }
@@ -59,14 +62,4 @@ function getGustosCantidad() {
         }
     });
     return arr;
-}
-
-function sendSuccessAlert() {
-    $("#success").show();
-    setTimeout("$('#success').hide();", 4000);
-}
-
-function sendFailAlert() {
-    $("#fail").show();
-    setTimeout("$('#fail').hide();", 4000);
 }

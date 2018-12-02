@@ -17,25 +17,43 @@ namespace LasEmpanadas.Controllers.Api
 
         [AcceptVerbs("POST")]
         [HttpPost]
-        public JObject ConfirmarGustos(JObject jsonResult)
+        public String ConfirmarGustos(JObject jsonResult)
         {
             ConfirmarcionGustoDTO c = JsonConvert.DeserializeObject<ConfirmarcionGustoDTO>(jsonResult.ToString());
             InvitacionPedido ip = InvitacionPedidoService.FindOneByToken(c.Token);
-            String mensaje = "";
+            String message = "";
 
             if (ip.Completado)
             {
-                return new JObject("{'Resultado':'Error','Mensaje':'El pedido ya se ha completado'}");
+
+                JSONResponseDTO response = new JSONResponseDTO
+                {
+                    status = "ERROR",
+                    message = "El pedido ya ha sido completado anteriormente."
+                };
+                return JsonConvert.SerializeObject(response);
             }
             else
             {
-                mensaje = PedidoService.ConfirmarGustos(ip, c);
-                if (mensaje != "")
-                    return new JObject("{'Resultado':'Error','Mensaje': " + mensaje + "}");
+                message = PedidoService.ConfirmarGustos(ip, c);
+                if (message != "")
+                {
+                    JSONResponseDTO response = new JSONResponseDTO
+                    {
+                        status = "ERROR",
+                        message = message
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
                 else
-                    return new JObject("{'Resultado':'OK','Mensaje': Gustos confirmados.}");
-
-
+                {
+                    JSONResponseDTO response = new JSONResponseDTO
+                    {
+                        status = "OK",
+                        message = "Gustos confirmados"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
             }
         }
     }
