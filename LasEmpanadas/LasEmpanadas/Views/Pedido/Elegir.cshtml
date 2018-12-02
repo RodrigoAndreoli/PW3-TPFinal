@@ -84,14 +84,18 @@
                                     @Html.HiddenFor(i => gusto.IdGustoEmpanada, new { @class = "idGustoEmpanada" })
                                 </td>
                                 <td>
-                                    @foreach (InvitacionPedidoGustoEmpanadaUsuario invitation in gusto.InvitacionPedidoGustoEmpanadaUsuario)
+                                    @if (Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario && i.IdGustoEmpanada == gusto.IdGustoEmpanada))
                                     {
-                                        if (invitation.IdGustoEmpanada == gusto.IdGustoEmpanada && invitation.IdUsuario == idUser && invitation.IdPedido == Model.IdPedido)
-                                        {
-                                            @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad", @Value = invitation.Cantidad })
-                                        }
+                                        @Html.TextBoxFor(i => i.Cantidad, new {
+                                           @class = "uk-input cantidad",
+                                           @Type = "number",
+                                           @placeholder = "Cantidad",
+                                           @Value =  Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.SingleOrDefault
+                                                    (i => i.IdUsuario == Model.IdUsuario && i.IdGustoEmpanada == gusto.IdGustoEmpanada)
+                                                    .Cantidad
+                                       })
                                     }
-                                    @if(!Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario))
+                                    @if (!Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario && i.IdGustoEmpanada == gusto.IdGustoEmpanada))
                                     {
                                         @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad" })
                                     }
