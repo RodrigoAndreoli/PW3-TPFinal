@@ -67,9 +67,12 @@ namespace LasEmpanadas.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(PedidoCompletoDTO Pedido, int EnvioDeEmail)
+        public ActionResult Editar(PedidoCompletoDTO Pedido)
         {
             Pedido P = PedidoSvc.BuildPedido(Pedido);
+
+            PedidoSvc.FillPedidoDTO(Pedido, P);
+            PedidoSvc.SendEmails(Pedido);
             PedidoSvc.Edit(P);
             return RedirectToAction("Index");
         }

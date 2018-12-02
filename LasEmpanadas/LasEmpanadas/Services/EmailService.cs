@@ -5,6 +5,7 @@ using System.Web;
 using System.Net;
 using System.Net.Mail;
 using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 
 namespace LasEmpanadas.Services
 {
@@ -28,6 +29,37 @@ namespace LasEmpanadas.Services
             }
         }
 
+        internal void ResendEmails(PedidoCompletoDTO Pedido)
+        {
+            switch (Pedido.Reenviar)
+            {
+                case 2:
+                    foreach(Usuario u in Pedido.usuarios)
+                    {
+                        InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
+                        SendEmail(u.Email, i.Token);
+                    }
+                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    {
+                        InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
+                        SendEmail(u.Email, i.Token);
+                    }
+                    break;
 
+                case 3:
+                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    {
+
+                    }
+                    break;
+
+                case 4:
+                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    {
+
+                    }
+                    break;
+            }
+        }
     }
 }

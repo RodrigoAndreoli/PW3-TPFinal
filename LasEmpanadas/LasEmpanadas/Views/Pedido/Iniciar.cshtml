@@ -11,7 +11,7 @@
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="iniciar-pedido-form uk-card-default uk-card-hover uk-card-body">
-        <h2>Encarga un nuevo Pedido</h2>        
+        <h2>Encarga un nuevo Pedido</h2>
         @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
         {
             <div uk-grid>
@@ -51,7 +51,8 @@
                     <label class="uk-form-label" for="selectGusto">Gustos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
-                            @foreach(var gusto in ViewBag.TodosLosGustos) {
+                            @foreach (var gusto in ViewBag.TodosLosGustos)
+                            {
                                 <option value="@gusto.Id">@gusto.Gusto</option>
                             }
                         </select>

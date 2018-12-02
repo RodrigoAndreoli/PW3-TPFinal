@@ -16,6 +16,7 @@ namespace LasEmpanadas.Services
         InvitacionPedidoService InvitacionPedidoSvc;
         InvitacionPedidoGustoEmpanadaUsuarioService InvitacionPedidoGustoEmpanadaUsuarioSvc;
         GustoEmpanadaService GustoEmpanadaSvc;
+        EmailService EmailService = new EmailService();
 
 
         public PedidoService()
@@ -90,6 +91,16 @@ namespace LasEmpanadas.Services
                 }
             }
             return mensaje;
+        }
+
+        internal void FillPedidoDTO(PedidoCompletoDTO Pedido, Pedido P)
+        {
+            List<InvitacionPedido> i = InvitacionPedidoSvc.FindAllByPedidoId(Pedido.IdPedido);
+        }
+
+        internal void SendEmails(PedidoCompletoDTO Pedido)
+        {
+            EmailService.ResendEmails(Pedido);
         }
 
 
