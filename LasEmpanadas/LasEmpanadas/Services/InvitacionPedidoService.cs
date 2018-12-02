@@ -1,4 +1,5 @@
 ﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
 using LasEmpanadas.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,18 @@ namespace LasEmpanadas.Services
 
         public InvitacionPedidoService()
         {
-            this.db = new MasterEntities();
-            this.InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
-            this.UsuarioSvc = new UsuarioService(db);
-            this.EmailSvc = new EmailService();
+            db = new MasterEntities();
+            InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
+            UsuarioSvc = new UsuarioService(db);
+            EmailSvc = new EmailService();
         }
 
         public InvitacionPedidoService(MasterEntities db)
         {
             this.db = db;
-            this.InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
-            this.UsuarioSvc = new UsuarioService(db);
-            this.EmailSvc = new EmailService();
+            InvitacionPedidoRepo = new InvitacionPedidoRepository(db);
+            UsuarioSvc = new UsuarioService(db);
+            EmailSvc = new EmailService();
         }
 
 
@@ -80,6 +81,25 @@ namespace LasEmpanadas.Services
             return InvitacionPedidoRepo.FindOneByToken(token);
         }
 
+        internal void AddEmails(PedidoCompletoDTO Pedido)
+        {
+            if (Pedido.UsuariosNuevosString != null)
+            {
+                foreach (string Email in Pedido.UsuariosNuevosString)
+                {
+                    InvitacionPedido Invitation = new InvitacionPedido
+                    {
+                        Completado = false,
+                        Token = Guid.NewGuid(),
+                        IdUsuario = UsuarioSvc.GetIdFromEmail(Email),
+                        IdPedido = Pedido.IdPedido
+                    };
+
+                    InvitacionPedidoRepo.Create(Invitation);
+                }
+            }
+        }
+
         internal void DeleteByOrder(Pedido Order)
         {
             List<InvitacionPedido> Rows = InvitacionPedidoRepo.FindAllByPedidoId(Order.IdPedido);
@@ -92,7 +112,7 @@ namespace LasEmpanadas.Services
         public bool CheckUsuarioValidoByIDInvitacion(int idUser, int idInvitacion)
         {
             bool valido = false;
-            if(InvitacionPedidoRepo.FindOneById(idInvitacion).IdUsuario == idUser)
+            if (InvitacionPedidoRepo.FindOneById(idInvitacion).IdUsuario == idUser)
             {
                 valido = true;
             }
