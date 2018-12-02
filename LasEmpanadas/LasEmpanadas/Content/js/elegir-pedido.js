@@ -42,14 +42,23 @@ function saveGustos() {
             "GustosEmpanadasCantidad": getGustosCantidad()
         },        
         success: function (data) {
-            debugger;
             var response = jQuery.parseJSON(data);
-            $.toaster(response.message, response.status, 'success');
+            UIkit.notification({
+                message: response.status + ': ' + response.message,
+                status: 'success',
+                pos: 'top-right',
+                timeout: 3000
+            });
         },
         error: function (data) {
             jQuery.parseJSON(data);
             var response = jQuery.parseJSON(data);
-            $.toaster(response.message, response.status, 'success');
+            UIkit.notification({
+                message: response.status + ': '+ response.message,
+                status: 'danger',
+                pos: 'top-right',
+                timeout: 3000
+            });
         }
     });
 }
