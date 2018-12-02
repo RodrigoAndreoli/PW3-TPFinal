@@ -63,10 +63,10 @@
                     Docena $ <span id="precio-docena">@Model.Pedido.PrecioDocena</span>
                 </div>
             </div>
-            @using (Html.BeginForm( new { @class = "uk-form-horizontal", @id = "form" }))
+            @using (Html.BeginForm("Elegir", "Pedido", FormMethod.Post, new { @class = "uk-form-horizontal", @id = "form" }))
             {
-                @Html.HiddenFor(i => i.IdUsuario)
-                <input type="hidden" id="token" value="@ViewBag.token"></input>
+                @Html.HiddenFor(Model => Model.IdUsuario)
+                <input type="hidden" name="token" id="token" value="@Model.Pedido.InvitacionPedido.SingleOrDefault(i => i.IdUsuario == Model.IdUsuario).Token"></input>
                 <table class="uk-table uk-table-divider uk-table-hover uk-text-center">
                     <thead>
                         <tr>
@@ -81,7 +81,7 @@
                             <tr>
                                 <td>
                                     @Html.LabelFor(i => i.GustoEmpanada, gusto.Nombre)
-                                    @Html.HiddenFor(i => gusto.IdGustoEmpanada, new { @class = "idGustoEmpanada"})
+                                    @Html.HiddenFor(i => gusto.IdGustoEmpanada, new { @class = "idGustoEmpanada" })
                                 </td>
                                 <td>
                                     @foreach (InvitacionPedidoGustoEmpanadaUsuario invitation in gusto.InvitacionPedidoGustoEmpanadaUsuario)
@@ -91,7 +91,7 @@
                                             @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad", @Value = invitation.Cantidad })
                                         }
                                     }
-                                    @if (Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Count == 0)
+                                    @if(!Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario))
                                     {
                                         @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad" })
                                     }
@@ -106,6 +106,11 @@
                     Total: $<b><span id="precio-total">150</span></b>
                 </div>
                 <input id="grabar" value="Guardar" class="uk-button uk-button-primary uk-margin-medium-top uk-text-bold" />
+                if (Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario && i.IdPedido == Model.IdPedido))
+                {
+                    <input type="submit" value="Completar" class="uk-button uk-button-success uk-margin-medium-top uk-text-bold" />
+                }
+
             }
         </div>
     </div>

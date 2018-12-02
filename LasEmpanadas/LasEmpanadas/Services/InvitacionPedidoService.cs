@@ -108,6 +108,13 @@ namespace LasEmpanadas.Services
             }
             return valido;
         }
+
+        internal void CompletarInvitacion(System.Guid token)
+        {
+            InvitacionPedido pedidoCompletado = InvitacionPedidoRepo.FindOneByToken(token);
+            pedidoCompletado.Completado = true;
+            db.SaveChanges();
+        }
     }
 
 }
