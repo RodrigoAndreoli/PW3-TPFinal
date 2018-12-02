@@ -73,6 +73,10 @@ namespace LasEmpanadas.Services
             }
         }
 
+        internal void Save(InvitacionPedidoGustoEmpanadaUsuario gusto)
+        {
+            InvitacionPedidoGustoEmpanadaUsuarioRepo.save(gusto);
+        }
     }
 
 }

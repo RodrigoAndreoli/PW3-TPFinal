@@ -46,6 +46,11 @@ namespace LasEmpanadas.Repositories
             return Db.InvitacionPedidoGustoEmpanadaUsuario.Where(x => x.IdPedido == idPedido).ToList();
         }
 
+        internal void save(InvitacionPedidoGustoEmpanadaUsuario gusto)
+        {
+            Db.InvitacionPedidoGustoEmpanadaUsuario.Add(gusto);
+            Db.SaveChanges();
+        }
     }
 
 }

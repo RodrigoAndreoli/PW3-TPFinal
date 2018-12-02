@@ -20,23 +20,23 @@ namespace LasEmpanadas.Services
 
         public PedidoService()
         {
-            this.Db = new MasterEntities();
-            this.PedidoRepo = new PedidoRepository(this.Db);
-            this.Loginsvc = new LoginService(this.Db);
-            this.UsuarioSvc = new UsuarioService(this.Db);
-            this.InvitacionPedidoSvc = new InvitacionPedidoService(this.Db);
-            this.InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(this.Db);
-            this.GustoEmpanadaSvc = new GustoEmpanadaService(this.Db);
+            Db = new MasterEntities();
+            PedidoRepo = new PedidoRepository(Db);
+            Loginsvc = new LoginService(Db);
+            UsuarioSvc = new UsuarioService(Db);
+            InvitacionPedidoSvc = new InvitacionPedidoService(Db);
+            InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(Db);
+            GustoEmpanadaSvc = new GustoEmpanadaService(Db);
         }
         public PedidoService(MasterEntities db)
         {
-            this.Db = db;
-            this.PedidoRepo = new PedidoRepository(this.Db);
-            this.Loginsvc = new LoginService(this.Db);
-            this.UsuarioSvc = new UsuarioService(this.Db);
-            this.InvitacionPedidoSvc = new InvitacionPedidoService(this.Db);
-            this.InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(this.Db);
-            this.GustoEmpanadaSvc = new GustoEmpanadaService(this.Db);
+            Db = db;
+            PedidoRepo = new PedidoRepository(Db);
+            Loginsvc = new LoginService(Db);
+            UsuarioSvc = new UsuarioService(Db);
+            InvitacionPedidoSvc = new InvitacionPedidoService(Db);
+            InvitacionPedidoGustoEmpanadaUsuarioSvc = new InvitacionPedidoGustoEmpanadaUsuarioService(Db);
+            GustoEmpanadaSvc = new GustoEmpanadaService(Db);
         }
 
         internal string ConfirmarGustos(InvitacionPedido ip, ConfirmarcionGustoDTO c)
@@ -50,14 +50,27 @@ namespace LasEmpanadas.Services
 
             foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
             {
-                if (Array.IndexOf(p.GustoEmpanadaDisponibles, g.IdGustoEmpanada) > -1)
+                GustoEmpanada GustoEmpanada = GustoEmpanadaSvc.FindById(g.IdGustoEmpanada);
+                if (p.GustoEmpanada.Contains(GustoEmpanada))
                 {
-                    InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
-                    gustoEncontrado.Cantidad = g.Cantidad;
+                    if (i != null && i.Count != 0)
+                    {
+                        InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
+                        gustoEncontrado.Cantidad = g.Cantidad;
+                    } else
+                    {
+                        InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario();
+                        gusto.IdGustoEmpanada = g.IdGustoEmpanada;
+                        gusto.IdPedido = p.IdPedido;
+                        gusto.IdUsuario = c.IdUsuario;
+                        gusto.Cantidad = g.Cantidad;
+                        InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
+                    }
                 }
                 else
                 {
-                    error += "El gusto de id: " + g.IdGustoEmpanada + "No está disponible.<br>";
+                    int gusto = g.IdGustoEmpanada;
+                    error += "El gusto de id: " + gusto + "No está disponible.<br>";
                 }
             }
             return error;
@@ -76,7 +89,7 @@ namespace LasEmpanadas.Services
             Order.IdEstadoPedido = 1;
             Order.FechaCreacion = DateTime.Now;
             Order.FechaModificacion = null;
-            
+
             ///Pedido CreatedOrder = PedidoRepo.Create(Order);
 
             foreach (int idGustoEmpanada in Order.GustoEmpanadaDisponibles)
@@ -100,7 +113,7 @@ namespace LasEmpanadas.Services
 
         internal Pedido FindOneById(int? IdPedido)
         {
-           return PedidoRepo.FindOneById(IdPedido);
+            return PedidoRepo.FindOneById(IdPedido);
         }
 
         internal void Edit(Pedido p)
@@ -152,7 +165,7 @@ namespace LasEmpanadas.Services
         internal List<Pedido> FindPedidosByUser(int? IdUser)
         {
             return PedidoRepo.FindPedidosByUser(IdUser);
-            }
+        }
 
         internal List<Pedido> FindAll()
         {
@@ -194,7 +207,7 @@ namespace LasEmpanadas.Services
                 PrecioUnidad = Pedido.PrecioUnidad,
                 usuarios = Usuarios,
                 CantidadEmpanadasPorGustosYUsuarios = invitacionPedidoGustos,
-                 invitaciones = invitaciones
+                invitaciones = invitaciones
             };
             return PedidoCompleto;
         }

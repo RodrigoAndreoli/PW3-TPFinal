@@ -29,7 +29,7 @@ function calcularTotal() {
 function saveGustos() {
     var idUser = parseInt($("#IdUsuario").val());
     $.ajax({
-        url: "#",
+        url: "http://localhost:52521/api/Pedido/ConfirmarGustos/",
         type: 'POST',
         headers: {
             Accept: "application/json",
@@ -41,7 +41,13 @@ function saveGustos() {
             "Token": $("#token").val(),
             "GustosEmpanadasCantidad": getGustosCantidad()
         },        
-        success: function () { sendSuccessAlert(); }
+        success: function (data) {
+            debugger;
+            sendSuccessAlert();
+        },
+        error: function (data) {
+            debugger;
+        }
     });
 }
 function getGustosCantidad() {

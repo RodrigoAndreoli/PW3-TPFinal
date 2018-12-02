@@ -51,7 +51,7 @@
                     <label class="uk-form-label" for="selectGusto">Gustos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
-                            @foreach(var gusto in ViewBag.LosGustos) {
+                            @foreach(var gusto in ViewBag.TodosLosGustos) {
                                 <option value="@gusto.IdGustoEmpanada">@gusto.Nombre</option>
                             }
                         </select>
