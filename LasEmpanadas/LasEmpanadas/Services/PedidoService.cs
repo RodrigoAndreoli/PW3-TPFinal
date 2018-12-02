@@ -127,14 +127,13 @@ namespace LasEmpanadas.Services
                 ///CreatedOrder.GustoEmpanada.Add(gustoDisponible);
             }
             Pedido CreatedOrder = PedidoRepo.Create(Order);
-            //PedidoRepo.SaveChanges();
-
-            //CreatedOrder = PedidoRepo.Attach(CreatedOrder);
-
+            
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
             UsuarioSvc.CheckEmailList(Order.EmailsInvitados);
+            
             //Creo un nuevo registro en la tabla InvitacionPedido.
             InvitacionPedidoSvc.Create(Order);
+            
             ///InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
             return CreatedOrder;
         }

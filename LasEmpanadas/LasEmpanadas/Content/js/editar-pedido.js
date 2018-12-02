@@ -6,7 +6,7 @@
         initializeSelectGusto();
     }
 
-    $('#selectEmail').select2({
+    $('#UsuariosNuevosString').select2({
         tags: true,
         tokenSeparators: [',', ' ']
     });

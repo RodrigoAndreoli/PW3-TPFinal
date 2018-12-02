@@ -74,8 +74,9 @@ namespace LasEmpanadas.Controllers
             Pedido P = PedidoSvc.BuildPedido(Pedido);
             PedidoSvc.Edit(P);
             UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
+            InvitacionPedidoService.AddEmails(Pedido);
             PedidoSvc.SendEmails(Pedido);
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista", new { idUser = Pedido.IdUsuarioResponsable });
         }
 
         public ActionResult Eliminar(int? IdPedido)
@@ -92,7 +93,7 @@ namespace LasEmpanadas.Controllers
         {
             Pedido Order = PedidoSvc.FindOneById(IdPedido);
             PedidoSvc.DeleteOrder(Order);
-            return RedirectToAction("Lista");
+            return RedirectToAction("Lista", new { idUser = Order.IdUsuarioResponsable });
         }
         /// <summary>
         /// TODO: Tengo que pasar todo el choclo a un servicio

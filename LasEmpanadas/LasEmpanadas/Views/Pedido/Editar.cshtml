@@ -70,6 +70,7 @@
                     </div>
                 </div>
             </div>
+
             <div uk-grid>
                 <div class="uk-width-3-6">
                     <label class="uk-form-label" for="selectEmail">Sección de amigos:</label>
@@ -93,29 +94,31 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div uk-grid>
-                    <div class="uk-width-3-6">
-                        <label class="uk-form-label" for="selectEmail">Agregar mas amigos:</label>
-                        <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
-                            <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple"></select>
-                            <span class="validation-msg">@Html.ValidationMessageFor(P => P.usuariosNuevos)</span>
-                        </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-3-6">
+                    <label class="uk-form-label" for="UsuariosNuevosString">Agregar mas amigos:</label>
+                    <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
+                        <select id="UsuariosNuevosString" class="uk-select multiple" name="UsuariosNuevosString" multiple="multiple"></select>
+                        <span class="validation-msg">@Html.ValidationMessageFor(P => P.UsuariosNuevosString)</span>
                     </div>
                 </div>
-
-                <label class="uk-form-label" for="reenviar">Reenviar emails</label>
-                <select name="reenviar" id="reenviar">
-                    <option value="1" selected>A nadie</option>
-                    <option value="2">Re-enviar invitacion a todos</option>
-                    <option value="3">Enviar solo a los nuevos</option>
-                    <option value="4">Re-Enviar solo a los que no eligieron gustos</option>
-                </select>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-3-6">
+                    <label class="uk-form-label" for="reenviar">Reenviar emails</label>
+                    <select name="reenviar" id="reenviar">
+                        <option value="1" selected>A nadie</option>
+                        <option value="2">Re-enviar invitacion a todos</option>
+                        <option value="3">Enviar solo a los nuevos</option>
+                        <option value="4">Re-Enviar solo a los que no eligieron gustos</option>
+                    </select>
+                </div>
             </div>
             <div uk-grid>
                 <div class="uk-width-6-6">
                     <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</a>
-                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-button uk-button-primary uk-button-small" />
+                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Editar Pedido" class="uk-button uk-button-primary uk-button-small" />
                 </div>
             </div>
         }
