@@ -12,17 +12,17 @@ namespace LasEmpanadas.Services
 
         public UsuarioService()
         {
-            this.db = new MasterEntities();
-            this.UsuarioRepo = new UsuarioRepository(this.db);
+            db = new MasterEntities();
+            UsuarioRepo = new UsuarioRepository(db);
         }
 
         public UsuarioService(MasterEntities db)
         {
             this.db = db;
-            this.UsuarioRepo = new UsuarioRepository(this.db);
+            UsuarioRepo = new UsuarioRepository(this.db);
         }
 
-        internal void CheckEmailList(string[ ] EmailList)
+        internal void CheckEmailList(string[] EmailList)
         {
             foreach (string Email in EmailList)
             {
@@ -67,9 +67,9 @@ namespace LasEmpanadas.Services
 
         internal void RegisterUserFromEmailList(List<string> usuariosNuevosString)
         {
-            foreach(string s in usuariosNuevosString)
+            if (usuariosNuevosString != null)
             {
-                RegisterUserFromEmail(s);
+                CheckEmailList(usuariosNuevosString.ToArray());
             }
         }
     }

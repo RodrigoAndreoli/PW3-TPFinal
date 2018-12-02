@@ -74,12 +74,19 @@ namespace LasEmpanadas.Controllers
             PedidoSvc.FillPedidoDTO(Pedido);
             Pedido P = PedidoSvc.BuildPedido(Pedido);
             PedidoSvc.Edit(P);
+<<<<<<< HEAD
             if(Pedido.UsuariosNuevosString != null)
             {
                 UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
             }
             PedidoSvc.SendEmails(Pedido);
             return RedirectToAction("Lista");
+=======
+            UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
+            InvitacionPedidoService.AddEmails(Pedido);
+            PedidoSvc.SendEmails(Pedido);
+            return RedirectToAction("Lista", new { idUser = Pedido.IdUsuarioResponsable });
+>>>>>>> develop
         }
 
         public ActionResult Eliminar(int? IdPedido)
@@ -96,7 +103,7 @@ namespace LasEmpanadas.Controllers
         {
             Pedido Order = PedidoSvc.FindOneById(IdPedido);
             PedidoSvc.DeleteOrder(Order);
-            return RedirectToAction("Lista");
+            return RedirectToAction("Lista", new { idUser = Order.IdUsuarioResponsable });
         }
         /// <summary>
         /// TODO: Tengo que pasar todo el choclo a un servicio
@@ -117,7 +124,6 @@ namespace LasEmpanadas.Controllers
                 PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
                 InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
                 invitacionAUtilizar.Pedido = PedidoAEditar;
-                ViewBag.token = miInvitacion.Token.ToString();
                 return View("Elegir", invitacionAUtilizar);
             }
             return RedirectToAction("Lista", new { idUser = idUser});
@@ -141,16 +147,16 @@ namespace LasEmpanadas.Controllers
                 PedidoAEditar.GustoEmpanada = PedidoSvc.GetGustosDisponibles(miInvitacion.IdPedido);
                 InvitacionPedidoGustoEmpanadaUsuario invitacionAUtilizar = InvPedidoGustoSvc.OpenInvitation(miInvitacion);
                 invitacionAUtilizar.Pedido = PedidoAEditar;
-                ViewBag.token = miInvitacion.Token.ToString();
                 return View(invitacionAUtilizar);
             }
             return RedirectToAction("Lista", new { idUser = idUser });
         }
 
         [HttpPost]
-        public ActionResult Elegir(InvitacionPedidoGustoEmpanadaUsuario seleccionUsuario)
+        public ActionResult Elegir(InvitacionPedido invitacionCompletada)
         {
-            return View();
+            InvitacionPedidoService.CompletarInvitacion(invitacionCompletada.Token);
+            return RedirectToAction("Lista", new { idUser = invitacionCompletada.IdUsuario });
         }
 
         public ActionResult Detalle(int? IdPedido)

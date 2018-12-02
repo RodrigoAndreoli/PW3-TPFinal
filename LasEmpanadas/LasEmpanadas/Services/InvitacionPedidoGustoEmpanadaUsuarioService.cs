@@ -53,6 +53,10 @@ namespace LasEmpanadas.Services
             return invAEditar;
         }
 
+        internal List<InvitacionPedidoGustoEmpanadaUsuario> FindAllByPedidoAndUser(int idPedido, int IdUsuario)
+        {
+            return InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedidoAndUser(idPedido, IdUsuario);
+        }
 
         internal List<InvitacionPedidoGustoEmpanadaUsuario> FindAllByPedido(int? idPedido)
         {
