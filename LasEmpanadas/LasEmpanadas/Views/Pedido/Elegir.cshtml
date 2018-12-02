@@ -63,7 +63,7 @@
                     Docena $ <span id="precio-docena">@Model.Pedido.PrecioDocena</span>
                 </div>
             </div>
-            @using (Html.BeginForm("Iniciar", "Pedido", FormMethod.Post, new { @class = "uk-form-horizontal", @id = "form" }))
+            @using (Html.BeginForm( new { @class = "uk-form-horizontal", @id = "form" }))
             {
                 @Html.HiddenFor(i => i.IdUsuario)
                 <input type="hidden" id="token" value="@ViewBag.token"></input>
@@ -90,6 +90,10 @@
                                         {
                                             @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad", @Value = invitation.Cantidad })
                                         }
+                                    }
+                                    @if (Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Count == 0)
+                                    {
+                                        @Html.TextBoxFor(i => i.Cantidad, new { @class = "uk-input cantidad", @Type = "number", @placeholder = "Cantidad" })
                                     }
                                 </td>
                                 <td>$ <span class="precio-subtotal">0</span></td>
