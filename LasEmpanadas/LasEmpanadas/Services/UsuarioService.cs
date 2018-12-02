@@ -54,8 +54,9 @@ namespace LasEmpanadas.Services
         {
             string FirstPart = Email.Split('@')[0];
             string SecondPart = DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-      
-            return FirstPart + '.' + SecondPart;
+
+            //return FirstPart + '.' + SecondPart;
+            return "test1234";
         }
 
         internal int GetIdFromEmail(string Email)
