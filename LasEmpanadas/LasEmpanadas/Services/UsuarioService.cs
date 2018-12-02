@@ -1,6 +1,7 @@
 ﻿using LasEmpanadas.Models;
 using LasEmpanadas.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace LasEmpanadas.Services
 {
@@ -64,6 +65,13 @@ namespace LasEmpanadas.Services
             return UsuarioRepo.FindOneByEmail(Email).IdUsuario;
         }
 
+        internal void RegisterUserFromEmailList(List<string> usuariosNuevosString)
+        {
+            foreach(string s in usuariosNuevosString)
+            {
+                RegisterUserFromEmail(s);
+            }
+        }
     }
 
 }

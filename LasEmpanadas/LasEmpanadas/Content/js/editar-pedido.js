@@ -13,11 +13,10 @@
 
     $('#buttonSubmit').on('click', function () {
         $('#form').submit();
-        
+
     });
-
-
 });
-    function initializeSelectGusto() {
-        $('#selectGusto').select2();
-    }
+
+function initializeSelectGusto() {
+    $('#selectGusto').select2();
+}

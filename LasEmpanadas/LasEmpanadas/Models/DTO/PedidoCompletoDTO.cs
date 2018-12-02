@@ -12,12 +12,15 @@ namespace LasEmpanadas.Models.DTO
         public int IdEstadoPedido { get; set; }
         public int PrecioUnidad { get; set; }
         public int PrecioDocena { get; set; }
+        public int Reenviar { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
 
         public List<InvitacionPedidoGustoEmpanadaUsuario> CantidadEmpanadasPorGustosYUsuarios { get; set; }
         public List<InvitacionPedido> invitaciones { get; set; }
         public List<Usuario> usuarios { get; set; }
+        public List<Usuario> UsuariosNuevos { get; set; }
+        public List<string> UsuariosNuevosString { get; set; }
         public List<GustoEmpanada> gustoEmpanadas { get; set; }
     }
 }
