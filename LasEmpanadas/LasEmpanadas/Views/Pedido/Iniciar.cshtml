@@ -1,7 +1,7 @@
 ﻿@using LasEmpanadas.Models
 @model Pedido
 @{
-    var gustos = ViewBag.TodosLosGustos;
+
     ViewBag.Title = "Iniciar";
     Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
@@ -52,7 +52,7 @@
                     <div class="uk-form-controls" uk-tooltip="title: Seleccione los gustos...; pos: top-right">
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
                             @foreach(var gusto in ViewBag.TodosLosGustos) {
-                                <option value="@gusto.IdGustoEmpanada">@gusto.Nombre</option>
+                                <option value="@gusto.Id">@gusto.Gusto</option>
                             }
                         </select>
                         <span class="validation-msg">@Html.ValidationMessageFor(P => P.GustoEmpanadaDisponibles)</span>
