@@ -59,6 +59,7 @@ namespace LasEmpanadas.Services
                         if (gustoEncontrado != null)
                         {
                             gustoEncontrado.Cantidad = g.Cantidad;
+                            Db.SaveChanges();
                         }
                         else
                         {
