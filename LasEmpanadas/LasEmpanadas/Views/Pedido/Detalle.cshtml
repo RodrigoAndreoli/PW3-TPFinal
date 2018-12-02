@@ -11,7 +11,7 @@
             <div class="uk-grid-small uk-flex-center" uk-grid>
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">Pedido #@Model.IdPedido</h3>
-                    @*<p class="uk-text-meta uk-margin-remove-top">Usuario responsable: @Model.usuarios.Find(x => x.IdUsuario == Model.IdUsuarioResponsable).Email</p>*@
+                    <p class="uk-text-meta uk-margin-remove-top">Usuario responsable: @Model.usuarios.Find(x => x.IdUsuario == Model.IdUsuarioResponsable).Email</p>
                 </div>
                 <div>
                     <p class="uk-text-meta uk-margin-remove-top">@Html.ActionLink("Ir a Lista Pedidos", "Lista", "Pedido", new { IdUser = Convert.ToInt32(Session["idUser"]) }, new { @class = "fa-lg uk-text-primary" })</p>
