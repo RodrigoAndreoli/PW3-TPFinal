@@ -39,6 +39,30 @@ namespace LasEmpanadas.Services
             this.GustoEmpanadaSvc = new GustoEmpanadaService(this.Db);
         }
 
+        internal string ConfirmarGustos(InvitacionPedido ip, ConfirmarcionGustoDTO c)
+        {
+            String error = "";
+
+            Pedido p = FindOneById(ip.IdPedido);
+
+
+            List<InvitacionPedidoGustoEmpanadaUsuario> i = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(p.IdPedido);
+
+            foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
+            {
+                if (Array.IndexOf(p.GustoEmpanadaDisponibles, g.IdGustoEmpanada) > -1)
+                {
+                    InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
+                    gustoEncontrado.Cantidad = g.Cantidad;
+                }
+                else
+                {
+                    error += "El gusto de id: " + g.IdGustoEmpanada + "No está disponible.<br>";
+                }
+            }
+            return error;
+        }
+
 
         /// <summary>
         /// Crea y guarda un nuevo pedido

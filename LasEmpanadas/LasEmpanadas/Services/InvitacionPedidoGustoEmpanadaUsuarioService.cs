@@ -59,6 +59,11 @@ namespace LasEmpanadas.Services
             return InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(idPedido);
         }
 
+        internal List<InvitacionPedidoGustoEmpanadaUsuario> FindAllByPedido(int idPedido)
+        {
+            return InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(idPedido);
+        }
+
         internal void DeleteByOrder(Pedido Order)
         {
             List<InvitacionPedidoGustoEmpanadaUsuario> Rows = InvitacionPedidoGustoEmpanadaUsuarioRepo.FindAllByPedido(Order.IdPedido);
