@@ -70,12 +70,16 @@ namespace LasEmpanadas.Controllers
         [HttpPost]
         public ActionResult Editar(PedidoCompletoDTO Pedido)
         {
+            Pedido.IdEstadoPedido = 2;
             PedidoSvc.FillPedidoDTO(Pedido);
             Pedido P = PedidoSvc.BuildPedido(Pedido);
             PedidoSvc.Edit(P);
-            UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
+            if(Pedido.UsuariosNuevosString != null)
+            {
+                UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
+            }
             PedidoSvc.SendEmails(Pedido);
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         public ActionResult Eliminar(int? IdPedido)

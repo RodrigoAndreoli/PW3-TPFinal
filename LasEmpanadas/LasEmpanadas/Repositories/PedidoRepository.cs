@@ -49,6 +49,11 @@ namespace LasEmpanadas.Repositories
         internal Pedido Update(Pedido Order)
         {
             Pedido OrderFromDb = FindOneById(Order.IdPedido);
+            if (Order.IdEstadoPedido == 2)
+            {
+                OrderFromDb.EstadoPedido = Db.EstadoPedido.FirstOrDefault(x => x.IdEstadoPedido == 2);
+                OrderFromDb.IdEstadoPedido = 2;
+            }
             OrderFromDb.NombreNegocio = Order.NombreNegocio;
             OrderFromDb.Descripcion = Order.Descripcion;
             OrderFromDb.PrecioUnidad = Order.PrecioUnidad;

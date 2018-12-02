@@ -13,7 +13,7 @@
 
 <div class="main-container uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-height-viewport="offset-top: true">
     <div class="iniciar-pedido-form uk-card-default uk-card-hover uk-card-body">
-        <h2>Encarga un nuevo Pedido</h2>
+        <h2>Edit&aacute; tu pedido</h2>
         @using (Html.BeginForm("Editar", "Pedido", FormMethod.Post, new { @class = "uk-form-stacked", @id = "form" }))
         {
             @Html.TextBoxFor(P => P.IdPedido, new { id = "idPedido", Style = "display: none" })
@@ -94,30 +94,32 @@
                     </table>
                 </div>
 
-                <div uk-grid>
-                    <div class="uk-width-3-6">
+                    <div class="uk-width-6-6">
                         <label class="uk-form-label" for="selectEmail">Agregar mas amigos:</label>
                         <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
                             <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple"></select>
-                            <span class="validation-msg">@Html.ValidationMessageFor(P => P.usuariosNuevos)</span>
+                            <span class="validation-msg">@Html.ValidationMessageFor(P => P.UsuariosNuevos)</span>
                         </div>
                     </div>
+                    <div class="uk-width-1-2 uk-margin-large-top">
+                        <span class="uk-margin-medium-right">Reenviar emails</span>
+                        <select name="reenviar" id="reenviar">
+                            <option value="1" selected>A nadie</option>
+                            <option value="2">Re-enviar invitacion a todos</option>
+                            <option value="3">Enviar solo a los nuevos</option>
+                            <option value="4">Re-Enviar solo a los que no eligieron gustos</option>
+                        </select>
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-large-top">
+                        <span class="uk-margin-medium-right">¿Desea cerrar el pedido?</span><input type="checkbox" name="IdEstadoPedido" value="close">
+                    </div>
                 </div>
-
-                <label class="uk-form-label" for="reenviar">Reenviar emails</label>
-                <select name="reenviar" id="reenviar">
-                    <option value="1" selected>A nadie</option>
-                    <option value="2">Re-enviar invitacion a todos</option>
-                    <option value="3">Enviar solo a los nuevos</option>
-                    <option value="4">Re-Enviar solo a los que no eligieron gustos</option>
-                </select>
-            </div>
-            <div uk-grid>
-                <div class="uk-width-6-6">
-                    <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</a>
-                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Iniciar Pedido" class="uk-button uk-button-primary uk-button-small" />
+                <div uk-grid>
+                    <div class="uk-width-6-6">
+                        <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small uk-float-left">Cancelar</a>
+                        <input id="buttonSubmit" type="submit" name="sendPedido" value="Guardar Cambios" class="uk-button uk-button-primary uk-button-small uk-float-right" />
+                    </div>
                 </div>
-            </div>
         }
     </div>
 </div>
