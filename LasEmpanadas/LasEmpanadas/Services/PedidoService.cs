@@ -41,13 +41,13 @@ namespace LasEmpanadas.Services
 
         internal string ConfirmarGustos(InvitacionPedido ip, ConfirmarcionGustoDTO c)
         {
-            String error = "";
 
             Pedido p = FindOneById(ip.IdPedido);
 
 
             List<InvitacionPedidoGustoEmpanadaUsuario> i = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedido(p.IdPedido);
 
+            String mensaje = "";
             foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
             {
                 GustoEmpanada GustoEmpanada = GustoEmpanadaSvc.FindById(g.IdGustoEmpanada);
@@ -56,24 +56,39 @@ namespace LasEmpanadas.Services
                     if (i != null && i.Count != 0)
                     {
                         InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
-                        gustoEncontrado.Cantidad = g.Cantidad;
+                        if (gustoEncontrado != null)
+                        {
+                            gustoEncontrado.Cantidad = g.Cantidad;
+                        }
+                        else
+                        {
+                            InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario
+                            {
+                                IdGustoEmpanada = g.IdGustoEmpanada,
+                                IdPedido = p.IdPedido,
+                                IdUsuario = c.IdUsuario,
+                                Cantidad = g.Cantidad
+                            };
+                            InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
+                        }
                     } else
                     {
-                        InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario();
-                        gusto.IdGustoEmpanada = g.IdGustoEmpanada;
-                        gusto.IdPedido = p.IdPedido;
-                        gusto.IdUsuario = c.IdUsuario;
-                        gusto.Cantidad = g.Cantidad;
+                        InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario
+                        {
+                            IdGustoEmpanada = g.IdGustoEmpanada,
+                            IdPedido = p.IdPedido,
+                            IdUsuario = c.IdUsuario,
+                            Cantidad = g.Cantidad
+                        };
                         InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
                     }
                 }
                 else
                 {
-                    int gusto = g.IdGustoEmpanada;
-                    error += "El gusto de id: " + gusto + "No está disponible.<br>";
+                    mensaje = "Hay gustos que no están disponibles";                 
                 }
             }
-            return error;
+            return mensaje;
         }
 
 

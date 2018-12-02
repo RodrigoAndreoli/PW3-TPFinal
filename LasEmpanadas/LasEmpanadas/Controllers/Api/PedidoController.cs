@@ -21,7 +21,7 @@ namespace LasEmpanadas.Controllers.Api
         {
             ConfirmarcionGustoDTO c = JsonConvert.DeserializeObject<ConfirmarcionGustoDTO>(jsonResult.ToString());
             InvitacionPedido ip = InvitacionPedidoService.FindOneByToken(c.Token);
-            String error = "";
+            String mensaje = "";
 
             if (ip.Completado)
             {
@@ -29,13 +29,14 @@ namespace LasEmpanadas.Controllers.Api
             }
             else
             {
-                error = PedidoService.ConfirmarGustos(ip, c);
-                
+                mensaje = PedidoService.ConfirmarGustos(ip, c);
+                if (mensaje != "")
+                    return new JObject("{'Resultado':'Error','Mensaje': " + mensaje + "}");
+                else
+                    return new JObject("{'Resultado':'OK','Mensaje': Gustos confirmados.}");
 
-                return new JObject("{'Resultado':'Error','Mensaje': " + error);
 
             }
-            Console.WriteLine(c);
         }
     }
 }
