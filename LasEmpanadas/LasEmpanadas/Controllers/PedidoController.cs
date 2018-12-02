@@ -26,7 +26,6 @@ namespace LasEmpanadas.Controllers
             }
 
             ViewBag.TodosLosGustos = GustoEmpanadaService.GetAllAsView();
-            ViewBag.LosGustos = GustoEmpanadaService.FindAll();
             return View();
         }
 
