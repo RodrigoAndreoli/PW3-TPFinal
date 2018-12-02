@@ -94,6 +94,16 @@
                     </table>
                 </div>
 
+                <div uk-grid>
+                    <div class="uk-width-3-6">
+                        <label class="uk-form-label" for="selectEmail">Agregar mas amigos:</label>
+                        <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
+                            <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple"></select>
+                            <span class="validation-msg">@Html.ValidationMessageFor(P => P.usuariosNuevos)</span>
+                        </div>
+                    </div>
+                </div>
+
                 <label class="uk-form-label" for="reenviar">Reenviar emails</label>
                 <select name="reenviar" id="reenviar">
                     <option value="1" selected>A nadie</option>

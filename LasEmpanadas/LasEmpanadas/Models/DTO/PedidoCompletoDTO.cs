@@ -19,7 +19,8 @@ namespace LasEmpanadas.Models.DTO
         public List<InvitacionPedidoGustoEmpanadaUsuario> CantidadEmpanadasPorGustosYUsuarios { get; set; }
         public List<InvitacionPedido> invitaciones { get; set; }
         public List<Usuario> usuarios { get; set; }
-        public List<Usuario> usuariosNuevos { get; set; }
+        public List<Usuario> UsuariosNuevos { get; set; }
+        public List<string> UsuariosNuevosString { get; set; }
         public List<GustoEmpanada> gustoEmpanadas { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace LasEmpanadas.Controllers
         InvitacionPedidoGustoEmpanadaUsuarioService InvPedidoGustoSvc = new InvitacionPedidoGustoEmpanadaUsuarioService();
         InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         GustoEmpanadaService GustoEmpanadaService = new GustoEmpanadaService();
+        UsuarioService UsuarioService = new UsuarioService();
         public ActionResult Iniciar()
         {
             if (Session["loggedUser"] == null)
@@ -69,11 +70,11 @@ namespace LasEmpanadas.Controllers
         [HttpPost]
         public ActionResult Editar(PedidoCompletoDTO Pedido)
         {
+            PedidoSvc.FillPedidoDTO(Pedido);
             Pedido P = PedidoSvc.BuildPedido(Pedido);
-
-            PedidoSvc.FillPedidoDTO(Pedido, P);
-            PedidoSvc.SendEmails(Pedido);
             PedidoSvc.Edit(P);
+            UsuarioService.RegisterUserFromEmailList(Pedido.UsuariosNuevosString);
+            PedidoSvc.SendEmails(Pedido);
             return RedirectToAction("Index");
         }
 

@@ -93,9 +93,10 @@ namespace LasEmpanadas.Services
             return mensaje;
         }
 
-        internal void FillPedidoDTO(PedidoCompletoDTO Pedido, Pedido P)
+        internal void FillPedidoDTO(PedidoCompletoDTO Pedido)
         {
             List<InvitacionPedido> i = InvitacionPedidoSvc.FindAllByPedidoId(Pedido.IdPedido);
+            Pedido.invitaciones = i;
         }
 
         internal void SendEmails(PedidoCompletoDTO Pedido)

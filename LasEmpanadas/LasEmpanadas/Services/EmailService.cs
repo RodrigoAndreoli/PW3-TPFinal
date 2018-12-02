@@ -1,11 +1,9 @@
-﻿using System;
+﻿using LasEmpanadas.Models;
+using LasEmpanadas.Models.DTO;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Net;
 using System.Net.Mail;
-using LasEmpanadas.Models;
-using LasEmpanadas.Models.DTO;
 
 namespace LasEmpanadas.Services
 {
@@ -20,10 +18,11 @@ namespace LasEmpanadas.Services
                "@Test1234");
             try
             {
-            smtp.Send("lasempanadas.empanadas@gmail.com", email,
-               "Nueva invitacion a pedido", "http://localhost:52521/Pedido/Elegir?token="+token.ToString());
+                smtp.Send("lasempanadas.empanadas@gmail.com", email,
+                   "Nueva invitacion a pedido", "http://localhost:52521/Pedido/Elegir?token=" + token.ToString());
                 return 1;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return 0;
             }
@@ -31,32 +30,48 @@ namespace LasEmpanadas.Services
 
         internal void ResendEmails(PedidoCompletoDTO Pedido)
         {
+            List<Usuario> usuarios = new List<Usuario>();
+            foreach (InvitacionPedido inv in Pedido.invitaciones)
+            {
+                usuarios.Add(inv.Usuario);
+            }
             switch (Pedido.Reenviar)
             {
                 case 2:
-                    foreach(Usuario u in Pedido.usuarios)
+                    foreach (Usuario u in usuarios)
                     {
                         InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
                         SendEmail(u.Email, i.Token);
                     }
-                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    if (Pedido.UsuariosNuevosString != null)
                     {
-                        InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
-                        SendEmail(u.Email, i.Token);
+                        foreach (string u in Pedido.UsuariosNuevosString)
+                        {
+                            InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
+                            SendEmail(u, i.Token);
+                        }
                     }
                     break;
 
                 case 3:
-                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    if (Pedido.UsuariosNuevosString != null)
                     {
-
+                        foreach (string u in Pedido.UsuariosNuevosString)
+                        {
+                            InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
+                            SendEmail(u, i.Token);
+                        }
                     }
                     break;
 
                 case 4:
-                    foreach (Usuario u in Pedido.usuariosNuevos)
+                    foreach (Usuario u in usuarios)
                     {
-
+                        InvitacionPedido i = Pedido.invitaciones.Find(x => x.IdPedido == Pedido.IdPedido);
+                        if (i.Completado == false)
+                        {
+                            SendEmail(u.Email, i.Token);
+                        }
                     }
                     break;
             }

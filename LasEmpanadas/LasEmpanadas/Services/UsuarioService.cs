@@ -65,6 +65,13 @@ namespace LasEmpanadas.Services
             return UsuarioRepo.FindOneByEmail(Email).IdUsuario;
         }
 
+        internal void RegisterUserFromEmailList(List<string> usuariosNuevosString)
+        {
+            foreach(string s in usuariosNuevosString)
+            {
+                RegisterUserFromEmail(s);
+            }
+        }
     }
 
 }
