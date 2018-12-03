@@ -239,7 +239,25 @@ namespace LasEmpanadas.Services
             };
             return PedidoCompleto;
         }
-    }
+
+        public void EnviarMailConfirmacionInvitados(int? idPedido) {
+            PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
+            foreach (Usuario u in p.usuarios) {
+                String mensaje = "gustos totales: \n cantidad por gusto: \n cantidad total: \n precio a abonar: ";
+                EmailService.SendConfirmMail(u.Email, mensaje);
+            }
+        }
+
+        public void EnviarMailConfirmacionResponsable(int? idPedido)
+        {
+            PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
+            String mensaje = "precio total: \n invitados: \n gustos: ";
+            EmailService.SendConfirmMail(UsuarioSvc.FindOneById(p.IdUsuarioResponsable).Email, mensaje);
+        }
+    }   
+        
+
+    
 
 }
 
