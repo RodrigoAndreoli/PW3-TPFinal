@@ -53,9 +53,12 @@
                         <select id="selectGusto" class="uk-select multiple" name="GustoEmpanadaDisponibles" multiple="multiple">
                             @foreach (var gusto in ViewBag.TodosLosGustos)
                             {
-                                if (Model.GustoEmpanada.Any(i => i.IdGustoEmpanada == gusto.Id))
+                                if (Model !=null && Model.GustoEmpanada.Any())
                                 {
-                                    <option value="@gusto.Id" selected="selected">@gusto.Gusto</option>
+                                    if (Model.GustoEmpanada.Any(i => i.IdGustoEmpanada == gusto.Id))
+                                    {
+                                        <option value="@gusto.Id" selected="selected">@gusto.Gusto</option>
+                                    }
                                 }
                                 else
                                 {
@@ -72,11 +75,11 @@
                     <label class="uk-form-label" for="selectEmail">Invit&aacute; a tus amigos:</label>
                     <div class="uk-form-controls" uk-tooltip="title: Ingrese los emails separados por coma , ; pos: top-right">
                         <select id="selectEmail" class="uk-select multiple" name="EmailsInvitados" multiple="multiple">
-                            @if (Model.InvitacionPedido.Any())
+                            @if (Model != null && Model.InvitacionPedido.Any())
                             {
                                 foreach (var invitado in Model.InvitacionPedido)
                                 {
-                                    <option value="@invitado.IdUsuario" selected="selected">
+                                    <option value="@invitado.Usuario.Email" selected="selected">
                                         @invitado.Usuario.Email
                                     </option>
                                 }
