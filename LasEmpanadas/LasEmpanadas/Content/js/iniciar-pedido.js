@@ -5,6 +5,12 @@
         $('#selectGusto').select2('destroy');
         initializeSelectGusto();
     }
+    if (!$('#selectEmail').hasClass("select2-hidden-accessible")) {
+        initializeSelectEmail();
+    } else {
+        $('#selectEmail').select2('destroy');
+        initializeSelectEmail();
+    }
 
     $('#selectEmail').select2({
         tags: true,
@@ -20,4 +26,7 @@
 
 function initializeSelectGusto() {
     $('#selectGusto').select2();
+}
+function initializeSelectEmail() {
+    $('#selectEmail').select2();
 }

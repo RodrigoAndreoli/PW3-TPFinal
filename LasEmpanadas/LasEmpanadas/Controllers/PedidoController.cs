@@ -18,6 +18,7 @@ namespace LasEmpanadas.Controllers
         InvitacionPedidoService InvitacionPedidoService = new InvitacionPedidoService();
         GustoEmpanadaService GustoEmpanadaService = new GustoEmpanadaService();
         UsuarioService UsuarioService = new UsuarioService();
+
         public ActionResult Iniciar()
         {
             if (Session["loggedUser"] == null)
@@ -57,6 +58,31 @@ namespace LasEmpanadas.Controllers
             }
             List<Pedido> OrderList = PedidoSvc.FindPedidosByUser(IdUser);
             return View(OrderList);
+        }
+
+        public ActionResult Repetir(int id)
+        {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            Pedido p = PedidoSvc.FindOneById(id);
+            ViewBag.TodosLosGustos = GustoEmpanadaService.GetAllAsView();
+            return View("Iniciar", p);
+        }
+
+        [HttpPost]
+        public ActionResult Repetir(Pedido Order)
+        {
+            if (ModelState.IsValid)
+            {
+                Pedido CreatedOrder = PedidoSvc.CreateOrder(Order);
+                return RedirectToAction("Iniciado", new { id = CreatedOrder.IdPedido });
+            }
+            else
+            {
+                return View("Iniciar",Order);
+            }
         }
 
         public ActionResult Editar(int? IdPedido)
