@@ -9,6 +9,28 @@ namespace LasEmpanadas.Services
 {
     public class EmailService
     {
+
+        internal int SendConfirmMail(string Email,String Mensaje)
+        {
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+            smtp.Credentials = new NetworkCredential("lasempanadas.empanadas@gmail.com",
+               "@Test1234");
+            try
+            {
+                smtp.Send("lasempanadas.empanadas@gmail.com", Email,
+                   "Confirmacion de pedido",Mensaje
+                   );
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+
         internal int SendEmail(string email, Guid token)
         {
             SmtpClient smtp = new SmtpClient("smtp.gmail.com");
