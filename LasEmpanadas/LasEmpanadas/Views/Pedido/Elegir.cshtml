@@ -109,11 +109,11 @@
                 <div class="uk-text-large">
                     Total: $<b><span id="precio-total">150</span></b>
                 </div>
+                <div class="uk-text-large">
+                     <label for="pedidoCerradoCheck">¿Finalizar invitación?</label>
+                    <input class="uk-checkbox" type="checkbox" id="pedidoCerradoCheck" name="pedidoCerradoCheck"/>
+                </div>
                 <input id="grabar" value="Guardar" class="uk-button uk-button-primary uk-margin-medium-top uk-text-bold" />
-                if (Model.Pedido.InvitacionPedidoGustoEmpanadaUsuario.Any(i => i.IdUsuario == Model.IdUsuario && i.IdPedido == Model.IdPedido))
-                {
-                    <input type="submit" value="Completar" class="uk-button uk-button-success uk-margin-medium-top uk-text-bold" />
-                }
 
             }
         </div>
