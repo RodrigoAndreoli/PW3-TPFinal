@@ -104,6 +104,15 @@ namespace LasEmpanadas.Controllers
             return RedirectToAction("Lista", new { idUser = Pedido.IdUsuarioResponsable });
         }
 
+        public ActionResult Cerrar(int id)
+        {
+            if (Session["loggedUser"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            PedidoSvc.CerrarPedido(id);
+            return RedirectToAction("Detalle", new { idPedido = id});
+        }
         public ActionResult Eliminar(int? IdPedido)
         {
             if (Session["loggedUser"] == null)

@@ -207,6 +207,7 @@ namespace LasEmpanadas.Services
         {
             return PedidoRepo.GetAll();
         }
+        
 
         public PedidoCompletoDTO ObtenerPedidoCompleto(int? idPedido)
         {
@@ -247,6 +248,13 @@ namespace LasEmpanadas.Services
             };
             return PedidoCompleto;
         }
+        internal void CerrarPedido(int id)
+        {
+            PedidoRepo.Cerrar(id);
+            EnviarMailConfirmacionInvitados(id);
+            EnviarMailConfirmacionResponsable(id);
+        }
+  
 
         public void EnviarMailConfirmacionInvitados(int? idPedido)
         {
@@ -258,16 +266,12 @@ namespace LasEmpanadas.Services
             }
         }
 
-        public void EnviarMailConfirmacionResponsable(int? idPedido)
+        public void EnviarMailConfirmacionResponsable(int idPedido)
         {
             PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
             String mensaje = "precio total: \n invitados: \n gustos: ";
             EmailService.SendConfirmMail(UsuarioSvc.FindOneById(p.IdUsuarioResponsable).Email, mensaje);
         }
-    }
-
-
-
-
+    }   
 }
 
