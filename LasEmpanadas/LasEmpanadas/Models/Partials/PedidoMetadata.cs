@@ -22,7 +22,6 @@ namespace LasEmpanadas.Models
         [Display(Name = "Nombre del negocio")]
         public string NombreNegocio { get; set; }
 
-        [Required(ErrorMessage = "El campo es requerido")]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
