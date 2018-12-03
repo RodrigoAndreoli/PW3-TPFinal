@@ -199,6 +199,7 @@ namespace LasEmpanadas.Services
         {
             return PedidoRepo.GetAll();
         }
+        
 
         public PedidoCompletoDTO ObtenerPedidoCompleto(int? idPedido)
         {
@@ -238,6 +239,10 @@ namespace LasEmpanadas.Services
                 invitaciones = invitaciones
             };
             return PedidoCompleto;
+        }
+        internal void CerrarPedido(int id)
+        {
+            PedidoRepo.Cerrar(id);
         }
     }
 

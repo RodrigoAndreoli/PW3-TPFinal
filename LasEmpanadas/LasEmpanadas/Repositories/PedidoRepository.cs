@@ -65,6 +65,25 @@ namespace LasEmpanadas.Repositories
             Db.SaveChanges();
         }
 
+        internal void Cerrar(int id)
+        {
+            Pedido pedidoACerrar = Db.Pedido.Find(id);
+            pedidoACerrar.IdEstadoPedido = 2;
+            string[] email = new string[pedidoACerrar.InvitacionPedido.Count];
+            int[] gustos = new int[pedidoACerrar.GustoEmpanada.Count];
+            for(int i = 0; i < pedidoACerrar.InvitacionPedido.Count; i++)
+            {
+                email[i] = pedidoACerrar.InvitacionPedido.ElementAt(i).Usuario.Email;
+            }
+            for (int i = 0; i < pedidoACerrar.GustoEmpanada.Count; i++)
+            {
+                gustos[i] = pedidoACerrar.GustoEmpanada.ElementAt(i).IdGustoEmpanada;
+            }
+            pedidoACerrar.GustoEmpanadaDisponibles = gustos;
+            pedidoACerrar.EmailsInvitados = email;
+            Db.SaveChanges();
+        }
+
         //internal Pedido Attach(Pedido Order)
         //{
         //    Db.Pedido.Attach(Order);

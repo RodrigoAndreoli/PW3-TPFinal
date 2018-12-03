@@ -118,9 +118,29 @@
             <div uk-grid>
                 <div class="uk-width-6-6">
                     <a href="/" type="button" value="Cancelar" class="uk-button uk-button-danger uk-button-small">Cancelar</a>
-                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Editar Pedido" class="uk-button uk-button-primary uk-button-small" />
+                    <input id="buttonSubmit" type="submit" name="sendPedido" value="Guardar Pedido" class="uk-button uk-button-primary uk-button-small" />
+                    <a class="uk-button uk-button-secondary uk-button-small" href="#modal-confirmar" uk-toggle>Confirmar</a>
                 </div>
             </div>
         }
+    </div>
+    
+
+    <div id="modal-confirmar" uk-modal>
+        <div class="uk-modal-dialog">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-header">
+                <h2 class="uk-modal-title">¿Estas seguro?</h2>
+            </div>
+            <div class="uk-modal-body">
+                <p>
+                    ¿Está seguro que desea Confirmar el pedido? Una vez confirmado no se podrá modificar.
+                </p>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
+                <a class="uk-button uk-button-primary" href="~/Pedido/Cerrar/@Model.IdPedido" uk-toggle>Confirmar</a>
+            </div>
+        </div>
     </div>
 </div>
