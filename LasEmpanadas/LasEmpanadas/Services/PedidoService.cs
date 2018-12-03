@@ -243,10 +243,12 @@ namespace LasEmpanadas.Services
         internal void CerrarPedido(int id)
         {
             PedidoRepo.Cerrar(id);
+            EnviarMailConfirmacionInvitados(id);
+            EnviarMailConfirmacionResponsable(id);
         }
   
 
-        public void EnviarMailConfirmacionInvitados(int? idPedido) {
+        public void EnviarMailConfirmacionInvitados(int idPedido) {
             PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
             foreach (Usuario u in p.usuarios) {
                 String mensaje = "gustos totales: \n cantidad por gusto: \n cantidad total: \n precio a abonar: ";
@@ -254,7 +256,7 @@ namespace LasEmpanadas.Services
             }
         }
 
-        public void EnviarMailConfirmacionResponsable(int? idPedido)
+        public void EnviarMailConfirmacionResponsable(int idPedido)
         {
             PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
             String mensaje = "precio total: \n invitados: \n gustos: ";
