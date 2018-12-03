@@ -10,5 +10,6 @@ namespace LasEmpanadas.Models.DTO
         public int IdUsuario { get; set; }
         public System.Guid Token { get; set; }
         public List<GustosEmpanadasCantidad> GustosEmpanadasCantidad { get; set; }
+        public bool PedidoCerrado { get; set; }
     }
 }
