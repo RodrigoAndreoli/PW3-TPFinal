@@ -49,18 +49,32 @@ namespace LasEmpanadas.Services
             List<InvitacionPedidoGustoEmpanadaUsuario> i = InvitacionPedidoGustoEmpanadaUsuarioSvc.FindAllByPedidoAndUser(p.IdPedido, c.IdUsuario);
 
             String mensaje = "";
-            foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
+            if (c.GustosEmpanadasCantidad != null)
             {
-                GustoEmpanada GustoEmpanada = GustoEmpanadaSvc.FindById(g.IdGustoEmpanada);
-                if (p.GustoEmpanada.Contains(GustoEmpanada))
+                foreach (GustosEmpanadasCantidad g in c.GustosEmpanadasCantidad)
                 {
-                    if (i != null && i.Count != 0)
+                    GustoEmpanada GustoEmpanada = GustoEmpanadaSvc.FindById(g.IdGustoEmpanada);
+                    if (p.GustoEmpanada.Contains(GustoEmpanada))
                     {
-                        InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
-                        if (gustoEncontrado != null)
+                        if (i != null && i.Count != 0)
                         {
-                            gustoEncontrado.Cantidad = g.Cantidad;
-                            Db.SaveChanges();
+                            InvitacionPedidoGustoEmpanadaUsuario gustoEncontrado = i.Find(x => x.IdGustoEmpanada == g.IdGustoEmpanada);
+                            if (gustoEncontrado != null)
+                            {
+                                gustoEncontrado.Cantidad = g.Cantidad;
+                                Db.SaveChanges();
+                            }
+                            else
+                            {
+                                InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario
+                                {
+                                    IdGustoEmpanada = g.IdGustoEmpanada,
+                                    IdPedido = p.IdPedido,
+                                    IdUsuario = c.IdUsuario,
+                                    Cantidad = g.Cantidad
+                                };
+                                InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
+                            }
                         }
                         else
                         {
@@ -73,22 +87,16 @@ namespace LasEmpanadas.Services
                             };
                             InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
                         }
-                    } else
+                    }
+                    else
                     {
-                        InvitacionPedidoGustoEmpanadaUsuario gusto = new InvitacionPedidoGustoEmpanadaUsuario
-                        {
-                            IdGustoEmpanada = g.IdGustoEmpanada,
-                            IdPedido = p.IdPedido,
-                            IdUsuario = c.IdUsuario,
-                            Cantidad = g.Cantidad
-                        };
-                        InvitacionPedidoGustoEmpanadaUsuarioSvc.Save(gusto);
+                        mensaje = "El gusto de id: " + g.IdGustoEmpanada + " no está disponible.";
                     }
                 }
-                else
-                {
-                    mensaje = "El gusto de id: " + g.IdGustoEmpanada +" no está disponible.";                 
-                }
+            }
+            else
+            {
+                mensaje = "No se han seleccionado gustos.";
             }
             return mensaje;
         }
@@ -127,13 +135,13 @@ namespace LasEmpanadas.Services
                 ///CreatedOrder.GustoEmpanada.Add(gustoDisponible);
             }
             Pedido CreatedOrder = PedidoRepo.Create(Order);
-            
+
             //Chequeo la lista de emails.Si no existe, creo un usuario nuevo.
             UsuarioSvc.CheckEmailList(Order.EmailsInvitados);
-            
+
             //Creo un nuevo registro en la tabla InvitacionPedido.
             InvitacionPedidoSvc.Create(Order);
-            
+
             ///InvitacionPedidoGustoEmpanadaUsuarioSvc.Create(Order);
             return CreatedOrder;
         }
@@ -240,9 +248,11 @@ namespace LasEmpanadas.Services
             return PedidoCompleto;
         }
 
-        public void EnviarMailConfirmacionInvitados(int? idPedido) {
+        public void EnviarMailConfirmacionInvitados(int? idPedido)
+        {
             PedidoCompletoDTO p = ObtenerPedidoCompleto(idPedido);
-            foreach (Usuario u in p.usuarios) {
+            foreach (Usuario u in p.usuarios)
+            {
                 String mensaje = "gustos totales: \n cantidad por gusto: \n cantidad total: \n precio a abonar: ";
                 EmailService.SendConfirmMail(u.Email, mensaje);
             }
@@ -254,10 +264,10 @@ namespace LasEmpanadas.Services
             String mensaje = "precio total: \n invitados: \n gustos: ";
             EmailService.SendConfirmMail(UsuarioSvc.FindOneById(p.IdUsuarioResponsable).Email, mensaje);
         }
-    }   
-        
+    }
 
-    
+
+
 
 }
 

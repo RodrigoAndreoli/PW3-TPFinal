@@ -22,10 +22,8 @@ namespace LasEmpanadas.Controllers.Api
             ConfirmarcionGustoDTO c = JsonConvert.DeserializeObject<ConfirmarcionGustoDTO>(jsonResult.ToString());
             InvitacionPedido ip = InvitacionPedidoService.FindOneByToken(c.Token);
             String message = "";
-
             if (ip.Completado)
             {
-
                 JSONResponseDTO response = new JSONResponseDTO
                 {
                     status = "ERROR",
@@ -35,6 +33,10 @@ namespace LasEmpanadas.Controllers.Api
             }
             else
             {
+                if (c.PedidoCerrado == true)
+                {
+                    InvitacionPedidoService.CompletarInvitacion(c.Token);
+                }
                 message = PedidoService.ConfirmarGustos(ip, c);
                 if (message != "")
                 {

@@ -27,44 +27,53 @@ function calcularTotal() {
 }
 
 function saveGustos() {
-    if (isValid()) {
-        var idUser = parseInt($("#IdUsuario").val());
-        var pedidoCerrado = $("#pedidoCerradoCheck").prop('checked');
-        $.ajax({
-            url: "http://localhost:52521/api/Pedido/ConfirmarGustos/",
-            type: 'POST',
-            headers: {
-                Accept: "application/json",
-                contentType: "application/json"
-            },
-            dataType: 'json',
-            data: {
-                "PedidoCerrado": pedidoCerrado,
-                "IdUsuario": idUser,
-                "Token": $("#token").val(),
-                "GustosEmpanadasCantidad": getGustosCantidad()
-            },
-            success: function (data) {
-                var response = jQuery.parseJSON(data);
-                UIkit.notification({
-                    message: response.status + ': ' + response.message,
-                    status: 'success',
-                    pos: 'top-right',
-                    timeout: 3000
-                });
-            },
-            error: function (data) {
-                jQuery.parseJSON(data);
-                var response = jQuery.parseJSON(data);
+    isValid()
+    var idUser = parseInt($("#IdUsuario").val());
+    var pedidoCerrado = $("#pedidoCerradoCheck").prop('checked');
+    $.ajax({
+        url: "http://localhost:52521/api/Pedido/ConfirmarGustos/",
+        type: 'POST',
+        headers: {
+            Accept: "application/json",
+            contentType: "application/json"
+        },
+        dataType: 'json',
+        data: {
+            "PedidoCerrado": pedidoCerrado,
+            "IdUsuario": idUser,
+            "Token": $("#token").val(),
+            "GustosEmpanadasCantidad": getGustosCantidad()
+        },
+        success: function (data) {
+            var response = jQuery.parseJSON(data);
+            if (response.status == "ERROR") {
                 UIkit.notification({
                     message: response.status + ': ' + response.message,
                     status: 'danger',
                     pos: 'top-right',
                     timeout: 3000
                 });
+            } else {
+                UIkit.notification({
+                    message: response.status + ': ' + response.message,
+                    status: 'success',
+                    pos: 'top-right',
+                    timeout: 3000
+                });
             }
-        });
-    }
+
+        },
+        error: function (data) {
+            jQuery.parseJSON(data);
+            var response = jQuery.parseJSON(data);
+            UIkit.notification({
+                message: response.status + ': ' + response.message,
+                status: 'danger',
+                pos: 'top-right',
+                timeout: 3000
+            });
+        }
+    });
 }
 
 function getGustosCantidad() {
@@ -84,14 +93,8 @@ function isValid() {
     inputs.each(function (index, data) {
         if ($(data).val() <= 0) {
             $(data).addClass('uk-form-danger');
-            error = 1;
         } else {
             $(data).addClass('uk-form-success');
-            error = 0;
         }
-        if (error == 0)
-            return true;
-        else
-            return false;
     });
 }
